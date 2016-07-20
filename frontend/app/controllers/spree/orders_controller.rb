@@ -14,7 +14,7 @@ module Spree
     end
 
     def update
-      if @order.contents.update_cart(order_params)
+      if @order.contents.update_cart(order_params.to_h)
         respond_with(@order) do |format|
           format.html do
             if params.has_key?(:checkout)
@@ -98,7 +98,7 @@ module Spree
         if params[:order]
           params[:order].permit(*permitted_order_attributes)
         else
-          {}
+          ActionController::Parameters.new
         end
       end
 

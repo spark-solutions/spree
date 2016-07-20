@@ -4,7 +4,8 @@ module Spree
       before_action :load_stock_locations, only: :index
 
       def index
-        @q = StockTransfer.ransack(params[:q])
+        params[:q] ||= ActionController::Parameters.new
+        @q = StockTransfer.ransack(params[:q].to_unsafe_h)
 
         @stock_transfers = @q.result.
                              includes(stock_movements: { stock_item: :stock_location }).

@@ -10,9 +10,9 @@ module Spree
       protected
 
         def collection
-          params[:q] ||= {}
+          params[:q] ||= ActionController::Parameters.new
           params[:q][:s] ||= "name asc"
-          @search = super.ransack(params[:q])
+          @search = super.ransack(params[:q].to_unsafe_h)
           @zones = @search.result.page(params[:page]).per(params[:per_page])
         end
 

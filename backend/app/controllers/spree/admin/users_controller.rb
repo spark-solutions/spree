@@ -43,17 +43,17 @@ module Spree
       end
 
       def orders
-        params[:q] ||= {}
-        @search = Spree::Order.reverse_chronological.ransack(params[:q].merge(user_id_eq: @user.id))
+        params[:q] ||= ActionController::Parameters.new
+        @search = Spree::Order.reverse_chronological.ransack(params[:q].to_unsafe_h.merge(user_id_eq: @user.id))
         @orders = @search.result.page(params[:page]).per(Spree::Config[:admin_products_per_page])
       end
 
       def items
-        params[:q] ||= {}
+        params[:q] ||= ActionController::Parameters.new
         @search = Spree::Order.includes(
           line_items: {
             variant: [:product, { option_values: :option_type }]
-          }).ransack(params[:q].merge(user_id_eq: @user.id))
+          }).ransack(params[:q].to_unsafe_h.merge(user_id_eq: @user.id))
         @orders = @search.result.page(params[:page]).per(Spree::Config[:admin_products_per_page])
       end
 
@@ -90,7 +90,8 @@ module Spree
                                     { search: "#{params[:q].strip}%" })
                               .limit(params[:limit] || 100)
           else
-            @search = @collection.ransack(params[:q])
+            params[:q] ||= ActionController::Parameters.new
+            @search = @collection.ransack(params[:q].to_unsafe_h)
             @collection = @search.result.page(params[:page]).per(Spree::Config[:admin_products_per_page])
           end
         end

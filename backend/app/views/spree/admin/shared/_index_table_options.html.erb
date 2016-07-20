@@ -1,4 +1,4 @@
-<% args = params.clone %>
+<% args = params.to_unsafe_h %>
 
 <% if defined?(per_page_action) %>
   <% args.merge!(action: per_page_action) %>

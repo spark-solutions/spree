@@ -13,7 +13,7 @@ module Spree
         params[:q] = {} if params[:q].blank?
 
         @collection = super
-        @search = @collection.ransack(params[:q])
+        @search = @collection.ransack(params[:q].to_unsafe_h)
         @collection = @search.result.
               page(params[:page]).
               per(Spree::Config[:properties_per_page])

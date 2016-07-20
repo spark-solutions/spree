@@ -7,6 +7,9 @@ gem 'coffee-rails', '~> 4.1.1'
 gem 'sass-rails', '~> 5.0.0'
 gem 'sqlite3', platforms: [:ruby, :mingw, :mswin, :x64_mingw]
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+gem 'paranoia', github: 'rubysherpas/paranoia', branch: 'core'
+gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on', branch: 'master', require: false
+gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'master'
 
 platforms :jruby do
   gem 'jruby-openssl'
@@ -28,7 +31,7 @@ group :test do
   gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'rspec-collection_matchers'
   gem 'rspec-its'
-  gem 'rspec-rails', '~> 3.4'
+  gem 'rspec-rails', '~> 3.5.0.beta4'
   gem 'simplecov'
   gem 'webmock', '~> 2.1'
   gem 'poltergeist', '~> 1.10'
@@ -37,7 +40,7 @@ group :test do
   gem 'mutant-rspec', '~> 0.8'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'shoulda-callback-matchers', '~> 1.1'
-  gem 'test_after_commit', '~> 1.1'
+  gem 'rails-controller-testing'
 end
 
 group :test, :development do

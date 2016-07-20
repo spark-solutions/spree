@@ -40,7 +40,7 @@ module Spree
 
         params[:q][:s] ||= "completed_at desc"
 
-        @search = Order.complete.ransack(params[:q])
+        @search = Order.complete.ransack(params[:q].to_unsafe_h)
         @orders = @search.result
 
         @totals = {}
