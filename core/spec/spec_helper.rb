@@ -76,4 +76,6 @@ RSpec.configure do |config|
   config.around do |example|
     Timeout.timeout(30, &example)
   end
+
+  config.order = :random
 end
