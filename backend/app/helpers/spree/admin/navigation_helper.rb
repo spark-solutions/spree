@@ -94,6 +94,7 @@ module Spree
         args ||= params.clone
         args.delete(:page)
         args.delete(:per_page)
+        args.permit!
         args
       end
 
