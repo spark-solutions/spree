@@ -31,7 +31,7 @@ class Project
   #   otherwise
   def install
     chdir do
-      bundle_check or bundle_install or fail 'Cannot finish gem installation'
+      bundle_check || bundle_install || fail('Cannot finish gem installation')
     end
     self
   end
