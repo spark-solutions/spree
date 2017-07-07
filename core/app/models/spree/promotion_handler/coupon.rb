@@ -53,7 +53,8 @@ module Spree
 
         # If any of the actions for the promotion return `true`,
         # then result here will also be `true`.
-        if promotion.activate(order: order)
+        result = promotion.activate(:order => order)
+        if result
           determine_promotion_application_result
         else
           set_error_code :coupon_code_unknown_error

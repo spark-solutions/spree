@@ -24,14 +24,7 @@ module ControllerHacks
 
   def api_process(action, params={}, session=nil, flash=nil, method="get")
     scoping = respond_to?(:resource_scoping) ? resource_scoping : {}
-    process(
-      action,
-      method: method,
-      params: params.merge(scoping),
-      session: session,
-      flash: flash,
-      format: :json
-    )
+    process(action, method, params.merge(scoping).reverse_merge!(:format => :json), session, flash)
   end
 end
 

@@ -12,7 +12,7 @@ describe Spree::Core::Search::Base do
   end
 
   it "returns all products by default" do
-    params = { per_page: "" }
+    params = { :per_page => "" }
     searcher = Spree::Core::Search::Base.new(params)
     expect(searcher.retrieve_products.count).to eq(2)
   end
@@ -34,7 +34,7 @@ describe Spree::Core::Search::Base do
   end
 
   it "switches to next page according to the page parameter" do
-    @product3 = create(:product, name: "RoR Pants", price: 14.00)
+    @product3 = create(:product, :name => "RoR Pants", :price => 14.00)
 
     params = { per_page: "2" }
     searcher = Spree::Core::Search::Base.new(ActionController::Parameters.new(params))
@@ -77,7 +77,7 @@ describe Spree::Core::Search::Base do
   end
 
   it "finds products in alternate currencies" do
-    price = create(:price, currency: 'EUR', variant: @product1.master)
+    price = create(:price, :currency => 'EUR', :variant => @product1.master)
     searcher = Spree::Core::Search::Base.new({})
     searcher.current_currency = 'EUR'
     expect(searcher.retrieve_products).to eq([@product1])

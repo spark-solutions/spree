@@ -1,12 +1,12 @@
 require 'spec_helper'
 require 'spree/testing_support/bar_ability'
 
-describe Spree::Admin::UsersController, type: :controller do
+describe Spree::Admin::UsersController, :type => :controller do
   let(:user) { create(:user) }
   let(:mock_user) { mock_model Spree.user_class }
 
   before do
-    allow(controller).to receive_messages spree_current_user: user
+    allow(controller).to receive_messages :spree_current_user => user
     user.spree_roles.clear
     stub_const('Spree::User', user.class)
   end
@@ -60,7 +60,7 @@ describe Spree::Admin::UsersController, type: :controller do
     end
 
     it 'deny access to users without an admin role' do
-      allow(user).to receive_messages has_spree_role?: false
+      allow(user).to receive_messages :has_spree_role? => false
       spree_post :index
       expect(response).to redirect_to(spree.forbidden_path)
     end
@@ -121,13 +121,13 @@ describe Spree::Admin::UsersController, type: :controller do
     end
 
     it "assigns a list of the users orders" do
-      spree_get :orders, { id: user.id }
+      spree_get :orders, { :id => user.id }
       expect(assigns[:orders].count).to eq 1
       expect(assigns[:orders].first).to eq order
     end
 
     it "assigns a ransack search for Spree::Order" do
-      spree_get :orders, { id: user.id }
+      spree_get :orders, { :id => user.id }
       expect(assigns[:search]).to be_a Ransack::Search
       expect(assigns[:search].klass).to eq Spree::Order
     end
@@ -141,13 +141,13 @@ describe Spree::Admin::UsersController, type: :controller do
     end
 
     it "assigns a list of the users orders" do
-      spree_get :items, { id: user.id }
+      spree_get :items, { :id => user.id }
       expect(assigns[:orders].count).to eq 1
       expect(assigns[:orders].first).to eq order
     end
 
     it "assigns a ransack search for Spree::Order" do
-      spree_get :items, { id: user.id }
+      spree_get :items, { :id => user.id }
       expect(assigns[:search]).to be_a Ransack::Search
       expect(assigns[:search].klass).to eq Spree::Order
     end

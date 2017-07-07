@@ -1,9 +1,19 @@
 module Spree
   module Admin
     class UsersController < ResourceController
-      rescue_from Spree::Core::DestroyWithOrdersError, with: :user_destroy_with_orders_error
+      rescue_from Spree::Core::DestroyWithOrdersError, :with => :user_destroy_with_orders_error
 
       after_action :sign_in_if_change_own_password, only: :update
+
+      # http://spreecommerce.com/blog/2010/11/02/json-hijacking-vulnerability/
+      before_action :check_json_authenticity, only: :index
+
+      def index
+        respond_with(@collection) do |format|
+          format.html
+          format.json { render :json => json_data }
+        end
+      end
 
       def show
         redirect_to edit_admin_user_path(@user)

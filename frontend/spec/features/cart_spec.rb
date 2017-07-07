@@ -37,8 +37,11 @@ describe "Cart", type: :feature, inaccessible: true do
     end
   end
 
-  it 'allows you to remove an item from the cart', js: true do
-    add_mug_to_cart
+  it 'allows you to remove an item from the cart', :js => true do
+    create(:product, name: "RoR Mug")
+    visit spree.root_path
+    click_link "RoR Mug"
+    click_button "add-to-cart-button"
     line_item = Spree::LineItem.first!
     within("#line_items") do
       click_link "delete_line_item_#{line_item.id}"
