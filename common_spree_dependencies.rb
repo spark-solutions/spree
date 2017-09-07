@@ -36,6 +36,7 @@ group :test do
   gem 'timecop'
   gem 'with_model'
   gem 'rails-controller-testing'
+  gem 'capybara-slow_finder_errors'
 end
 
 group :test, :development do

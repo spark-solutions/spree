@@ -48,6 +48,10 @@ RSpec.configure do |config|
   config.extend Spree::Api::TestingSupport::Setup, type: :controller
   config.include Spree::TestingSupport::Preferences, type: :controller
 
+
+  config.before(:suite) do
+    Rails.logger.level = 4
+  end
   config.before do
     Spree::Api::Config[:requires_authentication] = true
   end

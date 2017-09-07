@@ -78,6 +78,8 @@ RSpec.configure do |config|
   # Ensure DB is clean, so that transaction isolated specs see
   # pristine state.
   config.before(:suite) do
+
+    Rails.logger.level = 4
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.clean
   end

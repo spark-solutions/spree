@@ -67,6 +67,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
 
   config.before :suite do
+    Rails.logger.level = 4
     Capybara.match = :prefer_exact
     DatabaseCleaner.clean_with :truncation
   end

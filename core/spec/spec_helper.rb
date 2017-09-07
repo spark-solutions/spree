@@ -61,6 +61,7 @@ RSpec.configure do |config|
 
   # Clean out the database state before the tests run
   config.before(:suite) do
+    Rails.logger.level = 4
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.strategy = :transaction
   end
