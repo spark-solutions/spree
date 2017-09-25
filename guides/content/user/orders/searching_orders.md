@@ -17,7 +17,7 @@ The list shows you the following information about each order:
 * **Customer Email**
 * **Total** - This amount includes item totals, tax, shipping, and any promotions or adjustments made to the order.
 
-Next to each row is an "Edit" icon. Clicking this icon allows you to [make changes to an order](editing).
+Next to each row is an "Edit" icon. Clicking this icon allows you to [make changes to an order](editing_orders).
 
 # Filtering Results
 
