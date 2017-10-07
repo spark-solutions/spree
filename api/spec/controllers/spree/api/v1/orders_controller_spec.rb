@@ -185,6 +185,13 @@ module Spree
       expect(json_response['checkout_steps']).to eq(['address', 'delivery', 'complete'])
     end
 
+    it 'order contains information if shipping address eq billing address' do
+      allow_any_instance_of(Order).to receive_messages user: current_api_user
+      api_get :show, id: order.to_param
+      expect(response.status).to eq(200)
+      expect(json_response['shipping_eq_billing_address']).to eq(order.shipping_eq_billing_address?)
+    end
+
     # Regression test for #1992
     it 'can view an order not in a standard state' do
       allow_any_instance_of(Order).to receive_messages user: current_api_user
