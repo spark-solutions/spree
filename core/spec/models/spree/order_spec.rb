@@ -1079,4 +1079,28 @@ describe Spree::Order, type: :model do
     it { expect(order.collect_backend_payment_methods).to include(credit_card_payment_method) }
     it { expect(order.collect_backend_payment_methods).to_not include(store_credit_payment_method) }
   end
+
+  describe '#shipping_eq_billing_address' do
+    let!(:order) { create(:order) }
+
+    context 'with only bill address' do
+      it { expect(order.shipping_eq_billing_address?).to eq(false) }
+    end
+
+    context 'blank addresses' do
+      before {
+        order.bill_address = Spree::Address.new
+        order.ship_address = Spree::Address.new
+      }
+      it { expect(order.shipping_eq_billing_address?).to eq(true)}
+    end
+
+    context 'no addresses' do
+      before {
+        order.bill_address = nil
+        order.ship_address = nil
+      }
+      it { expect(order.shipping_eq_billing_address?).to eq(true)}
+    end
+  end
 end
