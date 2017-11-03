@@ -63,11 +63,8 @@ module Spree
         end
 
         def remove
-          quantity = params[:quantity].to_i
-
-          @shipment.order.contents.remove(variant, quantity, shipment: @shipment)
-          @shipment.reload if @shipment.persisted?
-          respond_with(@shipment, default_template: :show)
+          result = ::Shipment::RemoveLineItemTransaction.new.call(variant: variant, shipment: @shipment)
+          respond_with(result.value, default_template: :show)
         end
 
         def transfer_to_location
