@@ -1,0 +1,7 @@
+{
+  "success": "<%= @result.success? %>",
+  <% if @result.failure? %>
+  "error": "<%= Spree.t(@result.value) %>",
+  <% end %>
+  "message": "<%= Spree.t(@result.value) %>"
+}

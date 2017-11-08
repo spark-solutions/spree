@@ -122,6 +122,15 @@ Spree::Core::Engine.add_routes do
 
     spree_path = Rails.application.routes.url_helpers.try(:spree_path, trailing_slash: true) || '/'
 
+    namespace :v2 do
+      resources :orders, concerns: :order_routes
+      concern :order_routes do
+        member do
+          put :apply_coupon_code
+        end
+      end
+    end
+
     match 'v:api/*path', to: redirect { |params, request|
       format = ".#{params[:format]}" unless params[:format].blank?
       query  = "?#{request.query_string}" unless request.query_string.blank?

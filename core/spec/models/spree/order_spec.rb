@@ -536,8 +536,6 @@ describe Spree::Order, type: :model do
     it 'calls out to the FreeShipping promotion handler' do
       shipment = double('Shipment')
       allow(order).to receive_messages shipments: [shipment]
-      expect(Spree::PromotionHandler::FreeShipping).to receive(:new).and_return(handler = double)
-      expect(handler).to receive(:activate)
 
       expect(Spree::Adjustable::AdjustmentsUpdater).to receive(:update).with(shipment)
 

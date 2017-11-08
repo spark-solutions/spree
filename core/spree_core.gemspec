@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'carmen', '~> 1.0.0'
   s.add_dependency 'cancancan', '~> 2.0'
   s.add_dependency 'deface', '~> 1.0'
+  s.add_dependency 'dry-transaction', '~> 0.10'
   s.add_dependency 'ffaker', '~> 2.2'
   s.add_dependency 'friendly_id', '~> 5.2.1'
   s.add_dependency 'highline', '~> 1.6.18' # Necessary for the install generator

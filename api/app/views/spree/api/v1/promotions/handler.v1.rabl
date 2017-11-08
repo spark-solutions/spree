@@ -1,5 +1,5 @@
 object false
-node(:success) { @handler.success }
-node(:error) { @handler.error }
-node(:successful) { @handler.successful? }
-node(:status_code) { @handler.status_code }
+node(:success) { @result.success? ? Spree.t(@result.value) : '' }
+node(:error) { @result.failure? ? Spree.t(@result.value) : '' }
+node(:successful) { @result.success? }
+node(:status_code) { @result.value }
