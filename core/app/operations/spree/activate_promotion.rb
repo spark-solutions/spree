@@ -1,7 +1,15 @@
 module Spree
-  class ActivatePromotion
-    include Dry::Transaction::Operation
+  class ActivatePromotion < BaseOperation
 
+    # Tries to perform all actions existing in promotion.
+    #
+    # Returns success if at least action was succesfully performed
+    #
+    # @param order [Order]
+    # @param promotion [Promotion]
+    # @return Right with input as value when at least one action was performed
+    # @return Left with :no_promotion_not_applied as value when no action was performed
+    #
     def call(input)
       promotion = input[:promotion]
       order = input[:order]
@@ -16,7 +24,7 @@ module Spree
         promotion.save
         Right(input)
       else
-        Left(:coupon_code_unknown_error)
+        Left(:no_promotion_not_applied)
       end
     end
   end

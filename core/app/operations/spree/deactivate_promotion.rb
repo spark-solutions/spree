@@ -1,7 +1,14 @@
 module Spree
-  class DeactivatePromotion
-    include Dry::Transaction::Operation
+  class DeactivatePromotion < BaseOperation
 
+    # Tries to revert all actions existing in promotion.
+    #
+    # Returns success if at least action was succesfully performed
+    #
+    # @param order [Order]
+    # @param promotion [Promotion]
+    # @return Right with input as value when at least one action was performed
+    # @return Left with :no_promotion_not_applied as value when no action was performed
     def call(input)
       order = input[:order]
       promotion = input[:promotion]
@@ -16,9 +23,9 @@ module Spree
       if action_taken
         promotion.orders << order
         promotion.save
-        action_taken
+        Right(input)
       else
-        Left(:coupon_code_unknown_error)
+        Left(:no_promotion_applied)
       end
     end
   end

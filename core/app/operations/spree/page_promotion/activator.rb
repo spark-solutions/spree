@@ -1,21 +1,29 @@
 module Spree
   module PagePromotion
-    class Activator
+    class Activator < BaseOperation
       attr_accessor :activate
-      include Dry::Transaction::Operation
 
+      # Initializes PagePromotion::Activator with activate operation passed as param
+      #
+      # @param activate [BaseOperation] operation to be called to activate promotion
       def initialize(activate: Spree::PromotionContainer['activate'].new)
         @activate = activate
       end
 
+      # Tries to activate promotion on order
+      #
+      # Returns success if at promotion was activated
+      #
+      # @param order [Order]
+      # @param promotion [Promotion]
+      # @return Right with :promotion_applied when promotion was activated succesfully
+      # @return Left with :no_promotion_applied when promotion weren't applied
+      #
       def call(input)
-        order = input[:order]
-        promotion = input[:promotion]
-
-        if promotion && promotion.eligible?(order)
-          activate.call(input)
+        if activate.call(input)
+          Right(:promotion_applied)
         else
-          Left(:order_not_eligible_for_promotion)
+          Left(:no_promotion_applied)
         end
       end
     end

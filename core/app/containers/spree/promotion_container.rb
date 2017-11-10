@@ -5,14 +5,6 @@ class Spree::PromotionContainer
     Spree::HandlePromotionTransaction
   end
 
-  register 'fetch' do
-    Spree::CouponCodePromotion::Fetch.new
-  end
-
-  register 'activator' do
-    Spree::CouponCodePromotion::Activator.new
-  end
-
   namespace 'coupon_code' do |ns|
     ns.register 'fetch' do
       Spree::CouponCodePromotion::Fetch
