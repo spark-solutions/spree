@@ -30,7 +30,8 @@ module Spree
         # If we do not update first, then the item total will be wrong and ItemTotal
         # promotion rules would not be triggered.
         persist_totals
-        PromotionHandler::Cart.new(order).activate
+
+        cart_promotion_handler_transaction.call(order: order)
         order.ensure_updated_shipments
         order.payments.store_credits.checkout.destroy_all
         persist_totals
@@ -56,7 +57,8 @@ module Spree
       else
         order.ensure_updated_shipments
       end
-      PromotionHandler::Cart.new(order, line_item).activate
+
+      cart_promotion_handler_transaction.call(order: order)
       Adjustable::AdjustmentsUpdater.update(line_item)
       TaxRate.adjust(order, [line_item]) if options[:line_item_created]
       persist_totals
@@ -127,6 +129,12 @@ module Spree
       end
 
       line_item
+    end
+
+    def cart_promotion_handler_transaction
+      container = Spree::PromotionContainer
+      Spree::HandlePromotionTransaction.new(fetch: container['cart.fetch'].new,
+                                            activator: container['cart.activator'].new)
     end
   end
 end
