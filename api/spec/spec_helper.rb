@@ -35,6 +35,8 @@ require 'spree/api/testing_support/caching'
 require 'spree/api/testing_support/helpers'
 require 'spree/api/testing_support/setup'
 
+require 'spree/testing_support/operations'
+
 RSpec.configure do |config|
   config.backtrace_exclusion_patterns = [/gems\/activesupport/, /gems\/actionpack/, /gems\/rspec/]
   config.color = true

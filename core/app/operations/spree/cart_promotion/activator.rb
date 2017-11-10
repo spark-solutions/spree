@@ -1,7 +1,14 @@
 module Spree
   module CartPromotion
     class Activator
+      attr_accessor :activate, :deactivate
       include Dry::Transaction::Operation
+
+      def initialize(activate: Spree::PromotionContainer['activate'].new,
+                     deactivate: Spree::PromotionContainer['deactivate'].new)
+        @activate = activate
+        @deactivate = deactivate
+      end
 
       def call(input)
         order = input[:order]
@@ -15,12 +22,12 @@ module Spree
             line_item: line_item
           }
           if (line_item && promotion.eligible?(line_item)) || promotion.eligible?(order)
-            Spree::PromotionContainer['activate'].new.call(payload)
+            @activate.call(payload)
           else
-            Spree::PromotionContainer['deactivate'].new.call(payload)
+            @deactivate.call(payload)
           end
         end
-        Right(:promotion_applied)
+        Right(:success)
       end
     end
   end

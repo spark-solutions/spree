@@ -5,7 +5,7 @@ module Spree
     def call(input)
       order = input[:order]
       promotion = input[:promotion]
-      return unless promotion.class.order_activatable?(order)
+      return Left(:coupon_code_unknown_error) unless promotion.class.order_activatable?(order)
 
       results = promotion.actions.map do |action|
         action.revert(input) if action.respond_to?(:revert)

@@ -1,7 +1,12 @@
 module Spree
   module CouponCodePromotion
     class Activator
+      attr_accessor :activate
       include Dry::Transaction::Operation
+
+      def initialize(activate: Spree::PromotionContainer['activate'].new)
+        @activate = activate
+      end
 
       def call(input)
         order = input[:order]
@@ -17,7 +22,7 @@ module Spree
         elsif !promotion.class.order_activatable?(order)
           Left(:coupon_code_unknown_error)
         else
-          result = Spree::PromotionContainer['activate'].new.call(input)
+          result = activate.call(input)
 
           if result.success?
             Spree::PromotionContainer['coupon_code.handle_activation_result'].new.call(input)
