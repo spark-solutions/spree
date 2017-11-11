@@ -37,17 +37,18 @@ module Spree
         # needs to be manually removed from the order by the customer
         def perform(options = {})
           order = options[:order]
-          return unless eligible? order
+          # return unless eligible? order
 
-          action_taken = false
-          promotion_action_line_items.each do |item|
-            current_quantity = order.quantity_of(item.variant)
-            if current_quantity < item.quantity && item_available?(item)
-              line_item = order.contents.add(item.variant, item.quantity - current_quantity)
-              action_taken = true if line_item.try(:valid?)
-            end
-          end
-          action_taken
+          # action_taken = false
+          # promotion_action_line_items.each do |item|
+          #   current_quantity = order.quantity_of(item.variant)
+          #   if current_quantity < item.quantity && item_available?(item)
+          #     line_item = order.contents.add(item.variant, item.quantity - current_quantity)
+          #     action_taken = true if line_item.try(:valid?)
+          #   end
+          # end
+          # action_taken
+          PromotionContainer['promotion_actions.create_line_items'].new.call(order: order, line_items: promotion_action_line_items, adjustment_source: self).success?
         end
 
         # Called by promotion handler when a promotion is removed
@@ -56,17 +57,18 @@ module Spree
         # Should help to prevent some of cases listed above the #perform method
         def revert(options = {})
           order = options[:order]
-          return if eligible?(order)
+          # return if eligible?(order)
 
-          action_taken = false
-          promotion_action_line_items.each do |item|
-            line_item = order.find_line_item_by_variant(item.variant)
-            next unless line_item.present?
-            order.contents.remove(item.variant, (item.quantity || 1))
-            action_taken = true
-          end
+          # action_taken = false
+          # promotion_action_line_items.each do |item|
+          #   line_item = order.find_line_item_by_variant(item.variant)
+          #   next unless line_item.present?
+          #   order.contents.remove(item.variant, (item.quantity || 1))
+          #   action_taken = true
+          # end
 
-          action_taken
+          # action_taken
+          PromotionContainer['promotion_actions.revert.create_line_items'].new.call(order: order, line_items: promotion_action_line_items, adjustment_source: self).success?
         end
 
         # Checks that there's enough stock to add the line item to the order

@@ -56,4 +56,39 @@ class Spree::PromotionContainer
   register 'deactivate' do
     Spree::DeactivatePromotion
   end
+
+  register 'create_adjustment' do
+    Spree::CreateAdjustment
+  end
+
+  register 'create_unique_adjustment' do
+    Spree::CreateUniqueAdjustment
+  end
+
+  register 'create_unique_adjustments' do
+    Spree::CreateUniqueAdjustments
+  end
+
+
+  namespace 'promotion_actions' do |ns|
+    ns.register 'create_line_items' do
+      Spree::PromotionActions::CreateLineItems
+    end
+
+    ns.register 'revert_create_line_items' do
+      Spree::PromotionActions::RevertCreateLineItems
+    end
+
+    ns.register 'create_adjustment' do
+      Spree::PromotionActions::CreateAdjustment
+    end
+
+    ns.register 'create_item_adjustments' do
+      Spree::PromotionActions::CreateItemAdjustments
+    end
+
+    ns.register 'free_shipping' do
+      Spree::PromotionActions::FreeShipping
+    end
+  end
 end
