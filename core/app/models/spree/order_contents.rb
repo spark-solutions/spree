@@ -32,6 +32,7 @@ module Spree
         persist_totals
 
         cart_promotion_handler_transaction.call(order: order)
+
         order.ensure_updated_shipments
         order.payments.store_credits.checkout.destroy_all
         persist_totals
@@ -58,7 +59,8 @@ module Spree
         order.ensure_updated_shipments
       end
 
-      cart_promotion_handler_transaction.call(order: order)
+      cart_promotion_handler_transaction.call(order: order, line_item: line_item)
+
       Adjustable::AdjustmentsUpdater.update(line_item)
       TaxRate.adjust(order, [line_item]) if options[:line_item_created]
       persist_totals
@@ -133,8 +135,8 @@ module Spree
 
     def cart_promotion_handler_transaction
       container = Spree::PromotionContainer
-      Spree::HandlePromotionTransaction.new(fetch: container['cart.prepare'].new,
-                                            activator: container['cart.handle'].new)
+      Spree::HandlePromotionTransaction.new(prepare: container['cart.prepare'].new,
+                                            handle: container['cart.handle'].new)
     end
   end
 end

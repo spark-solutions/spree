@@ -19,7 +19,7 @@ module Spree
       included = input[:included] || false
 
       amount = adjustment_source.compute_amount(adjustable)
-      return Left(:negative_amount) if amount == 0
+      return Left(:amount_equal_zero) if amount == 0
 
       adjustment = adjustment_source.adjustments.new(order: order,
                                                      adjustable: adjustable,

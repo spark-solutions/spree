@@ -30,11 +30,15 @@ module Spree
         #   end
         # end
 
-        HandlePromotionTransaction.new(fetch: SpreeContainer['cart_promotion.prepare'].new,
-                                       activate: SpreeContainer['cart_promotion.handle'].new).call
+        handle_promotion_transaction.call(order: order, line_item: line_item)
       end
 
       private
+
+      def handle_promotion_transaction
+        HandlePromotionTransaction.new(prepare: PromotionContainer['cart.prepare'].new,
+                                       handle: PromotionContainer['cart.handle'].new)
+      end
 
       def promotions
         Promotion.find_by_sql("#{order.promotions.active.to_sql} UNION #{Promotion.active.where(code: nil, path: nil).to_sql}")

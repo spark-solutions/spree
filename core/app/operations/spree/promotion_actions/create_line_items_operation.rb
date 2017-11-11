@@ -22,7 +22,7 @@ module Spree
         line_items.map do |item|
           current_quantity = order.quantity_of(item.variant)
 
-          next Left(:unsufficient_quantity) if current_quantity > item.quantity
+          next Left(:already_present) unless current_quantity < item.quantity
           next Left(:item_unavailable) unless item_available?(item)
 
           if order.contents.add(item.variant, item.quantity - current_quantity).try(:valid?)

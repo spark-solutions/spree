@@ -3,7 +3,7 @@ module Spree
     class HandleOperation < BaseOperation
       attr_accessor :activate
 
-      # Initializes CouponCodePromotion::Activator with activate operation passed as param
+      # Initializes CouponCodePromotion::HandleOperation with activate operation passed as param
       #
       # @param activate [BaseOperation] operation to be called to activate promotion
       def initialize(activate: Spree::PromotionContainer['activate'].new)

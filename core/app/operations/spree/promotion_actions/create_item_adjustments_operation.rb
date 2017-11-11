@@ -7,7 +7,7 @@ module Spree
         @create_unique_adjustments = create_unique_adjustments
       end
 
-      # Creates adjustment for order
+      # Creates additional items in order
       #
       # Returns success if at least action was succesfully performed
       #

@@ -3,7 +3,7 @@ module Spree
     class HandleOperation < BaseOperation
       attr_accessor :activate, :deactivate
 
-      # Initializes CartPromotion::Activator with activate/deactivate operations passed as params
+      # Initializes CartPromotion::HandleOperation with activate/deactivate operations passed as params
       #
       # @param activate [BaseOperation] operation to be called to activate promotion
       # @param deactivate [BaseOperation] operation to be called to deactivate promotion
@@ -35,6 +35,7 @@ module Spree
             promotion: promotion,
             line_item: line_item
           }
+
           if (line_item && promotion.eligible?(line_item)) || promotion.eligible?(order)
             activate.call(payload)
           else
