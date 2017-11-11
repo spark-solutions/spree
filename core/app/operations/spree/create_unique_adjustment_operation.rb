@@ -1,5 +1,5 @@
 module Spree
-  class CreateUniqueAdjustment < BaseOperation
+  class CreateUniqueAdjustmentOperation < BaseOperation
 
     # Creates adjustment for order
     #

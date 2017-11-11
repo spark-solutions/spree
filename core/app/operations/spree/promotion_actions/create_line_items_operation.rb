@@ -1,6 +1,6 @@
 module Spree
   module PromotionActions
-    class CreateLineItems < BaseOperation
+    class CreateLineItemsOperation < BaseOperation
 
       # Creates adjustment for order
       #

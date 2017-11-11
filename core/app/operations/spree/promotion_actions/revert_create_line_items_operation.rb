@@ -1,6 +1,6 @@
 module Spree
   module PromotionActions
-    class RevertCreateLineItems < BaseOperation
+    class RevertCreateLineItemsOperation < BaseOperation
 
       # Creates adjustment for order
       #

@@ -1,6 +1,6 @@
 module Spree
   module FreeShippingPromotion
-    class Activator < BaseOperation
+    class HandleOperation < BaseOperation
       attr_accessor :activate
 
       # Initializes FreeShippingPromotion::Activator with activate operation passed as param

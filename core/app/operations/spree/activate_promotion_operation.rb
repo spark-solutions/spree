@@ -1,5 +1,5 @@
 module Spree
-  class ActivatePromotion < BaseOperation
+  class ActivatePromotionOperation < BaseOperation
 
     # Tries to perform all actions existing in promotion.
     #

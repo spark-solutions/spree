@@ -1,6 +1,6 @@
 module Spree
   module PagePromotion
-    class Fetch < BaseOperation
+    class PrepareOperation < BaseOperation
       # Queries database for promotion with path passed as param
       #
       # Returns success if at promotion was found

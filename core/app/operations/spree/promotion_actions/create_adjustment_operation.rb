@@ -1,6 +1,6 @@
 module Spree
   module PromotionActions
-    class CreateAdjustment < BaseOperation
+    class CreateAdjustmentOperation < BaseOperation
       attr_accessor :create_unique_adjustment
 
       def initialize(create_unique_adjustment: Spree::PromotionContainer['create_unique_adjustment'].new)

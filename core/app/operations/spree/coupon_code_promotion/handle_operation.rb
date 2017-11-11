@@ -1,6 +1,6 @@
 module Spree
   module CouponCodePromotion
-    class Activator < BaseOperation
+    class HandleOperation < BaseOperation
       attr_accessor :activate
 
       # Initializes CouponCodePromotion::Activator with activate operation passed as param

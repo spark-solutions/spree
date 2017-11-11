@@ -22,13 +22,16 @@ module Spree
       end
 
       def activate
-        promotions.each do |promotion|
-          if (line_item && promotion.eligible?(line_item)) || promotion.eligible?(order)
-            promotion.activate(line_item: line_item, order: order)
-          else
-            promotion.deactivate(line_item: line_item, order: order)
-          end
-        end
+        # promotions.each do |promotion|
+        #   if (line_item && promotion.eligible?(line_item)) || promotion.eligible?(order)
+        #     promotion.activate(line_item: line_item, order: order)
+        #   else
+        #     promotion.deactivate(line_item: line_item, order: order)
+        #   end
+        # end
+
+        HandlePromotionTransaction.new(fetch: SpreeContainer['cart_promotion.prepare'].new,
+                                       activate: SpreeContainer['cart_promotion.handle'].new).call
       end
 
       private

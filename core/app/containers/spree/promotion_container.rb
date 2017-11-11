@@ -6,89 +6,85 @@ class Spree::PromotionContainer
   end
 
   namespace 'coupon_code' do |ns|
-    ns.register 'fetch' do
-      Spree::CouponCodePromotion::Fetch
+    ns.register 'prepare' do
+      Spree::CouponCodePromotion::PrepareOperation
     end
 
-    ns.register 'activator' do
-      Spree::CouponCodePromotion::Activator
-    end
-
-    ns.register 'handle_activation_result' do
-      Spree::CouponCodePromotion::HandleActivationResult
+    ns.register 'handle' do
+      Spree::CouponCodePromotion::HandleOperation
     end
   end
 
   namespace 'cart' do |ns|
-    ns.register 'fetch' do
-      Spree::CartPromotion::Fetch
+    ns.register 'prepare' do
+      Spree::CartPromotion::PrepareOperation
     end
 
-    ns.register 'activator' do
-      Spree::CartPromotion::Activator
+    ns.register 'handle' do
+      Spree::CartPromotion::HandleOperation
     end
   end
 
   namespace 'free_shipping' do |ns|
-    ns.register 'fetch' do
-      Spree::FreeShippingPromotion::Fetch
+    ns.register 'prepare' do
+      Spree::FreeShippingPromotion::PrepareOperation
     end
 
-    ns.register 'activator' do
-      Spree::FreeShippingPromotion::Activator
+    ns.register 'handle' do
+      Spree::FreeShippingPromotion::HandleOperation
     end
   end
 
   namespace 'page' do |ns|
-    ns.register 'fetch' do
-      Spree::PagePromotion::Fetch
+    ns.register 'prepare' do
+      Spree::PagePromotion::PrepareOperation
     end
 
-    ns.register 'activator' do
-      Spree::PagePromotion::Activator
+    ns.register 'handle' do
+      Spree::PagePromotion::HandleOperation
     end
   end
 
   register 'activate' do
-    Spree::ActivatePromotion
+    Spree::ActivatePromotionOperation
   end
 
   register 'deactivate' do
-    Spree::DeactivatePromotion
+    Spree::DeactivatePromotionOperation
   end
 
   register 'create_adjustment' do
-    Spree::CreateAdjustment
+    Spree::CreateAdjustmentOperation
   end
 
   register 'create_unique_adjustment' do
-    Spree::CreateUniqueAdjustment
+    Spree::CreateUniqueAdjustmentOperation
   end
 
   register 'create_unique_adjustments' do
-    Spree::CreateUniqueAdjustments
+    Spree::CreateUniqueAdjustmentsOperation
   end
 
 
   namespace 'promotion_actions' do |ns|
     ns.register 'create_line_items' do
-      Spree::PromotionActions::CreateLineItems
+      Spree::PromotionActions::CreateLineItemsOperation
     end
 
     ns.register 'revert_create_line_items' do
-      Spree::PromotionActions::RevertCreateLineItems
+      Spree::PromotionActions::RevertCreateLineItemsOperation
     end
 
     ns.register 'create_adjustment' do
-      Spree::PromotionActions::CreateAdjustment
+      Spree::PromotionActions::CreateAdjustmentOperation
     end
 
     ns.register 'create_item_adjustments' do
-      Spree::PromotionActions::CreateItemAdjustments
+      Spree::PromotionActions::CreateItemAdjustmentsOperation
     end
 
     ns.register 'free_shipping' do
-      Spree::PromotionActions::FreeShipping
+      Spree::PromotionActions::FreeShippingOperation
     end
   end
 end

@@ -1,6 +1,6 @@
 module Spree
   module CartPromotion
-    class Activator < BaseOperation
+    class HandleOperation < BaseOperation
       attr_accessor :activate, :deactivate
 
       # Initializes CartPromotion::Activator with activate/deactivate operations passed as params

@@ -1,6 +1,6 @@
 module Spree
   module FreeShippingPromotion
-    class Fetch < BaseOperation
+    class PrepareOperation < BaseOperation
 
       # Queries database for promotions with free shipping action that can be applied
       #

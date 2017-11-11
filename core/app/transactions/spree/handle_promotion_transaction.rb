@@ -1,6 +1,6 @@
 class Spree::HandlePromotionTransaction
   include Dry::Transaction(container: Spree::PromotionContainer)
 
-  step :fetch, with: 'fetch'
-  step :activator, with: 'activator'
+  step :prepare, with: 'prepare'
+  step :perform_actions, with: 'perform_actions'
 end

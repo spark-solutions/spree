@@ -1,6 +1,6 @@
 module Spree
   module PagePromotion
-    class Activator < BaseOperation
+    class HandleOperation < BaseOperation
       attr_accessor :activate
 
       # Initializes PagePromotion::Activator with activate operation passed as param

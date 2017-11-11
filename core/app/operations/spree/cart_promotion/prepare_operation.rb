@@ -1,6 +1,6 @@
 module Spree
   module CartPromotion
-    class Fetch < BaseOperation
+    class PrepareOperation < BaseOperation
     include Dry::Transaction::Operation
 
       # Queries database for promotions applied to order and promotions that can be applied to this order.

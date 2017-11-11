@@ -1,5 +1,5 @@
 module Spree
-  class DeactivatePromotion < BaseOperation
+  class DeactivatePromotionOperation < BaseOperation
 
     # Tries to revert all actions existing in promotion.
     #

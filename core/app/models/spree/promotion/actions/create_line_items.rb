@@ -48,7 +48,7 @@ module Spree
           #   end
           # end
           # action_taken
-          PromotionContainer['promotion_actions.create_line_items'].new.call(order: order, line_items: promotion_action_line_items, adjustment_source: self).success?
+          create_line_items_operation.call(order: order, line_items: promotion_action_line_items, adjustment_source: self).success?
         end
 
         # Called by promotion handler when a promotion is removed
@@ -68,13 +68,23 @@ module Spree
           # end
 
           # action_taken
-          PromotionContainer['promotion_actions.revert.create_line_items'].new.call(order: order, line_items: promotion_action_line_items, adjustment_source: self).success?
+          revert_create_line_items_operation.call(order: order, line_items: promotion_action_line_items, adjustment_source: self).success?
         end
 
         # Checks that there's enough stock to add the line item to the order
         def item_available?(item)
           quantifier = Spree::Stock::Quantifier.new(item.variant)
           quantifier.can_supply? item.quantity
+        end
+
+        private
+
+        def create_line_items_operation
+          PromotionContainer['promotion_actions.create_line_items'].new
+        end
+
+        def revert_create_line_items_operation
+          PromotionContainer['promotion_actions.revert_create_line_items'].new
         end
       end
     end

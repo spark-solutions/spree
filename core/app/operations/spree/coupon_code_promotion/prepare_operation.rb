@@ -1,6 +1,6 @@
 module Spree
   module CouponCodePromotion
-    class Fetch < BaseOperation
+    class PrepareOperation < BaseOperation
 
       # Queries database for active promotion with coupon code passed as param
       #

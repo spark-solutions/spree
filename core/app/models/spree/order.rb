@@ -505,7 +505,7 @@ module Spree
     def apply_free_shipping_promotions
       container = Spree::PromotionContainer
       Spree::HandlePromotionTransaction.new(fetch: container['free_shipping.fetch'].new,
-                                            activator: container['free_shipping.activator'].new
+                                            activator: container['free_shipping.handle'].new
                                             ).call(order: self)
       shipments.each { |shipment| Adjustable::AdjustmentsUpdater.update(shipment) }
       updater.update_shipment_total

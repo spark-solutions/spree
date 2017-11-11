@@ -133,8 +133,8 @@ module Spree
 
     def cart_promotion_handler_transaction
       container = Spree::PromotionContainer
-      Spree::HandlePromotionTransaction.new(fetch: container['cart.fetch'].new,
-                                            activator: container['cart.activator'].new)
+      Spree::HandlePromotionTransaction.new(fetch: container['cart.prepare'].new,
+                                            activator: container['cart.handle'].new)
     end
   end
 end
