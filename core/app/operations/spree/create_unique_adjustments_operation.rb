@@ -16,6 +16,7 @@ module Spree
       adjustables = input[:adjustables]
       adjustment_source = input[:adjustment_source]
       label = input[:label]
+      promotion = input[:promotion]
 
       already_adjusted_ids = adjustment_source.adjustments.where(order: order).pluck(:adjustable_id)
 

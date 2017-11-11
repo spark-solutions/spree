@@ -24,7 +24,7 @@ module Spree
         promotion.save
         Right(input)
       else
-        Left(:no_promotion_not_applied)
+        Left(:promotion_not_applied)
       end
     end
   end

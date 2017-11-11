@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Spree::FreeShippingPromotion::Activator do
+describe Spree::FreeShippingPromotion::HandleOperation do
   let(:order) { create(:order_with_line_items) }
-  let(:subject) { described_class.new }
   let(:promotion) { Spree::Promotion.create(name: 'Free Shipping') }
   let(:promotion_without_action) { Spree::Promotion.create(name: 'Free Shipping') }
   let!(:action) { Spree::Promotion::Actions::FreeShipping.create(promotion: promotion) }
+  let(:subject) { described_class.new }
 
   describe '#call' do
     context 'with eligible promotion' do
@@ -21,6 +21,15 @@ describe Spree::FreeShippingPromotion::Activator do
         result = subject.call(order: order, promotions: [promotion_without_action])
         expect(result.success?).to eq(true)
         expect(result.value).to eq(:promotion_applied)
+        expect(promotion.orders).to eq([])
+      end
+    end
+
+    context 'without promotions' do
+      it 'doesnt add promotion to order' do
+        result = subject.call(order: order, promotions: [])
+        expect(result.success?).to eq(true)
+        expect(result.value).to eq(:promotion_not_applied)
         expect(promotion.orders).to eq([])
       end
     end

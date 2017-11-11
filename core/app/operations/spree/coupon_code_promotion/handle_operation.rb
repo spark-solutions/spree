@@ -22,8 +22,9 @@ module Spree
       #
       def call(input)
         order = input[:order]
+        promotion = input[:promotion]
 
-        if activate.call(input) && (discount_applied? || created_line_item?)
+        if activate.call(input) && (discount_applied?(order) || created_line_item?(promotion))
           order.update_totals
           order.persist_totals
           Right(:coupon_code_applied)
@@ -45,7 +46,7 @@ module Spree
       end
 
       # Check for applied line items.
-      def created_line_item?(order)
+      def created_line_item?(promotion)
         promotion.actions.detect do |a|
           Object.const_get(a.type).ancestors.include?(
             Spree::Promotion::Actions::CreateLineItems

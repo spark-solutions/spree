@@ -21,8 +21,8 @@ module Spree
         order.coupon_code = coupon_code
         promotion = Promotion.active.includes(:promotion_rules, :promotion_actions).with_coupon_code(coupon_code)
 
+        return Left(:coupon_code_expired) if Promotion.with_coupon_code(order.coupon_code).try(:expired?)
         return Left(:coupon_code_not_found) unless promotion.present? && promotion.actions.exists?
-        return Left(:coupon_code_expired) if promotion.expired?
         return Left(:coupon_code_max_usage) if promotion.usage_limit_exceeded?(order)
         return Left(:coupon_code_already_applied) if order.promotions.include?(promotion)
         return Left(:coupon_code_unknown_error) if !promotion.class.order_activatable?(order)

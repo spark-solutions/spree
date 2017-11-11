@@ -12,10 +12,11 @@ module Spree
       #
       def call(input)
         path = input[:path].gsub(/\A\//, '')
+        order = input[:order]
         promotion = Promotion.active.find_by(path: path)
 
         return Left(:promotion_not_found) if promotion.nil?
-        return Left(:order_not_elligible_for_promotion) unless promotion.eligible?(order)
+        return Left(:order_not_eligible_for_promotion) unless promotion.eligible?(order)
 
         Right(input.merge(promotion: promotion))
       end

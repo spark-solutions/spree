@@ -29,9 +29,9 @@ module Spree
         end
 
         if result.any?
-          Right(:promotions_applied)
+          Right(:promotion_applied)
         else
-          Right(:no_promotions_applied)
+          Right(:promotion_not_applied)
         end
       end
     end

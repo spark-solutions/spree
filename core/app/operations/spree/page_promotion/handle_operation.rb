@@ -20,7 +20,7 @@ module Spree
       # @return Left with :no_promotion_applied when promotion weren't applied
       #
       def call(input)
-        if activate.call(input)
+        if activate.call(input).success?
           Right(:promotion_applied)
         else
           Left(:no_promotion_applied)

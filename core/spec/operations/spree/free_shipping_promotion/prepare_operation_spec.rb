@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Spree::FreeShippingPromotion::Fetch do
+describe Spree::FreeShippingPromotion::PrepareOperation do
   let!(:order) { create(:order) }
   let(:subject) { described_class.new }
 

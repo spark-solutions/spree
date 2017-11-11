@@ -23,7 +23,7 @@ module Spree
         label = input[:label]
         promotion = input[:promotion]
 
-        create_unique_adjustments.call(order: order, adjustables: order.line_items, adjustment_source: adjustment_source, label: label) do |line_item|
+        create_unique_adjustments.call(order: order, adjustables: order.line_items, adjustment_source: adjustment_source, label: label, promotion: promotion) do |line_item|
           promotion.line_item_actionable?(order, line_item)
         end
       end

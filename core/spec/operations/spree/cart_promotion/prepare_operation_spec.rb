@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Spree::CartPromotion::Fetch do
+describe Spree::CartPromotion::PrepareOperation do
   let!(:order) { create(:order) }
   let!(:promotion) { create(:promotion, orders: [order]) }
   let!(:promotion2) { create(:promotion, code: nil, path: nil) }
   let!(:promotion3) { create(:promotion, code: 'asd', path: nil) }
-  let(:subject) { Spree::CartPromotion::Fetch.new }
+  let(:subject) { described_class.new }
 
   describe '#call' do
     it 'returns promotions that should be applied' do
