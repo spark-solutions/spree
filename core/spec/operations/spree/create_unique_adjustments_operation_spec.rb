@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Spree::CreateUniqueAdjustmentsOperation do
+describe Spree::ApplyItemsAdjustmentsOperation do
   let(:order) { create(:order_with_line_items) }
   let(:promotion) { create(:promotion_with_order_adjustment) }
   let!(:action) { Spree::Promotion::Actions::CreateItemAdjustments.create(promotion: promotion, calculator: calculator) }

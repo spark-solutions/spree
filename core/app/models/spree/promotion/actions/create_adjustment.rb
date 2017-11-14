@@ -9,17 +9,18 @@ module Spree
 
         def perform(options = {})
           order = options[:order]
-          create_adjustment_operation.call(order: order, adjustment_source: self, label: label).success?
+          return false if adjustments.where(adjustable: order).exists?
+          apply_order_adjustment.call(order: order, adjustable: order, adjustment_source: self, label: label).success?
         end
 
         def compute_amount(order)
-          [(order.item_total + order.ship_total - order.shipping_discount), compute(order)].min * -1
+          [(order.item_total + order.ship_total - order.shipping_discount), calculator.compute(order)].min * -1
         end
 
         private
 
-        def create_adjustment_operation
-          Spree::PromotionContainer['promotion_actions.create_adjustment'].new
+        def apply_order_adjustment
+          Spree::PromotionContainer['promotion_actions.apply_order_adjustment'].new
         end
       end
     end

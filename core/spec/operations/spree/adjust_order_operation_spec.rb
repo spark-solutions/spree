@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Spree::CreateAdjustmentOperation do
+describe Spree::AdjustOrderOperation do
   let(:label) { 'label' }
   let(:order) { create(:order_with_line_items) }
   let(:promotion) { create(:promotion) }
@@ -13,6 +13,7 @@ describe Spree::CreateAdjustmentOperation do
     context 'with eligible promotion' do
       it 'it adds promotion to order' do
         result = subject.call(payload)
+        debugger
         expect(result.success?).to eq(true)
         expect(order.adjustments.count).to eq(1)
       end

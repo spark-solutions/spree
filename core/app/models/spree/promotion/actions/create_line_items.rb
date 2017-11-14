@@ -48,7 +48,10 @@ module Spree
           #   end
           # end
           # action_taken
-          create_line_items_operation.call(order: order, line_items: promotion_action_line_items, adjustment_source: self).success?
+          create_line_items_operation.call(order: order,
+                                           line_items: promotion_action_line_items,
+                                           adjustment_source: self,
+                                           label: label).success?
         end
 
         # Called by promotion handler when a promotion is removed
@@ -68,7 +71,10 @@ module Spree
           # end
 
           # action_taken
-          revert_create_line_items_operation.call(order: order, line_items: promotion_action_line_items, adjustment_source: self).success?
+          revert_create_line_items_operation.call(order: order,
+                                                  line_items: promotion_action_line_items,
+                                                  adjustment_source: self,
+                                                  label: label).success?
         end
 
         # Checks that there's enough stock to add the line item to the order

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Spree::PromotionActions::CreateLineItemsOperation, type: :operation do
+describe Spree::PromotionActions::AddLineItemsOperation, type: :operation do
   let(:order) { create(:order) }
   let(:action) { Spree::Promotion::Actions::CreateLineItems.create(promotion: promotion) }
   let(:promotion) { create(:promotion) }

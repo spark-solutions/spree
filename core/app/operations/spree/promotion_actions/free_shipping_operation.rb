@@ -1,10 +1,10 @@
 module Spree
   module PromotionActions
     class FreeShippingOperation < BaseOperation
-      attr_accessor :create_unique_adjustments
+      attr_accessor :apply_items_adjustments
 
-      def initialize(create_unique_adjustments: Spree::PromotionContainer['create_unique_adjustments'].new)
-        @create_unique_adjustments = create_unique_adjustments
+      def initialize(apply_items_adjustments: Spree::PromotionContainer['apply_items_adjustments'].new)
+        @apply_items_adjustments = apply_items_adjustments
       end
 
       # Creates adjustment for order
@@ -22,7 +22,10 @@ module Spree
         adjustment_source = input[:adjustment_source]
         label = input[:label]
 
-        create_unique_adjustments.call(order: order, adjustables: order.shipments, adjustment_source: adjustment_source, label: label)
+        apply_items_adjustments.call(order: order,
+                                     adjustables: order.shipments,
+                                     adjustment_source: adjustment_source,
+                                     label: label)
       end
     end
   end

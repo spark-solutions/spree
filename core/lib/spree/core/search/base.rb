@@ -16,7 +16,7 @@ module Spree
           @products = get_base_scope
           curr_page = page || 1
 
-          unless Spree::Config.show_products_without_price
+          unless Spree::Config[:show_products_without_price]
             @products = @products.where('spree_prices.amount IS NOT NULL').
                         where('spree_prices.currency' => current_currency)
           end

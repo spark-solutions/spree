@@ -1,10 +1,11 @@
 module Spree
   module PromotionActions
-    class CreateAdjustmentOperation < BaseOperation
-      attr_accessor :create_unique_adjustment
+    #possible rename
+    class AdjustOrderOperation < BaseOperation
+      attr_accessor :apply_order_adjustment
 
-      def initialize(create_unique_adjustment: Spree::PromotionContainer['create_unique_adjustment'].new)
-        @create_unique_adjustment = create_unique_adjustment
+      def initialize(apply_order_adjustment: Spree::PromotionContainer['apply_order_adjustment'].new)
+        @apply_order_adjustment = apply_order_adjustment
       end
 
       # Creates adjustment for order
@@ -25,7 +26,11 @@ module Spree
         adjustment_source = input[:adjustment_source]
         label = input[:label]
 
-        create_unique_adjustment.call(order: order, adjustable: order, adjustment_source: adjustment_source, label: label)
+        if adjustment_source.adjustments.where(adjustable: order).exists?
+          Left(:adjustment_already_exists)
+        else
+          apply_order_adjustment.call(order: order, adjustable: order, adjustment_source: adjustment_source, label: label)
+        end
       end
     end
   end

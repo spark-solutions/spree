@@ -1,10 +1,10 @@
 module Spree
   module PromotionActions
     class CreateItemAdjustmentsOperation < BaseOperation
-      attr_accessor :create_unique_adjustments
+      attr_accessor :apply_items_adjustments
 
-      def initialize(create_unique_adjustments: Spree::PromotionContainer['create_unique_adjustments'].new)
-        @create_unique_adjustments = create_unique_adjustments
+      def initialize(apply_items_adjustments: Spree::PromotionContainer['apply_items_adjustments'].new)
+        @apply_items_adjustments = apply_items_adjustments
       end
 
       # Creates additional items in order
@@ -17,15 +17,19 @@ module Spree
       # @return Right with input as value when at least one action was performed
       # @return Left with :no_promotion_not_applied as value when no action was performed
       #
+      #
       def call(input)
         order = input[:order]
         adjustment_source = input[:adjustment_source]
         label = input[:label]
         promotion = input[:promotion]
 
-        create_unique_adjustments.call(order: order, adjustables: order.line_items, adjustment_source: adjustment_source, label: label, promotion: promotion) do |line_item|
-          promotion.line_item_actionable?(order, line_item)
-        end
+        line_items = order.line_items.select { |line_item| promotion.line_item_actionable?(order, line_item) }
+        apply_items_adjustments.call(order: order,
+                                       adjustables: line_items,
+                                       adjustment_source: adjustment_source,
+                                       label: label,
+                                       promotion: promotion)
       end
     end
   end

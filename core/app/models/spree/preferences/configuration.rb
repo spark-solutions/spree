@@ -53,6 +53,7 @@ module Spree::Preferences
     end
 
     def method_missing(method, *args)
+      debugger
       name = method.to_s.delete('=')
       if has_preference? name
         if method.to_s =~ /=$/

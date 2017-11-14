@@ -230,7 +230,7 @@ module Spree
     # Shortcut method to determine if inventory tracking is enabled for this variant
     # This considers both variant tracking flag and site-wide inventory tracking settings
     def should_track_inventory?
-      track_inventory? && Spree::Config.track_inventory_levels
+      track_inventory? && Spree::Config[:track_inventory_levels]
     end
 
     def track_inventory

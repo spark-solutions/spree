@@ -269,7 +269,7 @@ module Spree
     end
 
     def any_variants_not_track_inventory?
-      return true unless Spree::Config.track_inventory_levels
+      return true unless Spree::Config[:track_inventory_levels]
       if variants_including_master.loaded?
         variants_including_master.any? { |v| !v.track_inventory? }
       else

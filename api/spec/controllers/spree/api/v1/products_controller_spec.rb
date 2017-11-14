@@ -164,7 +164,7 @@ module Spree
       end
 
       context 'tracking is disabled' do
-        before { Config.track_inventory_levels = false }
+        before { Config[:track_inventory_levels] = false }
 
         it 'still displays valid json with total_on_hand Float::INFINITY' do
           api_get :show, id: product.to_param
@@ -172,7 +172,7 @@ module Spree
           expect(json_response[:total_on_hand]).to eq nil
         end
 
-        after { Config.track_inventory_levels = true }
+        after { Config[:track_inventory_levels] = true }
       end
 
       context 'finds a product by slug first then by id' do
@@ -315,11 +315,11 @@ module Spree
         # Regression test for #2140
         context 'with authentication_required set to false' do
           before do
-            Spree::Api::Config.requires_authentication = false
+            Spree::Api::Config[:requires_authentication] = false
           end
 
           after do
-            Spree::Api::Config.requires_authentication = true
+            Spree::Api::Config[:requires_authentication] = true
           end
 
           it 'can still create a product' do
