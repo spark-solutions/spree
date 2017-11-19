@@ -4,7 +4,7 @@ module Spree
     class AdjustOrderOperation < BaseOperation
       attr_accessor :apply_order_adjustment
 
-      def initialize(apply_order_adjustment: Spree::PromotionContainer['apply_order_adjustment'].new)
+      def initialize(apply_order_adjustment: Spree::AdjustOrderOperation.new)
         @apply_order_adjustment = apply_order_adjustment
       end
 

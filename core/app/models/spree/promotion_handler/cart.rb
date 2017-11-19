@@ -36,8 +36,8 @@ module Spree
       private
 
       def handle_promotion_transaction
-        HandlePromotionTransaction.new(prepare: PromotionContainer['cart.prepare'].new,
-                                       handle: PromotionContainer['cart.handle'].new)
+        HandlePromotionTransaction.new(prepare: Spree::CartPromotion::PrepareOperation.new,
+                                       handle: Spree::CartPromotion::HandleOperation.new)
       end
 
       def promotions

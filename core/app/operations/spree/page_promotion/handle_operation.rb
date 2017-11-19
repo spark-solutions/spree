@@ -6,7 +6,7 @@ module Spree
       # Initializes PagePromotion::HandleOperation with activate operation passed as param
       #
       # @param activate [BaseOperation] operation to be called to activate promotion
-      def initialize(activate: Spree::PromotionContainer['activate'].new)
+      def initialize(activate: Spree::ActivatePromotionOperation.new)
         @activate = activate
       end
 

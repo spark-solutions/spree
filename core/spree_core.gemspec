@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   s.files        = `git ls-files`.split("\n").reject { |f| f.match(/^spec/) && !f.match(/^spec\/fixtures/) }
   s.require_path = 'lib'
-  s.require_paths = ['app/containers', 'app/operations', 'app/transactions', 'lib']
+  s.require_paths = ['app/operations', 'app/transactions', 'lib']
 
   s.add_dependency 'activemerchant', '~> 1.67'
   s.add_dependency 'acts_as_list', '~> 0.8'

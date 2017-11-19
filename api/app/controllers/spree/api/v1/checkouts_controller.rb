@@ -79,7 +79,9 @@ module Spree
 
         def after_update_attributes
           if params[:order] && params[:order][:coupon_code].present?
-            result = Spree::HandlePromotionTransaction.new.call(order: @order, coupon_code: params[:order][:coupon_code])
+            result = Spree::HandlePromotionTransaction.new(prepare: Spree::CouponCodePromotion::PrepareOperation.new,
+                                                           handle: Spree::CouponCodePromotion::PrepareOperation.new)
+                                                      .call(order: @order, coupon_code: params[:order][:coupon_code])
 
             if result.failure?
               @coupon_message = result.value

@@ -134,9 +134,8 @@ module Spree
     end
 
     def cart_promotion_handler_transaction
-      container = Spree::PromotionContainer
-      Spree::HandlePromotionTransaction.new(prepare: container['cart.prepare'].new,
-                                            handle: container['cart.handle'].new)
+      Spree::HandlePromotionTransaction.new(prepare: Spree::CartPromotion::PrepareOperation.new,
+                                            handle: Spree::CartPromotion::HandleOperation.new)
     end
   end
 end

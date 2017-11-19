@@ -7,8 +7,8 @@ module Spree
       #
       # @param activate [BaseOperation] operation to be called to activate promotion
       # @param deactivate [BaseOperation] operation to be called to deactivate promotion
-      def initialize(activate: Spree::PromotionContainer['activate'].new,
-                     deactivate: Spree::PromotionContainer['deactivate'].new)
+      def initialize(activate: Spree::ActivatePromotionOperation.new,
+                     deactivate: Spree::DeactivatePromotionOperation.new)
         @activate = activate
         @deactivate = deactivate
       end

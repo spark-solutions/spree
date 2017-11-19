@@ -20,7 +20,7 @@ module Spree
         private
 
         def apply_order_adjustment
-          Spree::PromotionContainer['promotion_actions.apply_order_adjustment'].new
+          Spree::PromotionActions::AdjustOrderOperation.new
         end
       end
     end

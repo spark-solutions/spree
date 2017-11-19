@@ -3,7 +3,7 @@ module Spree
     class CreateItemAdjustmentsOperation < BaseOperation
       attr_accessor :apply_items_adjustments
 
-      def initialize(apply_items_adjustments: Spree::PromotionContainer['apply_items_adjustments'].new)
+      def initialize(apply_items_adjustments: Spree::ApplyItemsAdjustmentsOperation.new)
         @apply_items_adjustments = apply_items_adjustments
       end
 

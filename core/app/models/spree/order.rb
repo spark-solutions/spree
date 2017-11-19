@@ -503,9 +503,8 @@ module Spree
     end
 
     def apply_free_shipping_promotions
-      container = Spree::PromotionContainer
-      Spree::HandlePromotionTransaction.new(prepare: container['free_shipping.prepare'].new,
-                                            handle: container['free_shipping.handle'].new).call(order: self)
+      Spree::HandlePromotionTransaction.new(prepare: Spree::FreeShippingPromotion::PrepareOperation.new,
+                                            handle: Spree::FreeShippingPromotion::HandleOperation.new).call(order: self)
       shipments.each { |shipment| Adjustable::AdjustmentsUpdater.update(shipment) }
       updater.update_shipment_total
       persist_totals

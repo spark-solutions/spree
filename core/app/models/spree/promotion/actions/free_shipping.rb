@@ -16,7 +16,7 @@ module Spree
         private
 
         def free_shipping_operation
-          Spree::PromotionContainer['promotion_actions.free_shipping'].new
+          Spree::PromotionActions::FreeShippingOperation.new
         end
       end
     end

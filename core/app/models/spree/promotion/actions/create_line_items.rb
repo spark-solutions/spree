@@ -86,11 +86,11 @@ module Spree
         private
 
         def create_line_items_operation
-          PromotionContainer['promotion_actions.create_line_items'].new
+          Spree::PromotionActions::AddLineItemsOperation.new
         end
 
         def revert_create_line_items_operation
-          PromotionContainer['promotion_actions.revert_create_line_items'].new
+          Spree::PromotionActions::RevertCreateLineItemsOperation.new
         end
       end
     end

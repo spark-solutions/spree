@@ -22,10 +22,10 @@ module Spree
       existing_adjustments_id = adjustment_source.adjustments.where(order: order).pluck(:adjustable_id)
 
       result = adjustables.where.not(id: existing_adjustments_id).map do |adjustable|
-        Spree::PromotionContainer['adjust_order'].call(order: order,
-                                                       adjustable: adjustable,
-                                                       adjustment_source: adjustment_source,
-                                                       label: label)
+        Spree::AdjustOrderOperation.new.call(order: order,
+                                             adjustable: adjustable,
+                                             adjustment_source: adjustment_source,
+                                             label: label)
       end
 
       result.any?(&:success?) ? Right(result.reject(&:failure?)) : Left(result.reject(&:success?))

@@ -28,7 +28,7 @@ module Spree
         private
 
         def create_items_adjustments
-          Spree::PromotionContainer['promotion_actions.create_item_adjustments'].new
+          Spree::PromotionActions::CreateItemAdjustmentsOperation.new
         end
       end
     end
