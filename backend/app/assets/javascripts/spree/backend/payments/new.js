@@ -1,13 +1,50 @@
 //= require jquery.payment
 $(document).ready(function() {
   if ($("#new_payment").is("*")) {
-    $(".cardNumber").payment('formatCardNumber');
-    $(".cardExpiry").payment('formatCardExpiry');
-    $(".cardCode").payment('formatCardCVC');
 
-    $(".cardNumber").change(function() {
-      $(".ccType").val($.payment.cardType(this.value))
-    })
+    if($('#credit_card_number').is('*')){
+      console.log('stripe');
+      var stripe = Stripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
+      var elements = stripe.elements();
+
+      var card_number = elements.create('cardNumber');
+      var card_expiry = elements.create('cardExpiry');
+      var card_cvv = elements.create('cardCvc');
+
+      card_number.mount('#credit_card_number');
+      card_expiry.mount('#credit_card_expiry');
+      card_cvv.mount('#credit_card_cvv');
+
+      card_number.addEventListener('change', function(event) {
+        var displayError = document.getElementById('card_number_errors');
+        if (event.error) {
+          displayError.textContent = event.error.message;
+        } else {
+          displayError.textContent = '';
+          $(".ccType").val(event.brand)
+
+          console.dir(event);
+        }
+      });
+
+      card_expiry.addEventListener('change', function(event) {
+        var displayError = document.getElementById('card_expiry_errors');
+        if (event.error) {
+          displayError.textContent = event.error.message;
+        } else {
+          displayError.textContent = '';
+        }
+      });
+
+      card_cvv.addEventListener('change', function(event) {
+        var displayError = document.getElementById('card_cvv_errors');
+        if (event.error) {
+          displayError.textContent = event.error.message;
+        } else {
+          displayError.textContent = '';
+        }
+      });
+    }
 
     $('.payment_methods_radios').click(
       function() {

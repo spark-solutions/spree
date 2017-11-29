@@ -24,7 +24,10 @@
     <div data-hook="card_number" class="form-group">
       <%= hidden_field_tag "#{param_prefix}[cc_type]", '', {class: 'ccType'} %>
       <%= label_tag "card_number#{payment_method.id}", raw(Spree.t(:card_number) + content_tag(:span, ' *', class: 'required')) %>
-      <%= text_field_tag "#{param_prefix}[number]", '', class: 'required form-control cardNumber', id: "card_number#{payment_method.id}", maxlength: 19 %>
+
+      <%= hidden_field_tag "#{param_prefix}[number]", '', id: "card_number#{payment_method.id}" %>
+      <div id="credit_card_number"> </div>
+      <div id="card_number_errors"></div>
       <span id="card_type" style="display:none;">
         ( <span id="looks_like" ><%= Spree.t(:card_type_is) %> <span id="type"></span></span>
           <span id="unrecognized"><%= Spree.t(:unrecognized_card_type) %></span>
@@ -39,12 +42,16 @@
 
     <div data-hook="card_expiration" class="form-group">
       <%= label_tag "card_expiry#{payment_method.id}", raw(Spree.t(:expiration) + content_tag(:span, ' *', class: 'required')) %><br>
-      <%= text_field_tag "#{param_prefix}[expiry]", '', id: "card_expiry#{payment_method.id}", class: "required cardExpiry form-control", placeholder: "MM / YY" %>
+      <%= hidden_field_tag "#{param_prefix}[expiry]", '', id: "card_expiry#{payment_method.id}" %>
+      <div id="credit_card_expiry"> </div>
+      <div id="card_expiry_errors"></div>
     </div>
 
     <div data-hook="card_code" class="form-group">
       <%= label_tag "card_code#{payment_method.id}", raw(Spree.t(:card_code) + content_tag(:span, ' *', class: "required")) %>
-      <%= text_field_tag "#{param_prefix}[verification_value]", '', id: "card_code#{payment_method.id}", class: 'required form-control cardCode', size: 5 %>
+      <%= hidden_field_tag "#{param_prefix}[verification_value]", '', id: "card_code#{payment_method.id}" %>
+      <div id="credit_card_cvv"> </div>
+      <div id="card_cvv_errors"></div>
       <a href="/content/cvv" class="info cvvLink" target="_blank">
         (<%= Spree.t(:what_is_this) %>)
       </a>
