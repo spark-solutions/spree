@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.files        = `git ls-files`.split("\n").reject { |f| f.match(/^spec/) && !f.match(/^spec\/fixtures/) }
   s.require_path = 'lib'
 
+  s.add_dependency 'activerecord', '~> 5.2.0.beta2'
   s.add_dependency 'activemerchant', '~> 1.67'
   s.add_dependency 'acts_as_list', '~> 0.8'
   s.add_dependency 'awesome_nested_set', '~> 3.1.3'
@@ -35,7 +36,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'paranoia', '~> 2.3.0'
   s.add_dependency 'premailer-rails'
   s.add_dependency 'acts-as-taggable-on', '~> 5.0'
-  s.add_dependency 'rails', '~> 5.1.4'
+  s.add_dependency 'rails', '~> 5.2.0.beta2'
   s.add_dependency 'ransack', '~> 1.8.0'
   s.add_dependency 'responders'
   s.add_dependency 'state_machines-activerecord', '~> 0.5'

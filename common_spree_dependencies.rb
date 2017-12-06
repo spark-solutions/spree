@@ -4,6 +4,7 @@
 source 'https://rubygems.org'
 
 gem 'coffee-rails'
+gem 'polyamorous', :git => 'https://github.com/spark-solutions/polyamorous.git' # temporary hack to make it work with rails 5.2.0
 gem 'sass-rails'
 gem 'sqlite3', platforms: [:ruby, :mingw, :mswin, :x64_mingw]
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
@@ -36,6 +37,8 @@ group :test do
   gem 'poltergeist', '~> 1.10'
   gem 'timecop'
   gem 'rails-controller-testing'
+  gem 'versioncake', :git => 'https://github.com/spark-solutions/versioncake.git' # temporary hack to make it work with rails 5.2.0
+  gem 'ransack', :git => 'https://github.com/spark-solutions/ransack.git' # temporary hack to make it work with rails 5.2.0
 end
 
 group :test, :development do
