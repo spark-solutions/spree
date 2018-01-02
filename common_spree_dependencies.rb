@@ -5,6 +5,9 @@ source 'https://rubygems.org'
 
 gem 'coffee-rails'
 gem 'polyamorous', :git => 'https://github.com/spark-solutions/polyamorous.git' # temporary hack to make it work with rails 5.2.0
+gem 'awesome_nested_set', :git => 'https://github.com/spark-solutions/awesome_nested_set' # temporary hack to make it work with rails 5.2.0
+gem 'friendly_id', :git => 'https://github.com/norman/friendly_id' # temporary hack to make it work with rails 5.2.0
+gem 'acts_as_list', :git => 'https://github.com/swanandp/acts_as_list' # temporary hack to make it work with rails 5.2.0
 gem 'sass-rails'
 gem 'sqlite3', platforms: [:ruby, :mingw, :mswin, :x64_mingw]
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
