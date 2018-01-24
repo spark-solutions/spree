@@ -15,7 +15,6 @@
 <body class="api home">
 
   <%= render '_edge_badge' %>
-
   <header id="header">
     <div id="top-header">
       <div class="container">
@@ -27,33 +26,25 @@
       </div>
     </div>
 
-    <div id="subheader">
-      <div class="container">
-        <div class="sixteen columns">
-          <hgroup id="site-title">
-            <h1 class="page-title">The Spree API</h1>
-            <h2 class="page-subtitle">Documentation</h2>
-          </hgroup>
-          <div id="api-objects"></div>
+  </header>
+  <div class="content-bg api">
+    <div class="container">
+      <div class="breadcrumbs">
+        <div class="container">
+          <ul>
+            <li><a href="/">Spree</a></li>
+            <li><a href="#">Guides</a></li>
+            <li><a href="#">API</a></li>
+          </ul>
         </div>
       </div>
-    </div>
-
-  </header>
-
-  <div class="container">
-    <section id="main-content">
-
-      <div class="twelve columns">
+      <%= render 'api/_sidebar' %>
+      <section id="main-content" class="col-xs-12 col-sm-8">
         <div id="content">
           <%= yield %>
         </div>
-      </div>
-
-    </section>
-
-    <%= render 'api/_sidebar' %>
-
+      </section>
+    </div>
   </div>
 
   <%= render '_footer' %>

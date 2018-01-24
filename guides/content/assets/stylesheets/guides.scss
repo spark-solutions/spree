@@ -5,6 +5,7 @@
 @import 'vendor/icons/spree_index_header';
 
 @import 'global/placeholders';
+@import 'global/fonts';
 
 @import 'components/code';
 @import 'components/info_boxes';
@@ -18,3 +19,7 @@
 
 @import 'sections/index';
 @import 'sections/home';
+@import 'sections/footer';
+@import 'sections/header';
+@import 'sections/breadcrumbs';
+@import 'sections/select_sidebar';

@@ -1,0 +1,29 @@
+.breadcrumbs {
+  ul {
+    padding: 0;
+    list-style: none;
+    display: flex;
+
+    li {
+      padding-right: 10px;
+      display: flex;
+
+      a {
+        color: $spree_blue;
+      }
+
+      &:last-child {
+        &::after {
+          content: '';
+        }
+      }
+
+      &::after {
+        content: '/';
+        display: block;
+        color: #999;
+        padding-left: 10px;
+      }
+    }
+  }
+}

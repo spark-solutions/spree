@@ -19,6 +19,7 @@
   <% end %>
 
   <header id="header">
+    <%= render '_header_top' %>
     <div id="top-header">
       <div class="container">
         <div class="row">
@@ -29,34 +30,49 @@
       </div>
     </div>
 
+    <div class="breadcrumbs">
+      <div class="container">
+        <ul>
+          <li><a href="/">Spree</a></li>
+          <li><a href="#">Guides</a></li>
+        </ul>
+      </div>
+    </div>
+
     <div id="subheader">
       <div class="container">
 
-          <h1 class="huge-title">Spree Documentation</h1>
+          <div class="column">
+            <h1 class="huge-title">Guides</h1>
+            <p class="subtitle">Spree Commerce is a complete modular API-driven
+            open-source e-commerce solution built with Ruby on
+            Rails. Guides are hosted and maintained by Spark
+            Solutions.</p>
+          </div>
 
           <ul class="sections">
             <li class="section">
               <a href="/api/">
-                <i class="icon-api"></i>
-                <h1 class="section-title">API</h1>
+                <img src="/images/api.svg" alt="">
+                <p class="section-title">API</p>
               </a>
             </li>
             <li class="section">
               <a href="/developer/">
                 <i class="icon-developer"></i>
-                <h1 class="section-title">Developer</h1>
+                <p class="section-title">Developer</p>
               </a>
             </li>
             <li class="section">
               <a href="/user/">
                 <i class="icon-user"></i>
-                <h1 class="section-title">User</h1>
+                <p class="section-title">User</p>
               </a>
             </li>
             <li class="section">
               <a href="/release_notes/">
                 <i class="icon-release-notes"></i>
-                <h1 class="section-title">Release Notes</h1>
+                <p class="section-title">Release Notes</p>
               </a>
             </li>
           </ul>
@@ -65,19 +81,6 @@
     </div>
 
   </header>
-
-  <div class="container">
-    <section id="main-content">
-
-      <div class="twelve columns">
-        <div id="content">
-          <%= yield %>
-        </div>
-      </div>
-
-    </section>
-  </div>
-
   <%= render '_footer' %>
   </body>
 </html>

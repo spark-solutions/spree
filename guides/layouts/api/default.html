@@ -17,7 +17,7 @@
 
     <div id="subheader">
       <div class="container">
-        <div class="twelve columns">
+        <div>
           <h1 class="page-title"><%= @item[:title] %> - Storefront API</h1>
         </div>
       </div>
@@ -26,17 +26,12 @@
   </header>
 
   <div class="container">
-    <section id="main-content">
-
-      <div class="twelve columns">
-        <div id="content">
-          <%= yield %>
-        </div>
-      </div>
-
-    </section>
-
     <%= render "api/_sidebar" %>
+    <section id="main-content" class="col-xs-12 col-sm-8">
+      <div id="content">
+        <%= yield %>
+      </div>
+    </section>
   </div>
 
   <%= render '_footer' %>

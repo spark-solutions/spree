@@ -100,6 +100,22 @@
   }
 }
 
+.sudebar {
+  &__title {
+    font-size: 72px;
+    font-family: 'Overpass', sans-serif;
+    font-weight: 300;
+    margin: 0;
+    line-height: 1;
+    color: $spree_blue;
+  }
+
+  &__subtitle {
+    font-family: 'Overpass', sans-serif;
+    color: $spree_blue;
+  }
+}
+
 #main-menu {
   > ul {
     margin-left: 0;

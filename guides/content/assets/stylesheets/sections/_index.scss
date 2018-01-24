@@ -1,38 +1,41 @@
 body.index {
   #subheader {
-    // background-image: none;
-    // background-color: lighten($c-border, 8);
     border-top: 1px solid $c-border;
+    background-size: cover;
 
-    h1 {
-      border: none;
-      text-transform: uppercase;
+    .container {
+      display: flex;
+      flex-direction: column;
     }
 
     h1.huge-title {
       margin-top: em(10);
-      margin-bottom: em(20);
-      text-align: center;
+      border: 0;
       font-size: em(40);
-      letter-spacing: em(5);
       word-spacing: em(20);
       color: white;
+      font-family: 'Overpass', sans-serif;
+    }
+
+    .subtitle {
+      color: #fff;
     }
 
     ul.sections {
       @extend %ul-inline;
-      @include outer-container;
-
+      display: flex;
+      flex-direction: column;
       margin-bottom: em(40);
 
       li {
-        @include span-columns(2 of 8);
-        @include omega(5n);
-        text-align: center;
+        width: 100%;
 
         a {
           @include transition (all 0.3s ease-in);
           color: white;
+          display: flex;
+          align-items: center;
+
 
           h1 {
             font-size: em(20);
@@ -63,4 +66,10 @@ body.index {
     margin: 0;
     padding: 0;
   }
+}
+
+.content-bg.api {
+  background-image: url(../../images/api-bg.png);
+  background-size: cover;
+  background-repeat: no-repeat;
 }

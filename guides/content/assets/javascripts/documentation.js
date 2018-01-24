@@ -82,4 +82,17 @@ $(function() {
   // Automatically open sidebar menu depending on section page belongs to
   var current_section = $('meta[name=section]').attr('content');
   $('.toggle-' + current_section + '-menu i').click();
+
+  // dynamic dropdown
+  $('#dynamic_select').on('change', function () {
+    var val = $(this).val();
+    var host = window.location.origin;
+    console.log(val)
+    console.log(host)
+    console.log(host + val)
+    if (val) {
+        window.location = host + val; 
+    }
+    return false;
+});
 });

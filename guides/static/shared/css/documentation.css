@@ -21,9 +21,9 @@ a {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #82B245;
+  color: #0066cc;
   font-weight: normal;
-  font-family: 'Bariol', 'Open Sans', 'Helvetica Neue', 'Helvetica', sans-serif;
+  font-family: 'Overpass', sans-serif;
 }
 
 h1 {
@@ -289,6 +289,11 @@ pre.headers code {
 #sidebar-menu {
   margin-top: 56px;
 }
+
+.api #sidebar-menu {
+  margin-top: 0;
+}
+
 #sidebar-menu ul {
   list-style: none;
 }
@@ -336,7 +341,13 @@ pre.headers code {
 }
 
 #content {
-  padding: 30px 0;
+  padding-bottom: 30px;
+}
+
+#content h2 {
+  font-size: 42px;
+  margin: 0;
+  line-height: 1;
 }
 
 #main-footer {
