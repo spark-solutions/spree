@@ -26,4 +26,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails',    '~> 4.3'
   s.add_dependency 'jquery-ui-rails', '~> 6.0.1'
   s.add_dependency 'select2-rails',   '3.5.9.1' # 3.5.9.2 breaks several specs
+  s.add_development_dependency 'chromedriver-helper', '1.2.0'
 end

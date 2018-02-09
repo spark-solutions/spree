@@ -27,4 +27,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails',    '~> 4.3'
 
   s.add_development_dependency 'capybara-accessible'
+  s.add_development_dependency 'chromedriver-helper', '1.2.0'
 end
