@@ -22,6 +22,10 @@ module ControllerHacks
     api_process(action, params, session, flash, 'DELETE')
   end
 
+  def api_patch(action, params = {}, session = nil, flash = nil)
+    api_process(action, params, session, flash, 'PATCH')
+  end
+
   def api_process(action, params = {}, session = nil, flash = nil, method = 'get')
     scoping = respond_to?(:resource_scoping) ? resource_scoping : {}
     process(

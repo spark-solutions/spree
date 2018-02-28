@@ -639,6 +639,14 @@ module Spree
       end
     end
 
+    def reset_shipments(with_gift_boxing = true)
+      adjustments.where(label: Spree.t(:gift_boxing)).delete_all if with_gift_boxing
+
+      create_proposed_shipments
+      return false if send(:ensure_available_shipping_rates).eql?(false)
+      set_shipments_cost
+    end
+
     private
 
     def link_by_email

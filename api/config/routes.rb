@@ -46,6 +46,7 @@ Spree::Core::Engine.add_routes do
         member do
           put :next
           put :advance
+          patch :next_or_reset
         end
       end
 

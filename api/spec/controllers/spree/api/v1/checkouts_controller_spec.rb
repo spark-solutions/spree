@@ -364,5 +364,110 @@ module Spree
 
       it_behaves_like 'action which loads order using load_order_with_lock'
     end
+
+    context 'PATCH "next_or_reset"' do
+      let(:order) { create(:order_with_line_items, user: nil, email: 'spree@example.com',
+                           ship_address: create(:address), bill_address: create(:address)) }
+      let(:params) { { id: order.number, order_token: order.guest_token } }
+
+      let(:authenticate!) do
+        stub_authentication!
+        current_api_user.generate_spree_api_key!
+        current_api_user.update!(ship_address: create(:address))
+        allow_any_instance_of(Order).to receive_messages user: current_api_user
+      end
+
+      shared_examples_for 'proper transitions' do
+        it "transitions an order to the next state if it's in address state" do
+          api_patch :next_or_reset, params
+          expect(response.status).to eq(200)
+          expect(json_response['state']).to eq('delivery')
+          expect(order.reload.state).to eq('delivery')
+        end
+
+        context "resets shipments of an order to the next state if it's not in address state" do
+          before do
+            order.next!
+            expect(order.state).to eq('delivery')
+          end
+
+          context 'valid data' do
+            it 'does not change state' do
+              api_patch :next_or_reset, params
+              expect(response.status).to eq(200)
+              expect(json_response['state']).to eq('delivery')
+              expect(order.reload.state).to eq('delivery')
+            end
+
+            it 'resets shipments and shipping rates' do
+              expect(order.shipments.count).to eq 1
+              old_shipment = order.shipments.last
+
+              api_patch :next_or_reset, params
+              expect(order.reload.shipments.count).to eq 1
+              expect(order.shipments.last).not_to eq old_shipment
+            end
+
+            it 'resets gift boxing settings' do
+              order.adjustments << create(:adjustment, order: order, adjustable: order, label: Spree.t(:gift_boxing))
+              expect(order.reload.adjustments.count).to eq 1
+
+              api_patch :next_or_reset, params
+              expect(order.reload.adjustments.count).to eq 0
+            end
+          end
+
+          context 'invalid data' do
+            before { allow_any_instance_of(Order).to receive(:ensure_available_shipping_rates).and_return(false) }
+
+            it 'does not change state' do
+              api_patch :next_or_reset, params
+              expect(response.status).to eq(422)
+              expect(order.reload.state).to eq('delivery')
+            end
+          end
+        end
+      end
+
+      context 'logged in user' do
+        let(:order) { create(:order_with_line_items, user: current_api_user) }
+        let(:params) { { id: order.number, token: current_api_user.spree_api_key } }
+
+        before do
+          authenticate!
+          order.next!
+        end
+
+        it_behaves_like 'proper transitions'
+
+        context 'with addresses saved before' do
+          let(:bill_address) { create(:bill_address, address1: '10 Lovely Street') }
+          let(:ship_address) { create(:ship_address, address1: '888 6th Ave') }
+
+          before do
+            current_api_user.addresses << [bill_address, ship_address]
+            current_api_user.update_attributes({bill_address_id: bill_address.id, ship_address_id: ship_address.id})
+          end
+
+          it 'go to the next state but do not changes old address' do
+            api_patch :next_or_reset, params
+            expect(response.status).to eq(200)
+            expect(json_response['state']).to eq('delivery')
+            expect(order.reload.state).to eq('delivery')
+            expect(bill_address.reload.address1).to eq '10 Lovely Street'
+            expect(ship_address.reload.address1).to eq '888 6th Ave'
+          end
+        end
+      end
+
+      context 'guest' do
+        let(:order) { create(:order_with_line_items, user: nil, email: 'spree@example.com') }
+        let(:params) { { id: order.number, order_token: order.guest_token } }
+
+        before { order.next! }
+
+        it_behaves_like 'proper transitions'
+      end
+    end
   end
 end
