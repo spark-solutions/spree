@@ -74,7 +74,7 @@ class Project
   #
   # @return [undefined]
   def setup_test_app
-    system(%w[bundle exec rake test_app]) || raise('Failed to setup the test app')
+    system('BUNDLE_GEMFILE=/home/ubuntu/spree/Gemfile bundle exec rake test_app') || raise('Failed to setup the test app')
   end
 
   # Run tests for subproject

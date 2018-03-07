@@ -2,10 +2,11 @@
 machine:
   environment:
     DB: postgres
+    RUBYOPT: --jit
   services:
     - postgresql
   ruby:
-    version: 2.4.2
+    version: 2.6.0-preview1
 dependencies:
   override:
     - bundle check --path=vendor/bundle || bundle install --path=vendor/bundle
@@ -19,8 +20,6 @@ dependencies:
     - wget https://chromedriver.storage.googleapis.com/2.33/chromedriver_linux64.zip
     - unzip chromedriver_linux64.zip
     - sudo cp chromedriver /usr/local/bin/chromedriver
-    - gem uninstall bundler -x -a
-    - gem install bundler -v 1.14.6
 test:
   override:
     - './build-ci.rb test':
