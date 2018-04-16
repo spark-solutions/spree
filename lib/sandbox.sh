@@ -20,7 +20,7 @@ sqlite|'')
 esac
 
 rm -rf ./sandbox
-bundle exec rails new sandbox --database="$RAILSDB" \
+bundle exec rails _5.1.6_ new sandbox --database="$RAILSDB" \
   --skip-bundle \
   --skip-git \
   --skip-keeps \
