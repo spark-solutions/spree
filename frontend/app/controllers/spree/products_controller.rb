@@ -55,7 +55,7 @@ module Spree
       if params[:id] != @product.friendly_id
         params[:id] = @product.friendly_id
         params.permit!
-        redirect_to url_for(params), status: :moved_permanently
+        redirect_to url_for(params.merge(only_path: true)), status: :moved_permanently
       end
     end
   end
