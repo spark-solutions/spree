@@ -16,7 +16,7 @@ module Spree::Preferences
 
       define_method preference_setter_method(name) do |value|
         value = convert_preference_value(value, type)
-        preferences[name] = value
+        preferences[name.to_s] = value
 
         # If this is an activerecord object, we need to inform
         # ActiveRecord::Dirty that this value has changed, since this is an

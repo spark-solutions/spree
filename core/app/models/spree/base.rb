@@ -1,20 +1,24 @@
 class Spree::Base < ApplicationRecord
   include Spree::Preferences::Preferable
-  serialize :preferences, JSON if ActiveRecord::Base.connection.native_database_types[:json] == nil
+  self.abstract_class = true
+
+   # if ActiveRecord::Base.connection.native_database_types[:json] == nil
 
   include Spree::RansackableAttributes
 
   after_initialize do
-    if has_attribute?(:preferences) && !preferences.nil?
-
-      # czy tu przestawiamy się w 100% na json czy nie?
-      
-      if ActiveRecord::Base.connection.native_database_types[:json] == nil
-        self.preferences = default_preferences.merge(preferences)
-      else
-        self.json_preferences = default_preferences.merge(preferences)
-      end
+    if has_attribute?(:json_preferences)
+      self.json_preferences = JSON.dump(default_preferences.merge(preferences))
     end
+  end
+
+  def preferences
+    @preferences ||= if !self.read_attribute(:json_preferences).nil?
+                      JSON.parse(self.read_attribute(:json_preferences))
+                    else
+                      return {} if self.read_attribute(:preferences).nil?
+                      YAML.load(self.read_attribute(:preferences))
+                    end
   end
 
   if Kaminari.config.page_method_name != :page
@@ -22,8 +26,6 @@ class Spree::Base < ApplicationRecord
       send Kaminari.config.page_method_name, num
     end
   end
-
-  self.abstract_class = true
 
   def self.belongs_to_required_by_default
     false
