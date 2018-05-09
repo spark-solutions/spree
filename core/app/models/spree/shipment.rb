@@ -343,8 +343,8 @@ module Spree
       transaction do
         new_shipment = order.shipments.create!(stock_location: stock_location)
 
-        order.contents.remove(variant, quantity, shipment: self)
-        order.contents.add(variant, quantity, shipment: new_shipment)
+        Spree::RemoveItemFromCart.new.call(order: order, variant: variant, quantity: quantity, options: { shipment: self })
+        Spree::AddItemToCart.new.call(order: order, variant: variant, quantity: quantity, options: { shipment: new_shipment })
         order.create_tax_charge!
         order.update_with_updater!
 
@@ -363,8 +363,8 @@ module Spree
       raise ArgumentError if quantity <= 0 || self == shipment_to_transfer_to
 
       transaction do
-        order.contents.remove(variant, final_quantity, shipment: self)
-        order.contents.add(variant, final_quantity, shipment: shipment_to_transfer_to)
+        Spree::RemoveItemFromCart.new.call(order: order, variant: variant, quantity: final_quantity, options: { shipment: self })
+        Spree::AddItemToCart.new.call(order: order, variant: variant, quantity: final_quantity, options: { shipment: shipment_to_transfer_to }).value
         order.update_with_updater!
 
         refresh_rates
