@@ -35,9 +35,7 @@ jobs: # a collection of steps
           name: Bundle Install
           command: |
             bundle check || bundle install
-            for project in api backend core frontend sample; do
-              cd $project && (bundle check || bundle install) && cd ..
-            done
+            ./build-ci.rb install
 
       # Store bundle cache
       - save_cache:
