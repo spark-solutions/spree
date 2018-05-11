@@ -121,17 +121,12 @@ Spree::Core::Engine.add_routes do
     end
 
     namespace :v2 do
-<<<<<<< Updated upstream
-      namespace :cart do
-        post 'add_item'
-=======
       get 'swagger.yml', to: 'swagger#index', as: 'swagger', format: 'yml'
 
       namespace :storefront do
         namespace :cart do
           post 'add_item'
         end
->>>>>>> Stashed changes
       end
     end
 
