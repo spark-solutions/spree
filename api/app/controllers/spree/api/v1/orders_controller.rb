@@ -30,9 +30,9 @@ module Spree
           authorize! :create, Spree::Order
           if can?(:admin, Spree::Order)
             order_user = if @current_user_roles.include?('admin') && order_params[:user_id]
-                          Spree.user_class.find(order_params[:user_id])
-                        else
-                          current_api_user
+                           Spree.user_class.find(order_params[:user_id])
+                         else
+                           current_api_user
             end
 
             import_params = if @current_user_roles.include?('admin')
@@ -77,9 +77,7 @@ module Spree
 
           if UpdateCart.new.call(order: @order, params: order_params).success?
             user_id = params[:order][:user_id]
-            if current_api_user.has_spree_role?('admin') && user_id
-              @order.associate_user!(Spree.user_class.find(user_id))
-            end
+            @order.associate_user!(Spree.user_class.find(user_id)) if current_api_user.has_spree_role?('admin') && user_id
             respond_with(@order, default_template: :show)
           else
             invalid_resource!(@order)

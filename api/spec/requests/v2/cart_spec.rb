@@ -25,7 +25,7 @@ describe 'Cart Spec', type: :request do
       expect(json_response['data']).to have_attribute(:number).with_value(order.number)
       expect(json_response['data']).to have_attribute(:state).with_value('cart')
       expect(json_response['data']).to have_relationships(:user, :line_items, :variants)
-      expect(json_response['included']).to include(have_type('variant').and have_id(variant.id.to_s))
+      expect(json_response['included']).to include(have_type('variant').and(have_id(variant.id.to_s)))
 
       # expect(json_response['token']).not_to be_blank
     end
@@ -49,7 +49,7 @@ describe 'Cart Spec', type: :request do
       expect(json_response['data']).to have_attribute(:number).with_value(order.number)
       expect(json_response['data']).to have_attribute(:state).with_value('cart')
       expect(json_response['data']).to have_relationships(:user, :line_items, :variants)
-      expect(json_response['included']).to include(have_type('variant').and have_id(variant.id.to_s))
+      expect(json_response['included']).to include(have_type('variant').and(have_id(variant.id.to_s)))
 
       # expect(json_response['token']).not_to be_blank
     end
@@ -74,7 +74,7 @@ describe 'Cart Spec', type: :request do
       expect(json_response['data']).to have_attribute(:number).with_value(order.number)
       expect(json_response['data']).to have_attribute(:state).with_value('cart')
       expect(json_response['data']).to have_relationships(:user, :line_items, :variants)
-      expect(json_response['included']).to include(have_type('variant').and have_id(variant.id.to_s))
+      expect(json_response['included']).to include(have_type('variant').and(have_id(variant.id.to_s)))
 
       # expect(json_response['token']).not_to be_blank
     end

@@ -9,7 +9,7 @@ module Spree
             spree_authorize! :update, current_order, order_token
             spree_authorize! :show, variant
 
-            dependencies[:add_item_to_cart].call(order: current_order, variant: variant, quantity: params[:quantity]) 
+            dependencies[:add_item_to_cart].call(order: current_order, variant: variant, quantity: params[:quantity])
             render json: Spree::V2::CartSerializer.new(current_order.reload, include: [:line_items, :variants, :promotions]).serializable_hash, status: 201
           end
 

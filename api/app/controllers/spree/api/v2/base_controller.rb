@@ -33,9 +33,7 @@ module Spree
                                                          store: spree_current_store,
                                                          guest_token: order_token,
                                                          currency: Spree::Config[:currency]).execute
-          if @current_order.nil?
-            @current_order = CreateOrder.new.call(user: spree_current_user, store: spree_current_store)
-          end
+          @current_order = CreateOrder.new.call(user: spree_current_user, store: spree_current_store) if @current_order.nil?
 
           @current_order
         end
