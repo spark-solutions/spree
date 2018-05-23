@@ -113,6 +113,39 @@ module Spree
     self.whitelisted_ransackable_attributes = %w[description name slug discontinue_on]
     self.whitelisted_ransackable_scopes = %w[not_discontinued]
 
+    scope :distinct_by_product_ids, ->(sort_order = nil) do
+      sort_column = sort_order.split(' ').first
+
+      if ApplicationRecord.connection.adapter_name == 'PostgreSQL' && !column_names.include?(sort_column)
+        all
+      else
+        distinct
+      end
+    end
+
+    scope :not_discontinued, ->(only_not_discontinued = true) do
+      if only_not_discontinued != '0' && only_not_discontinued
+        where("#{Product.quoted_table_name}.discontinue_on IS NULL or #{Product.quoted_table_name}.discontinue_on >= ?", Time.zone.now)
+      else
+        all
+      end
+    end
+
+    scope :available, ->(available_on = nil, _currency = nil) do
+      available_on ||= Time.current
+      not_discontinued.joins(master: :prices).where("#{Product.quoted_table_name}.available_on <= ?", available_on)
+    end
+
+    scope :not_deleted, ->() { where("#{Product.quoted_table_name}.deleted_at IS NULL or #{Product.quoted_table_name}.deleted_at >= ?", Time.zone.now) }
+
+    scope :active, ->(currency = nil) { available(nil, currency) }
+
+    scope :in_taxon, ->(taxon) do
+      includes(:classifications).
+        where('spree_products_taxons.taxon_id' => taxon.self_and_descendants.pluck(:id)).
+        order('spree_products_taxons.position ASC')
+    end
+
     [
       :sku, :price, :currency, :weight, :height, :width, :depth, :is_master,
       :cost_currency, :price_in, :amount_in, :cost_price
