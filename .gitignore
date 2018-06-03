@@ -57,3 +57,7 @@ test_app
 .ruby-gemset
 vendor/bundle
 */vendor/bundle
+.yarn-error.log
+node_modules
+**/javascript/es
+**/javascript/dist
