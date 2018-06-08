@@ -68,7 +68,12 @@ module Spree
       end
 
       if Spree::Core::Engine.frontend_available? || Rails.env.test?
-        template 'vendor/assets/javascripts/spree/frontend/all.js'
+        if ENV['SPREE_USE_ASSET_PIPELINE']
+          template 'vendor/assets/javascripts/spree/frontend/all.js'
+        else
+          template 'app/javascript/packs/spree-core.js'
+          template 'app/javascript/packs/spree-frontend-rails.js'
+        end
         template 'vendor/assets/stylesheets/spree/frontend/all.css'
       end
 

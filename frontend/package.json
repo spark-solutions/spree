@@ -1,0 +1,52 @@
+{
+  "name": "spree-frontend-rails",
+  "version": "1.0.0",
+  "description": "Spree Commerce default Ruby on Rails frontend",
+  "author": "Spark Solutions <we@sparksolutions.co>",
+  "license": "MIT",
+  "main": "javascript/dist/main.js",
+  "engines": {
+    "node": ">=8.4.0"
+  },
+  "scripts": {
+    "start": "webpack --watch --mode development",
+    "build": "yarn run build:es && yarn run build:umd",
+    "build:es": "babel javascript/src --out-dir javascript/es",
+    "build:umd": "cross-env NODE_ENV=development webpack",
+    "clean": "rm -rf javascript/dist && rm -rf javascript/es",
+    "prepublish": "yarn run clean && yarn run build"
+  },
+  "files": [
+    "javascript/dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "spree/spree"
+  },
+  "keywords": [
+    "spree",
+    "spree commerce",
+    "ecommerce",
+    "rails"
+  ],
+  "bugs": {
+    "url": "https://github.com/spree/spree/issues"
+  },
+  "homepage": "https://spreecommerce.org/",
+  "peerDependencies": {
+    "jquery": "^3.3.1",
+    "spree-core": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-runtime": "^6.26.0",
+    "cross-env": "^5.1.6",
+    "jquery": "^3.3.1",
+    "spree-core": "file:../core",
+    "webpack": "^4.10.2",
+    "webpack-cli": "^3.0.0"
+  }
+}

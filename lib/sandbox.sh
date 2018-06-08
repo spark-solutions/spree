@@ -27,7 +27,7 @@ bundle exec rails new sandbox --database="$RAILSDB" \
   --skip-rc \
   --skip-spring \
   --skip-test \
-  --skip-yarn
+  --webpack
 
 if [ ! -d "sandbox" ]; then
   echo 'sandbox rails application failed'
@@ -66,3 +66,16 @@ bundle exec rails db:create
 bundle exec rails g spree:install --auto-accept --user_class=Spree::User --enforce_available_locales=true --copy_views=false
 bundle exec rails g spree:auth:install
 bundle exec rails g spree_gateway:install
+
+# setup webpack and node packages
+bundle exec rails webpacker:install
+
+yarn add file:../core
+cd ../core && yarn link && yarn start &
+cd ../sandbox
+yarn link "spree-core"
+
+yarn add file:../frontend
+cd ../frontend && yarn link && yarn start &
+cd ../sandbox
+yarn link "spree-frontend-rails"
