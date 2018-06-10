@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 describe 'API V2 Storefront Cart Spec', type: :request do
-  let(:user) { Spree.user_class.create(email: 'spree@example.com', password: 'spree123') }
+  let(:user) { create(:user) }
   let(:token) { Doorkeeper::AccessToken.create!(resource_owner_id: user.id, expires_in: nil) }
+  let(:order) { Spree::Order.last }
 
   describe 'cart#create' do
     shared_examples 'creates an order' do
@@ -11,7 +12,6 @@ describe 'API V2 Storefront Cart Spec', type: :request do
       end
 
       it 'returns a valid JSON response' do
-        order = Spree::Order.last
         expect(json_response['data']).to have_id(order.id.to_s)
         expect(json_response['data']).to have_type('cart')
         expect(json_response['data']).to have_attribute(:number).with_value(order.number)
@@ -28,6 +28,10 @@ describe 'API V2 Storefront Cart Spec', type: :request do
       end
 
       it_behaves_like 'creates an order'
+
+      it 'associates order with user' do
+        expect(json_response['data']).to have_attribute(:user_id).with_value(user.id)
+      end
     end
 
     context 'as guest user' do
