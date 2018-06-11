@@ -69,6 +69,7 @@ end
 
 RSpec.configure do |config|
   config.color = true
+  config.formatter = :documentation
   config.fail_fast = ENV['FAIL_FAST'] || false
   config.fixture_path = File.join(__dir__, 'fixtures')
   config.infer_spec_type_from_file_location!
