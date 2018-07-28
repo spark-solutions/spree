@@ -6,7 +6,7 @@ module Spree
           def create
             spree_authorize! :create, Spree::Order
 
-            order = spree_current_order || dependencies[:create_cart].call(user: spree_current_user, store: spree_current_store).value
+            order = spree_current_order || dependencies[:create_cart].call(user: spree_current_user, store: spree_current_store, currency: current_currency).value
 
             render_serialized_resource serialize_order(order), 201
           end
