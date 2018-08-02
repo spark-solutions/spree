@@ -47,7 +47,7 @@ module Spree
     private
 
     def ensure_currency
-      self.currency ||= Spree::Config[:currency]
+      self.currency ||= Spree::Currency::FindDefault.new.execute
     end
   end
 end

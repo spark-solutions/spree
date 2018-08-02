@@ -5,17 +5,17 @@ module Spree
         extend ActiveSupport::Concern
 
         included do
-          helper_method :current_currency
           helper_method :current_store
+          helper_method :current_currency
           helper_method :current_price_options
-        end
-
-        def current_currency
-          Spree::Config[:currency]
         end
 
         def current_store
           @current_store ||= Spree::Store.current(request.env['SERVER_NAME'])
+        end
+
+        def current_currency
+          Spree::Currency::FindByStore.new.execute(current_store)
         end
 
         # Return a Hash of things that influence the prices displayed in your shop.

@@ -17,7 +17,7 @@ module Spree
     accepts_nested_attributes_for :return_items
 
     extend DisplayMoney
-    money_methods pre_tax_total: { currency: Spree::Config[:currency] }
+    money_methods :pre_tax_total
 
     self.whitelisted_ransackable_attributes = ['number']
 
@@ -40,6 +40,10 @@ module Spree
 
     def pre_tax_total
       return_items.sum(:pre_tax_amount)
+    end
+
+    def currency
+      order&.currency || Spree::Currency::FindDefault.new.execute
     end
 
     private

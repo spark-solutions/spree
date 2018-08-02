@@ -18,7 +18,7 @@ module Spree
     delegate    :cents, :currency, to: :money
 
     def initialize(amount, options = {})
-      @money   = Monetize.parse([amount, (options[:currency] || Spree::Config[:currency])].join)
+      @money   = Monetize.parse([amount, (options[:currency] || Spree::Currency::FindDefault.new.execute)].join)
       @options = Spree::Money.default_formatting_rules.merge(options)
     end
 

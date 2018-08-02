@@ -4,7 +4,7 @@ module Spree
       Spree::Store.current.mail_from_address
     end
 
-    def money(amount, currency = Spree::Config[:currency])
+    def money(amount, currency = Spree::Currency::FindDefault.new.execute)
       Spree::Money.new(amount, currency: currency).to_s
     end
     helper_method :money

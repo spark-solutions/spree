@@ -105,7 +105,7 @@ module Spree
 
     # TODO: delegate currency to Order, order.currency is mandatory
     def currency
-      order ? order.currency : Spree::Config[:currency]
+      order ? order.currency : Spree::Currency::FindDefault.new.execute
     end
 
     # Determines the appropriate +state+ according to the following logic:

@@ -176,6 +176,10 @@ module Spree
       line_items.to_a.sum(&:pre_tax_amount)
     end
 
+    def currency
+      self[:currency] || Spree::Currency::FindByStore.new.execute(store)
+    end
+
     def shipping_discount
       shipment_adjustments.non_tax.eligible.sum(:amount) * - 1
     end

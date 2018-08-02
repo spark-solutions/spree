@@ -44,7 +44,7 @@ module Spree
     end
 
     def currency
-      order.nil? ? Spree::Config[:currency] : order.currency
+      order.nil? ? Spree::Currency::FindDefault.new.execute : order.currency
     end
 
     def refundable_amount
