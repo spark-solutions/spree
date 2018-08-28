@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :taxon, class: Spree::Taxon do
-    name 'Ruby on Rails'
+    name { 'Ruby on Rails' }
     taxonomy
-    parent_id nil
+    parent_id { nil }
   end
 end
