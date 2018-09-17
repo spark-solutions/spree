@@ -27,26 +27,38 @@ jQuery(function($) {
   )
 
   // Sidebar nav toggle functionality
-  var sidebar_toggle = $('#sidebar-toggle');
-  sidebar_toggle.on('click', function() {
-    var wrapper = $('#wrapper');
-    var main    = $('#main-part');
-    var sidebar = $('#main-sidebar');
+  const sidebar_toggle = $('#sidebar-toggle');
 
-    // these should match `spree/backend/app/helpers/spree/admin/navigation_helper.rb#main_part_classes`
-    var mainWrapperCollapsedClasses = 'col-xs-12 sidebar-collapsed';
-    var mainWrapperExpandedClasses = 'col-xs-9 col-xs-offset-3 col-md-10 col-md-offset-2';
+  sidebar_toggle.on('click', function() {
+    const wrapper = $('#wrapper');
+    const main    = $('#main-part');
+    const sidebar = $('#main-sidebar');
+    const version = $('.spree-version');
+    const collapsed = sidebar.find('[aria-expanded="true"]')
+    const collapsedIcons = sidebar.find('.icon-chevron-down')
 
     wrapper.toggleClass('sidebar-minimized');
-    sidebar.toggleClass('hidden-xs');
+
+    collapsed
+      .attr('aria-expanded', 'false')
+      .next()
+      .removeClass('show');
+
+    collapsedIcons
+      .removeClass('icon-chevron-down')
+      .addClass('icon-chevron-left');
+
+    // these should match `spree/backend/app/helpers/spree/admin/navigation_helper.rb#main_part_classes`
     main
-      .toggleClass(mainWrapperCollapsedClasses)
-      .toggleClass(mainWrapperExpandedClasses);
+      .toggleClass('col-12 sidebar-collapsed')
+      .toggleClass('col-9 offset-3 col-md-10 offset-md-2');
 
     if (wrapper.hasClass('sidebar-minimized')) {
       Cookies.set('sidebar-minimized', 'true', { path: '/admin' });
+      version.removeClass('d-md-block');
     } else {
       Cookies.set('sidebar-minimized', 'false', { path: '/admin' });
+      version.addClass('d-md-block')
     }
   });
 
@@ -76,7 +88,7 @@ jQuery(function($) {
 
   // Main menu active item submenu show
   var active_item = $('#main-sidebar').find('.selected');
-  active_item.closest('.nav-pills').addClass('in');
+  active_item.closest('.nav-pills').addClass('in show');
   active_item.closest('.nav-sidebar')
     .find('.icon-chevron-left')
     .removeClass('icon-chevron-left')
@@ -139,7 +151,7 @@ jQuery(function($) {
 
       label = ransackField(label.text()) + ': ' + ransack_value;
 
-      filter = '<span class="js-filter label label-default" data-ransack-field="' + ransack_field + '">' + label + '<span class="icon icon-delete js-delete-filter"></span></span>';
+      filter = '<span class="js-filter badge badge-secondary" data-ransack-field="' + ransack_field + '">' + label + '<span class="icon icon-delete js-delete-filter"></span></span>';
       $(".js-filters").append(filter).show();
     }
   });
