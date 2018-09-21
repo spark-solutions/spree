@@ -1,15 +1,23 @@
----
-extends: standard
-
-globals:
-  Spree: true
-  analytics: true
-  ga: true
-  _: true
-  Select2: true
-  Handlebars: true
-  Raphael: true
-
-env:
-  browser: true
-  jquery: true
+{
+  "extends": "standard",
+  "parserOptions": {
+    "ecmaVersion": 5
+  },
+  "globals": {
+    "Spree": true,
+    "analytics": true,
+    "ga": true,
+    "_": true,
+    "Select2": true,
+    "Handlebars": true,
+    "Raphael": true,
+    "Uri": true
+  },
+  "env": {
+    "browser": true,
+    "jquery": true
+  },
+  "rules": {
+    "max-len": ["error", {"code": 150, "ignoreUrls": true}]
+  }
+}
