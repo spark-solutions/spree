@@ -24,7 +24,7 @@ module Spree
 
     def guest_token
       ActiveSupport::Deprecation.warn(<<-EOS, caller)
-        Order#guest_token is deprecated and will be removed in Spree 3.8. Please use Order#token instead
+        Order#guest_token is deprecated and will be removed in Spree 4.0. Please use Order#token instead
       EOS
 
       token
@@ -32,7 +32,7 @@ module Spree
 
     def guest_token?
       ActiveSupport::Deprecation.warn(<<-EOS, caller)
-        Order#guest_token? is deprecated and will be removed in Spree 3.8. Please use Order#token? instead
+        Order#guest_token? is deprecated and will be removed in Spree 4.0. Please use Order#token? instead
       EOS
 
       token?
@@ -40,7 +40,7 @@ module Spree
 
     def guest_token=(value)
       ActiveSupport::Deprecation.warn(<<-EOS, caller)
-        Order#guest_token= is deprecated and will be removed in Spree 3.8. Please use Order#token= instead
+        Order#guest_token= is deprecated and will be removed in Spree 4.0. Please use Order#token= instead
       EOS
 
       self.token = value
@@ -730,7 +730,7 @@ module Spree
     def set_currency
       ActiveSupport::Deprecation.warn(<<-EOS, caller)
          Spree::Order#set_currency was renamed to Spree::Order#ensure_currency_presence
-         and will be removed in Spree 3.9. Please update your code to avoid problems after update
+         and will be removed in Spree 4.0. Please update your code to avoid problems after update
       EOS
       ensure_currency_presence
     end
