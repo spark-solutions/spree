@@ -18,6 +18,16 @@ module Spree
             render_serialized_payload serialize_order(order), 201
           end
 
+          def destroy
+            raise ActiveRecord::RecordNotFound if spree_current_order.nil?
+
+            spree_authorize! :destroy, spree_current_order, order_token
+
+            spree_current_order.destroy!
+
+            head 204
+          end
+
           def add_item
             variant = Spree::Variant.find(params[:variant_id])
 

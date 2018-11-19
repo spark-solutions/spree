@@ -95,6 +95,36 @@ describe 'API V2 Storefront Cart Spec', type: :request do
     end
   end
 
+  describe 'cart#destroy' do
+    let(:headers) { { 'Authorization' => "Bearer #{token.token}" } }
+
+    shared_examples 'destroying the order' do
+      let!(:order) { create(:order, user: user, store: store, currency: currency) }
+
+      it 'destroys the order' do
+        delete '/api/v2/storefront/cart', headers: headers
+
+        expect(response.status).to eq(204)
+      end
+    end
+
+    context 'without existing order' do
+      it 'returns status code 404' do
+        delete '/api/v2/storefront/cart', headers: headers
+
+        expect(response.status).to eq(404)
+      end
+    end
+
+    context 'with existing order' do
+      it_behaves_like 'destroying the order'
+    end
+
+    context 'with existing guest order' do
+      it_behaves_like 'destroying the order'
+    end
+  end
+
   describe 'cart#add_item' do
     let(:variant) { create(:variant) }
     let(:headers) { { 'Authorization' => "Bearer #{token.token}" } }

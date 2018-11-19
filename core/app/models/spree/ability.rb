@@ -49,6 +49,9 @@ module Spree
         can :update, Order do |order, token|
           !order.completed? && (order.user == user || order.token && token == order.token)
         end
+        can :destroy, Order do |order, token|
+          !order.completed? && (order.user == user || order.token && token == order.token)
+        end
         can :display, CreditCard, user_id: user.id
         can :display, Product
         can :display, ProductProperty

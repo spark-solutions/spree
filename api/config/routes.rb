@@ -132,7 +132,7 @@ Spree::Core::Engine.add_routes do
       get 'storefront.yml', to: 'swagger#storefront', as: 'swagger_storefront', format: 'yml' if Rails.env.development? || ENV['EXPOSE_SWAGGER']
 
       namespace :storefront do
-        resource :cart, controller: :cart, only: %i[show create] do
+        resource :cart, controller: :cart, only: %i[show create destroy] do
           post   :add_item
           post   :empty
           delete 'remove_line_item/:line_item_id', to: 'cart#remove_line_item', as: :cart_remove_line_item

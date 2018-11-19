@@ -38,6 +38,18 @@ paths:
       security:
         - orderToken: []
         - bearerAuth: []
+    delete:
+      description: Removes the entire Cart. Only incomplete Orders can be removed.
+      tags:
+        - Cart
+      responses:
+        '204':
+          description: 204 response means that the Cart was removed
+        '404':
+          $ref: '#/components/responses/404NotFound'
+      security:
+        - orderToken: []
+        - bearerAuth: []
 
   '/cart/add_item':
     post:
