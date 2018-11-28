@@ -3,6 +3,8 @@ module Spree
     module V2
       module Storefront
         class CheckoutController < ::Spree::Api::V2::BaseController
+          before_action :ensure_order
+
           def next
             spree_authorize! :update, spree_current_order, order_token
 
@@ -42,13 +44,17 @@ module Spree
 
           private
 
+          def ensure_order
+            raise ActiveRecord::RecordNotFound if spree_current_order.nil?
+          end
+
           def dependencies
             {
               next_state_procceder: Spree::Checkout::Next,
-              advance_proceeder:    Spree::Checkout::Advance,
-              completer:            Spree::Checkout::Complete,
-              updater:              Spree::Checkout::Update,
-              cart_serializer:      Spree::V2::Storefront::CartSerializer,
+              advance_proceeder: Spree::Checkout::Advance,
+              completer: Spree::Checkout::Complete,
+              updater: Spree::Checkout::Update,
+              cart_serializer: Spree::V2::Storefront::CartSerializer,
               # defined in https://github.com/spree/spree/blob/master/core/lib/spree/core/controller_helpers/strong_parameters.rb#L19
               permitted_attributes: permitted_checkout_attributes
             }
@@ -64,10 +70,6 @@ module Spree
 
           def serialize_order(order)
             dependencies[:cart_serializer].new(order.reload, include: resource_includes).serializable_hash
-          end
-
-          def resource_includes
-            request_includes || default_resource_includes
           end
 
           def default_resource_includes

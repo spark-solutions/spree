@@ -5,6 +5,7 @@ module Spree
         include CanCan::ControllerAdditions
         include Spree::Core::ControllerHelpers::StrongParameters
         rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+        rescue_from CanCan::AccessDenied, with: :access_denied
 
         private
 
@@ -49,23 +50,46 @@ module Spree
 
         def find_spree_current_order
           Spree::Order::FindCurrent.new.execute(
-            store:    spree_current_store,
-            user:     spree_current_user,
-            token:    order_token,
+            store: spree_current_store,
+            user: spree_current_user,
+            token: order_token,
             currency: current_currency
           )
         end
 
         def request_includes
-          params[:include].split(',').map(&:intern) if params[:include].present?
+          # if API user want's to receive only the bare-minimum
+          # the API will return only the main resource without any included
+          if params[:include]&.blank?
+            []
+          elsif params[:include].present?
+            params[:include].split(',')
+          end
+        end
+
+        def resource_includes
+          (request_includes || default_resource_includes).map(&:intern)
+        end
+
+        # overwrite this method in your controllers to set JSON API default include value
+        # https://jsonapi.org/format/#fetching-includes
+        # eg.:
+        # %w[images variants]
+        # ['variant.images', 'line_items']
+        def default_resource_includes
+          []
         end
 
         def current_currency
           spree_current_store.default_currency || Spree::Config[:currency]
         end
 
-        def record_not_found(exception)
-          render_error_payload(exception.message, 404)
+        def record_not_found
+          render_error_payload(I18n.t(:resource_not_found, scope: 'spree.api'), 404)
+        end
+
+        def access_denied(exception)
+          render_error_payload(exception.message, 403)
         end
       end
     end

@@ -362,11 +362,13 @@ describe Spree::Product, type: :model do
 
       describe 'is not used' do
         before { product.set_property(name, 'bar') }
+
         it { is_expected.to eq name }
       end
 
       describe 'is used' do
         before { product.set_property(name, 'bar', presentation) }
+
         it { is_expected.to eq presentation }
       end
     end
@@ -476,7 +478,7 @@ describe Spree::Product, type: :model do
 
   context '#images' do
     let(:product) { create(:product) }
-    let(:file) { File.open(File.expand_path('../../../fixtures/thinking-cat.jpg', __FILE__)) }
+    let(:file) { File.open(File.expand_path('../../fixtures/thinking-cat.jpg', __dir__)) }
     let(:params) { { viewable_id: product.master.id, viewable_type: 'Spree::Variant', attachment: file, alt: 'position 2', position: 2 } }
 
     before do
@@ -643,6 +645,42 @@ describe Spree::Product, type: :model do
     it 'adds error on product destroy' do
       expect(product.destroy).to eq false
       expect(product.errors[:base]).to include I18n.t('activerecord.errors.models.spree/product.attributes.base.cannot_destroy_if_attached_to_line_items')
+    end
+  end
+
+  context '#default_variant' do
+    let(:product) { create(:product) }
+
+    context 'product has variants' do
+      let!(:variant) { create(:variant, product: product) }
+
+      it 'returns first non-master variant' do
+        expect(product.default_variant).to eq(variant)
+      end
+    end
+
+    context 'product without variants' do
+      it 'returns master variant' do
+        expect(product.default_variant).to eq(product.master)
+      end
+    end
+  end
+
+  context '#default_variant_id' do
+    let(:product) { create(:product) }
+
+    context 'product has variants' do
+      let!(:variant) { create(:variant, product: product) }
+
+      it 'returns first non-master variant ID' do
+        expect(product.default_variant_id).to eq(variant.id)
+      end
+    end
+
+    context 'product without variants' do
+      it 'returns master variant ID' do
+        expect(product.default_variant_id).to eq(product.master.id)
+      end
     end
   end
 end
