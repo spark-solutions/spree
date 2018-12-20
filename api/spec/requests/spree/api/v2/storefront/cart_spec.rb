@@ -80,7 +80,7 @@ describe 'API V2 Storefront Cart Spec', type: :request do
 
   describe 'cart#add_item' do
     let(:options) { {} }
-    let(:params) { { variant_id: variant.id, quantity: 5, options: options } }
+    let(:params) { { variant_id: variant.id, quantity: 5, options: options, include: 'variants' } }
     let(:execute) { post '/api/v2/storefront/cart/add_item', params: params, headers: headers }
 
     before do
@@ -364,24 +364,30 @@ describe 'API V2 Storefront Cart Spec', type: :request do
   describe 'cart#apply_coupon_code' do
     include_context 'coupon codes'
 
-    let(:execute) { patch '/api/v2/storefront/cart/apply_coupon_code', params: { coupon_code: coupon_code }, headers: headers }
+    let(:params) { { coupon_code: coupon_code, include: 'promotions' } }
+    let(:execute) { patch '/api/v2/storefront/cart/apply_coupon_code', params: params, headers: headers }
 
     shared_examples 'apply coupon code' do
       before { execute }
 
       context 'with coupon code for free shipping' do
         let(:adjustment_value) { -shipment.cost.to_f }
+        let(:adjustment_value_in_money) { Spree::Money.new(adjustment_value, currency: order.currency) }
+        let(:order_promotion_id) { order.order_promotions.find_by(promotion: promotion).id.to_s }
 
         context 'applies coupon code correctly' do
           it_behaves_like 'returns 200 HTTP status'
           it_behaves_like 'returns valid cart JSON'
 
           it 'changes the adjustment total' do
-            expect(json_response['data']).to have_attribute(:adjustment_total).with_value(adjustment_value.to_s)
+            expect(json_response['data']).to have_attribute(:promo_total).with_value(adjustment_value.to_s)
+            expect(json_response['data']).to have_attribute(:display_promo_total).with_value(adjustment_value_in_money.to_s)
           end
 
           it 'includes the promotion in the response' do
-            expect(json_response['included']).to include(have_type('promotion').and(have_id(promotion.id.to_s)))
+            expect(json_response['included']).to include(have_type('promotion').and(have_id(order_promotion_id)))
+            expect(json_response['included']).to include(have_type('promotion').and(have_attribute(:amount).with_value(adjustment_value.to_s)))
+            expect(json_response['included']).to include(have_type('promotion').and(have_attribute(:display_amount).with_value(adjustment_value_in_money.to_s)))
           end
         end
 
@@ -423,7 +429,8 @@ describe 'API V2 Storefront Cart Spec', type: :request do
   end
 
   describe 'cart#remove_coupon_code' do
-    let(:execute) { delete "/api/v2/storefront/cart/remove_coupon_code/#{coupon_code}", headers: headers }
+    let(:params) { { include: 'promotions' } }
+    let(:execute) { delete "/api/v2/storefront/cart/remove_coupon_code/#{coupon_code}", params: params, headers: headers }
 
     include_context 'coupon codes'
 
