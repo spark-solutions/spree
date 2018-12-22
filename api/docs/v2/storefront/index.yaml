@@ -254,6 +254,25 @@ paths:
         - orderToken: []
         - bearerAuth: []
 
+  '/checkout/payment_methods':
+    get:
+      description: >-
+        Returns a list of available Payment Methods
+      tags:
+        - Checkout
+      responses:
+        '200':
+          description: Returns a list of available Payment Methods
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethodsList'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+      security:
+        - orderToken: []
+        - bearerAuth: []
+
   '/checkout/next':
     patch:
       description: Goes to the next Checkout step
@@ -332,24 +351,41 @@ paths:
         parameters:
         - $ref: '#/components/parameters/CartIncludeParam'
 
-  '/checkout/payment_methods':
-    get:
+  '/checkout/update':
+    patch:
       description: >-
-        Returns a list of available Payment Methods
+        Updates Cart / Checkout
       tags:
         - Checkout
       responses:
         '200':
-          description: Returns a list of available Payment Methods
+          description: Cart was updated succesfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaymentMethodsList'
+                $ref: '#/components/schemas/Cart'
+        '422':
+          description: Checkout couldn't be completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
           $ref: '#/components/responses/404NotFound'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+
+              example:
       security:
         - orderToken: []
         - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/CartIncludeParam'
 
   '/products':
     get:

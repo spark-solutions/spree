@@ -144,6 +144,7 @@ Spree::Core::Engine.add_routes do
           patch :advance
           patch :complete
           get :payment_methods
+          get :shipping_rates
         end
 
         resources :countries, only: %i[index]

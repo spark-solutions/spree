@@ -427,4 +427,37 @@ describe 'API V2 Storefront Checkout Spec', type: :request do
       it_behaves_like 'returns a list of available payment methods'
     end
   end
+
+  describe 'checkout#shipping_rates' do
+    let(:execute) { get '/api/v2/storefront/checkout/shipping_rates', params: params, headers: headers }
+    let(:params) { {} }
+
+    shared_examples 'returns a list of shipping rates' do
+      before { execute }
+
+      it_behaves_like 'returns 200 HTTP status'
+
+      it 'returns valid shipping rates JSON' do
+        payment_methods.each_with_index do |payment_method, index|
+          expect(json_response['data'][index]).to have_id(payment_method.id.to_s)
+          expect(json_response['data'][index]).to have_type('payment_method')
+          expect(json_response['data'][index]).to have_attribute(:name).with_value(payment_method.name)
+          expect(json_response['data'][index]).to have_attribute(:description).with_value(payment_method.description)
+          expect(json_response['data'][index]).to have_attribute(:type).with_value(payment_method.type)
+        end
+      end
+    end
+
+    context 'as a guest user' do
+      include_context 'creates guest order with guest token'
+
+      it_behaves_like 'returns a list of available payment methods'
+    end
+
+    context 'as a signed in user' do
+      include_context 'creates order with line item'
+
+      it_behaves_like 'returns a list of available payment methods'
+    end
+  end
 end
