@@ -143,8 +143,13 @@ Spree::Core::Engine.add_routes do
           patch :next
           patch :advance
           patch :complete
+          post :add_store_credit
+          post :remove_store_credit
           get :payment_methods
+          get :shipping_rates
         end
+
+        resource :account, controller: :account, only: %i[show]
 
         resources :countries, only: %i[index]
         get '/countries/:iso', to: 'countries#show', as: :country
