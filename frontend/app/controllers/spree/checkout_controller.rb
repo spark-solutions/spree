@@ -198,7 +198,7 @@ module Spree
     end
 
     def set_cache_header
-      response.headers["Cache-Control"] = "no-store"
+      response.headers['Cache-Control'] = 'no-store'
     end
   end
 end
