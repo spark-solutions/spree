@@ -8,7 +8,7 @@ module Spree
     include CanCan::Ability
 
     class_attribute :abilities
-    self.abilities = Set.new
+    self.abilities ||= Set.new
 
     # Allows us to go beyond the standard cancan initialize method which makes it difficult for engines to
     # modify the default +Ability+ of an application.  The +ability+ argument must be a class that includes
