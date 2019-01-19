@@ -27,7 +27,6 @@ bundle exec rails new sandbox --database="$RAILSDB" \
   --skip-rc \
   --skip-spring \
   --skip-test \
-  --skip-yarn \
   --skip-coffee
 
 if [ ! -d "sandbox" ]; then
@@ -69,3 +68,4 @@ bundle exec rails db:create
 bundle exec rails g spree:install --auto-accept --user_class=Spree::User --enforce_available_locales=true --copy_views=false
 bundle exec rails g spree:auth:install
 bundle exec rails g spree_gateway:install
+bundle exec rails webpacker:install
