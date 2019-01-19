@@ -7,6 +7,12 @@ gem 'sassc-rails'
 gem 'sqlite3', platforms: [:ruby, :mingw, :mswin, :x64_mingw]
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
+# temp Rails 6 gems
+gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on', branch: 'master'
+gem 'paranoia', github: 'Futurelearn/paranoia', branch: 'seb-rails-6'
+gem 'awesome_nested_set', github: 'collectiveidea/awesome_nested_set', branch: 'master'
+gem 'responders', github: 'plataformatec/responders', branch: 'master'
+
 platforms :jruby do
   gem 'jruby-openssl'
   gem 'activerecord-jdbcsqlite3-adapter'
