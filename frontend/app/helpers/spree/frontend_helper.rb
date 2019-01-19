@@ -89,7 +89,7 @@ module Spree
     end
 
     def set_image_alt(image, size)
-      image.alt.present? ? image.alt : image_alt(main_app.url_for(image.url(size)))
+      image.alt#.present? ? image.alt : image_alt(main_app.url_for(image.url(size)))
     end
   end
 end
