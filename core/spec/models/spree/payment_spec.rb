@@ -896,20 +896,26 @@ describe Spree::Payment, type: :model do
     context "when the state is 'checkout'" do
       let(:state) { 'checkout' }
 
-      its(:editable?) { is_expected.to be(true) }
+      it 'returns true' do
+        expect(payment.editable?).to eq(true)
+      end
     end
 
     context "when the state is 'pending'" do
       let(:state) { 'pending' }
 
-      its(:editable?) { is_expected.to be(true) }
+      it 'returns true' do
+        expect(payment.editable?).to eq(true)
+      end
     end
 
     %w[processing completed failed void invalid].each do |state|
       context "when the state is '#{state}'" do
         let(:state) { state }
 
-        its(:editable?) { is_expected.to be(false) }
+        it 'returns false' do
+          expect(payment.editable?).to eq(false)
+        end
       end
     end
   end
