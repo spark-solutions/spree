@@ -6,7 +6,6 @@ defaults: &defaults
     CIRCLE_ARTIFACTS: /tmp/test-artifacts
     BUNDLE_JOBS: 4
     BUNDLE_RETRY: 3
-    BUNDLE_PATH: ~/spree/vendor/bundle
   working_directory: ~/spree
   docker:
     - image: &image circleci/ruby:2.5-node-browsers
@@ -18,12 +17,13 @@ run_tests: &run_tests
     - checkout
     - restore_cache:
         keys:
-          - spree-bundle-v3-{{ checksum ".ruby-version" }}-{{ .Branch }}
-          - spree-bundle-v3-{{ checksum ".ruby-version" }}
+          - spree-bundle-v4-{{ checksum ".ruby-version" }}-{{ .Branch }}
+          - spree-bundle-v4-{{ checksum ".ruby-version" }}
     - run:
         name: Ensure Bundle Install
         command: |
-          bundle check --path=~/spree/vendor/bundle || bundle install
+          bundle config path ~/spree/vendor/bundle
+          bundle check || bundle install
           ./build-ci.rb install
     - run:
         name: Run rspec in parallel
@@ -44,15 +44,16 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - spree-bundle-v3-{{ checksum ".ruby-version" }}-{{ .Branch }}
-            - spree-bundle-v3-{{ checksum ".ruby-version" }}
+            - spree-bundle-v4-{{ checksum ".ruby-version" }}-{{ .Branch }}
+            - spree-bundle-v4-{{ checksum ".ruby-version" }}
       - run:
           name: Bundle Install
           command: |
-            bundle check --path=~/spree/vendor/bundle || bundle install
+            bundle config path ~/spree/vendor/bundle
+            bundle check || bundle install
             ./build-ci.rb install
       - save_cache:
-          key: spree-bundle-v3-{{ checksum ".ruby-version" }}-{{ .Branch }}
+          key: spree-bundle-v4-{{ checksum ".ruby-version" }}-{{ .Branch }}
           paths:
             - ~/spree/vendor/bundle
 
@@ -92,12 +93,13 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - spree-bundle-v3-{{ checksum ".ruby-version" }}-{{ .Branch }}
-            - spree-bundle-v3-{{ checksum ".ruby-version" }}
+            - spree-bundle-v4-{{ checksum ".ruby-version" }}-{{ .Branch }}
+            - spree-bundle-v4-{{ checksum ".ruby-version" }}
       - run:
           name: Ensure Bundle Install
           command: |
-            bundle check --path=~/spree/vendor/bundle || bundle install
+            bundle config path ~/spree/vendor/bundle
+            bundle check || bundle install
             ./build-ci.rb install
       - run:
           name: Run rspec in parallel
