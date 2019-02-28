@@ -52,7 +52,7 @@ jobs:
             bundle check --path=~/spree/vendor/bundle || bundle install
             ./build-ci.rb install
       - save_cache:
-          key: spree-bundle-v3-{{ checksum ".ruby-version" }}-{{ .Branch }}
+          key: spree-bundle-v3-{{ checksum ".ruby-version" }}-{{ .Branch }}-{{ Gemfile.lock }}
           paths:
             - ~/spree/vendor/bundle
 
