@@ -12,6 +12,7 @@
 //= require spree/frontend/checkout/address
 //= require spree/frontend/checkout/address_book
 //= require spree/frontend/checkout/payment
+//= require spree/frontend/multi_currency
 //= require spree/frontend/product
 
 Spree.routes.api_tokens = Spree.pathFor('api_tokens')

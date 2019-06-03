@@ -32,4 +32,6 @@ Spree::Core::Engine.add_routes do
 
   get '/api_tokens', to: 'store#api_tokens'
   post '/ensure_cart', to: 'store#ensure_cart'
+
+  post '/currency/set', to: 'currency#set', defaults: { format: :json }, as: :set_currency
 end
