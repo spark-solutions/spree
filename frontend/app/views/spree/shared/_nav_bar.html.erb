@@ -38,6 +38,14 @@
       </div>
     </li>
   <% end %>
+  <% if Spree::Config[:allow_currency_change] && Spree::Config[:show_currency_selector] && supported_currencies.size > 1 %>
+    <li id="currency-select" data-hook>
+      <%= form_tag set_currency_path(format: :html), class: 'navbar-form' do %>
+        <%= select_tag(:currency, options_for_select(supported_currencies, current_currency), class: 'form-control', data: { href: spree.set_currency_path(format: :json) }) %>
+      <% end %>
+    </li>
+  <% end %>
+
   <li id="link-to-cart">
     <span class="d-none d-xl-inline-block cart-icon--xl">
       <%= icon(name: 'bag',
