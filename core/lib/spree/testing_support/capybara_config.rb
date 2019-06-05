@@ -2,6 +2,8 @@ require 'capybara-screenshot/rspec'
 
 Capybara.save_path = ENV['CIRCLE_ARTIFACTS'] if ENV['CIRCLE_ARTIFACTS']
 
+Webdrivers::Chromedriver.required_version = '74.0'
+
 if ENV['WEBDRIVER'] == 'accessible'
   require 'capybara/accessible'
   Capybara.javascript_driver = :accessible
