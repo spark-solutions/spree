@@ -1,4 +1,5 @@
 require 'capybara-screenshot/rspec'
+require 'webdrivers'
 
 Capybara.save_path = ENV['CIRCLE_ARTIFACTS'] if ENV['CIRCLE_ARTIFACTS']
 
