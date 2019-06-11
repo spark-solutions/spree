@@ -28,5 +28,4 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails',    '~> 4.3'
 
   s.add_development_dependency 'capybara-accessible'
-  s.add_development_dependency 'coffee-rails'
 end
