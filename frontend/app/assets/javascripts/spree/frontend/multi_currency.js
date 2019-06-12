@@ -1,7 +1,7 @@
 $(() =>
   $('#currency').on('change', function() {
     return $.ajax({
-      type: 'POST',
+      type: 'GET',
       url: $(this).data('href'),
       data: {
         currency: $(this).val()
