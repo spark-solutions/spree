@@ -51,8 +51,6 @@ else
 fi
 
 cat <<RUBY >> Gemfile
-# temp Rails 6 gems
-gem 'acts-as-taggable-on', '~> 6.0', github: 'spark-solutions/acts-as-taggable-on', branch: 'fix/rails-6-and-failing-specs'
 
 gem 'spree', path: '..'
 $SPREE_AUTH_DEVISE_GEM
