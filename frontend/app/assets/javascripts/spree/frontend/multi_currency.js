@@ -6,6 +6,8 @@ $(() =>
       data: {
         currency: $(this).val()
       }
-    }).done(() => window.location.reload())
+    }).done(function () {
+      window.location.reload()
+    })
   })
 )
