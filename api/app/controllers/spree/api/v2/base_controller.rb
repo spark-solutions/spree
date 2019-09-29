@@ -105,7 +105,11 @@ module Spree
         end
 
         def current_currency
-          spree_current_store.default_currency || Spree::Config[:currency]
+          if params[:currency].present? && supported_currencies.map(&:iso_code).include?(params[:currency])
+            params[:currency]
+          else
+            spree_current_store.default_currency || Spree::Config[:currency]
+          end
         end
 
         def record_not_found
