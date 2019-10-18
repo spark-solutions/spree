@@ -7,7 +7,8 @@ describe 'Template rendering', type: :feature do
       name: 'My Spree Store',
       url: 'spreestore.example.com',
       mail_from_address: 'test@example.com',
-      default_currency: 'USD'
+      default_currency: 'USD',
+      supported_currencies: 'USD'
     )
 
     visit spree.root_path

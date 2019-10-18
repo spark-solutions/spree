@@ -76,7 +76,8 @@ module Spree
           name: 'Hack0rz',
           url: 'spree123.example.com',
           mail_from_address: 'me@example.com',
-          default_currency: 'USD'
+          default_currency: 'USD',
+          supported_currencies: 'USD'
         }
         api_post :create, store: store_hash
         expect(response.status).to eq(201)
