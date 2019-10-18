@@ -5,6 +5,7 @@ FactoryBot.define do
     url               { 'www.example.com' }
     mail_from_address { 'spree@example.org' }
     default_currency  { 'USD' }
+    supported_currencies  { 'USD,EUR,GBP' }
     facebook          { 'spreecommerce' }
     twitter           { 'spreecommerce' }
     instagram         { 'spreecommerce' }
