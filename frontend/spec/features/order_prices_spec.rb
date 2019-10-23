@@ -5,11 +5,6 @@ describe 'Order', type: :feature, js: true do
   let!(:product) { create(:product) }
 
   before do
-    reset_spree_preferences do |config|
-      config.allow_currency_change  = true
-      config.show_currency_selector = true
-    end
-    
     create(:price, variant: product.master, currency: 'EUR', amount: 16.00)
     create(:price, variant: product.master, currency: 'GBP', amount: 23.00)
   end

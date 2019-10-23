@@ -544,9 +544,6 @@ en:
     agree_to_privacy_policy: Agree to Privacy Policy
     agree_to_terms_of_service: Agree to Terms of Service
     all: All
-    allow_currency_change:
-      short: Allow Currency Change
-      long: Allow users to change their currency via the currency picker.
     all_adjustments_closed: All adjustments successfully closed!
     all_adjustments_opened: All adjustments successfully opened!
     all_departments: All departments
@@ -1344,9 +1341,6 @@ en:
     shopping_cart: Shopping Cart
     show: Show
     show_active: Show Active
-    show_currency_selector:
-      short: Show Currency Selector
-      long_html: Display the currency picker in the main nav bar. This will only display if there are multiple supported currencies, and <strong>Allow currency change</strong> option is enabled.
     show_deleted: Show Deleted
     show_discontinued: Show Discontinued
     show_only_complete_orders: Only show complete orders

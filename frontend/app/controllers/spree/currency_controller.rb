@@ -1,10 +1,13 @@
 module Spree
   class CurrencyController < StoreController
     def set
-      @currency = supported_currencies.find { |currency| currency.iso_code == params[:currency] }
+      @currency = supported_currencies.by_iso(params[:currency])
       # Make sure that we update the current order, so the currency change is reflected.
-      current_order&.update_attributes!(currency: @currency.iso_code)
-      session[:currency] = params[:currency] if Spree::Config[:allow_currency_change]
+      if @currency
+        current_order&.update_attributes!(currency: @currency.iso_code)
+        session[:currency] = @currency.iso_code
+      end
+
       respond_to do |format|
         format.json { render json: !@currency.nil? }
         format.html do

@@ -31,10 +31,16 @@ module Spree
       end
     end
 
+    def self.all_supported_currencies
+      ::Spree::CurrenciesCollection.new(
+        pluck(:supported_currencies, :default_currency).flatten.map{ |el| el.split(',')}.flatten
+      )
+    end
+
     def supported_currencies_list
-      currencies = (read_attribute(:supported_currencies).to_s.split(',') << default_currency).map(&:to_s).map do |code|
-        ::Money::Currency.find(code.strip)
-      end.uniq.compact
+      ::Spree::CurrenciesCollection.new (
+        supported_currencies.to_s.split(',') << default_currency
+      )
     end
 
     private
