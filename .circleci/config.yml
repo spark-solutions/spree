@@ -148,6 +148,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "0b:96:15:2d:34:4d:bc:75:d9:fc:7f:1b:de:a5:70:d5"
+      - checkout
       - run: git clone -b new-email-views-staging git@github.com:spark-solutions/spree-designs.git .
       - run: bundle update spree
       - run: git add .
