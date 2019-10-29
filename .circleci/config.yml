@@ -147,20 +147,14 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "46:40:33:d3:e7:a8:cb:b4:45:37:ab:60:91:13:0f:f0"
-      - run:
-          command: echo $PUSH_KEY > ./id_rsa
-      - run:
-          command: |
-            mkdir spree_designs
-      - run: GIT_SSH_COMMAND='ssh -i ./id_rsa' git clone -b new-email-views-staging git@github.com:spark-solutions/spree-designs.git ./spree_designs
-      - run: cd spree_designs
+            - "0b:96:15:2d:34:4d:bc:75:d9:fc:7f:1b:de:a5:70:d5"
+      - run: git clone -b new-email-views-staging git@github.com:spark-solutions/spree-designs.git .
       - run: bundle update spree
       - run: git add .
       - run: git config --global user.email "noreply@sparksolutions.co"
       - run: git config --global user.name "AutoDeploy"
       - run: git commit -m "Auto-commit v#${CIRCLE_BUILD_NUM}"
-      - run: GIT_SSH_COMMAND='ssh -i ../id_rsa' git push git@github.com:spark-solutions/spree-designs.git new-email-views-staging
+      - run: git push git@github.com:spark-solutions/spree-designs.git new-email-views-staging
 
 workflows:
   version: 2
