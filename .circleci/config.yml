@@ -156,13 +156,16 @@ jobs:
             ssh-add ~/.ssh/id_rsa_0b96152d344dbc75d9fc7f1bdea570d5
       - run: mkdir ./spree_designs_test
       - run: git clone -b new-email-views-staging git@github.com:spark-solutions/spree-designs.git ./spree_designs_test
-      - run: cd spree_designs_test
-      - run: bundle update spree
-      - run: git add .
-      - run: git config --global user.email "noreply@sparksolutions.co"
-      - run: git config --global user.name "AutoDeploy"
-      - run: git commit -m "Auto-commit v#${CIRCLE_BUILD_NUM}"
-      - run: git push git@github.com:spark-solutions/spree-designs.git new-email-views-staging
+      - run:
+          name: Update spree
+          command: |
+            cd spree_designs_test
+            bundle update spree
+            git add .
+            git config --global user.email "noreply@sparksolutions.co"
+            git config --global user.name "AutoDeploy"
+            git commit -m "Auto-commit v#${CIRCLE_BUILD_NUM}"
+            git push git@github.com:spark-solutions/spree-designs.git new-email-views-staging
 
 workflows:
   version: 2
