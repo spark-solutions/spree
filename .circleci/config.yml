@@ -140,6 +140,28 @@ jobs:
             ./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json -p 4 -o tmp/codeclimate.total.json
             ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.total.json
 
+  update_spree_designs_emails:
+    docker:
+      - image: *image
+    working_directory: ~/spree
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "46:40:33:d3:e7:a8:cb:b4:45:37:ab:60:91:13:0f:f0"
+      - run:
+          command: echo $PUSH_KEY > ./id_rsa
+      - run:
+          command: |
+            mkdir spree_designs
+      - run: GIT_SSH_COMMAND='ssh -i ./id_rsa' git clone -b new-email-views-staging git@github.com:spark-solutions/spree-designs.git ./spree_designs
+      - run: cd spree_designs
+      - run: bundle update spree
+      - run: git add .
+      - run: git config --global user.email "noreply@sparksolutions.co"
+      - run: git config --global user.name "AutoDeploy"
+      - run: git commit -m "Auto-commit v#${CIRCLE_BUILD_NUM}"
+      - run: GIT_SSH_COMMAND='ssh -i ../id_rsa' git push git@github.com:spark-solutions/spree-designs.git new-email-views-staging
+
 workflows:
   version: 2
   main:
@@ -154,3 +176,7 @@ workflows:
       - send_test_coverage:
           requires:
             - run_tests_mysql
+      - update_spree_designs_emails:
+          filters:
+            branches:
+              only: new-email-views-test
