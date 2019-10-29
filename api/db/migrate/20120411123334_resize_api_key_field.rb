@@ -1,3 +1,5 @@
+
+
 class ResizeApiKeyField < ActiveRecord::Migration[4.2]
   def change
     unless defined?(User)
