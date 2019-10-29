@@ -149,6 +149,11 @@ jobs:
           fingerprints:
             - "0b:96:15:2d:34:4d:bc:75:d9:fc:7f:1b:de:a5:70:d5"
       - checkout
+      - run:
+          name: Configure SSH agent
+          command: |
+            ssh-add -D
+            ssh-add ~/.ssh/id_rsa_0b96152d344dbc75d9fc7f1bdea570d5
       - run: mkdir ./spree_designs_test
       - run: git clone -b new-email-views-staging git@github.com:spark-solutions/spree-designs.git ./spree_designs_test
       - run: cd spree_designs_test
