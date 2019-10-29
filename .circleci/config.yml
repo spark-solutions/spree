@@ -149,9 +149,9 @@ jobs:
           fingerprints:
             - "0b:96:15:2d:34:4d:bc:75:d9:fc:7f:1b:de:a5:70:d5"
       - checkout
-      - run: mkdir ./spree_designs
-      - run: cd spree_designs
-      - run: git clone -b new-email-views-staging git@github.com:spark-solutions/spree-designs.git .
+      - run: mkdir ./spree_designs_test
+      - run: git clone -b new-email-views-staging git@github.com:spark-solutions/spree-designs.git ./spree_designs_test
+      - run: cd spree_designs_test
       - run: bundle update spree
       - run: git add .
       - run: git config --global user.email "noreply@sparksolutions.co"
