@@ -2,6 +2,10 @@ require: rubocop-rspec
 
 inherit_from: '.rubocop-disabled.yml'
 
+
+
+
+
 AllCops:
   TargetRubyVersion: 2.5
   Exclude:
