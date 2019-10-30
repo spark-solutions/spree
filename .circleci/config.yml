@@ -147,7 +147,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - ${PUSH_KEY}
+            - "0b:96:15:2d:34:4d:bc:75:d9:fc:7f:1b:de:a5:70:d5"
       - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
       - run:
           name: Configure SSH agent
