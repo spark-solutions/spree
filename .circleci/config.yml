@@ -140,6 +140,33 @@ jobs:
             ./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json -p 4 -o tmp/codeclimate.total.json
             ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.total.json
 
+  update_spree_designs_emails:
+    docker:
+      - image: circleci/ruby:2.6.3-node-browsers
+    working_directory: ~/spree
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - ${PUSH_KEY}
+      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+      - run:
+          name: Configure SSH agent
+          command: |
+            ssh-add -D
+            ssh-add ~/.ssh/id_rsa_0b96152d344dbc75d9fc7f1bdea570d5
+      - run: mkdir ./spree_designs_temporary
+      - run: git clone -b just-temporary-branch git@github.com:spark-solutions/spree-designs.git ./spree_designs_temporary
+      - run:
+          name: Update spree
+          command: |
+            cd spree_designs_temporary
+            bundle update spree
+            git add .
+            git config --global user.email "noreply@sparksolutions.co"
+            git config --global user.name "AutoDeploy"
+            git commit -m "Auto-commit v#${CIRCLE_BUILD_NUM}"
+            git push git@github.com:spark-solutions/spree-designs.git just-temporary-branch
+
 workflows:
   version: 2
   main:
@@ -154,3 +181,7 @@ workflows:
       - send_test_coverage:
           requires:
             - run_tests_mysql
+      - update_spree_designs_emails:
+          filters:
+            branches:
+              only: new-email-views-test
