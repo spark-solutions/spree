@@ -82,5 +82,16 @@ describe Spree::Store, type: :model do
         )
       end
     end
+
+    describe '.all_supported_currencies' do
+      let!(:store1) { create(:store, supported_currencies: 'USD, GBP', default_currency: 'USD') }
+      let!(:store2) { create(:store, supported_currencies: 'EUR', default_currency: 'PLN') }
+      it 'returns supported currencies list' do
+        expect(Spree::Store.all_supported_currencies).to contain_exactly(
+          ::Money::Currency.find('USD'), ::Money::Currency.find('GBP'), 
+          ::Money::Currency.find('EUR'), ::Money::Currency.find('PLN')
+        )
+      end
+    end
   end
 end

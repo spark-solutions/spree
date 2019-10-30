@@ -4,9 +4,17 @@ module Spree
       class ProductSerializer < BaseSerializer
         set_type :product
 
-        attributes :name, :description, :price, :currency, :display_price,
+        attributes :name, :description, :display_price,
                    :available_on, :slug, :meta_description, :meta_keywords,
                    :updated_at
+
+        attribute :price do |object|
+          object[:price]
+        end
+
+        attribute :currency do |object|
+          object[:currency]
+        end
 
         attribute :purchasable,   &:purchasable?
         attribute :in_stock,      &:in_stock?

@@ -6,10 +6,6 @@ describe 'Product with prices in multiple currencies', type: :feature, js: true 
     let!(:product) { create(:product) }
 
     before do
-      reset_spree_preferences do |config|
-        config.allow_currency_change  = true
-        config.show_currency_selector = true
-      end
       create(:price, variant: product.master, currency: 'EUR', amount: 16.00)
       create(:price, variant: product.master, currency: 'GBP', amount: 23.00)
     end
@@ -23,35 +19,27 @@ describe 'Product with prices in multiple currencies', type: :feature, js: true 
       expect(page).to have_text '£23.00'
     end
 
-    context 'and :show_currency_selector is false' do
+    context 'when many supported store currencies' do
       before do
-        reset_spree_preferences do |config|
-          config.allow_currency_change  = true
-          config.show_currency_selector = false
-        end
+        store.update!(supported_currencies: 'EUR,GBP')
       end
 
       it 'will not render the currency selector' do
         visit spree.product_path(product)
         expect(page).to have_current_path(spree.product_path(product))
-        expect(page).to_not have_text 'Currency'
+        expect(page).to have_css('#currency')
       end
     end
 
-    context 'and :allow_currency_change is false' do
-      context 'and show_currency_selector is true' do
-        before do
-          reset_spree_preferences do |config|
-            config.allow_currency_change  = false
-            config.show_currency_selector = true
-          end
-        end
+    context 'when one supported store currency' do
+      before do
+        store.update!(supported_currencies: 'EUR', default_currency: 'EUR')
+      end
 
-        it 'will not render the currency selector' do
-          visit spree.product_path(product)
-          expect(page).to have_current_path(spree.product_path(product))
-          expect(page).to_not have_text 'Currency'
-        end
+      it 'will not render the currency selector' do
+        visit spree.product_path(product)
+        expect(page).to have_current_path(spree.product_path(product))
+        expect(page).to_not have_css('#currency')
       end
     end
   end

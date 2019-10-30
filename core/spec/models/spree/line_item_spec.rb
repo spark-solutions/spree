@@ -179,16 +179,12 @@ describe Spree::LineItem, type: :model do
     before do
       expect(line_item).to receive(:variant_id).and_return(1001)
 
-      expect(Spree::Price).to receive(:where).with(
+      expect(Spree::Price).to receive(:find_by!).with(
         currency: "EUR",
         variant_id: 1001
-      ).and_return([price])
+      ).and_return(price)
 
       expect(price).to receive(:price_including_vat_for).and_return(12)
-
-      reset_spree_preferences do |config|
-        config.allow_currency_change = true
-      end
     end
 
     it 'copies over a variants differing price for another vat zone' do
