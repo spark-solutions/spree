@@ -54,6 +54,10 @@ module Spree
           @spree_current_store ||= Spree::Store.current(request.env['SERVER_NAME'])
         end
 
+        def spree_supported_currencies
+          spree_current_store.supported_currencies_list
+        end
+
         def spree_current_user
           @spree_current_user ||= Spree.user_class.find_by(id: doorkeeper_token.resource_owner_id) if doorkeeper_token
         end
@@ -105,7 +109,7 @@ module Spree
         end
 
         def current_currency
-          if params[:currency].present? && supported_currencies.map(&:iso_code).include?(params[:currency])
+          if params[:currency].present? && spree_supported_currencies.map(&:iso_code).include?(params[:currency])
             params[:currency]
           else
             spree_current_store.default_currency || Spree::Config[:currency]

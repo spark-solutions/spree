@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe 'API V2 Storefront Products Spec', type: :request do
+  let!(:store) { create(:store, default: true, supported_currencies: 'USD,PLN') }
   let!(:products)             { create_list(:product, 5) }
   let(:taxon)                 { create(:taxon) }
   let(:product_with_taxon)    { create(:product, taxons: [taxon]) }
@@ -23,6 +24,32 @@ describe 'API V2 Storefront Products Spec', type: :request do
       it 'returns all products' do
         expect(json_response['data'].count).to eq Spree::Product.not_discontinued.count
         expect(json_response['data'].first).to have_type('product')
+      end
+
+
+      it 'returns all products with ' do
+        expect(json_response['data'].count).to eq Spree::Product.not_discontinued.count
+        expect(json_response['data'].first).to have_type('product')
+      end
+    end
+
+    context 'with currency' do
+      let(:currency) { 'PLN' }
+      before { get "/api/v2/storefront/products?currency=#{currency}" }
+
+      let!(:products_collection) {
+        create_list(
+          :product, 5, master: create(
+            :variant, is_master: true, prices: [
+              create(:price, currency: store.default_currency),
+              create(:price, currency: currency),
+            ]
+          )
+        )
+      }
+
+      it 'returns products with provided currency' do
+        expect(json_response['data'].map{ |el| el['attributes']['currency']}.all?{ |el| el == currency} ).to be true
       end
     end
 
@@ -267,6 +294,29 @@ describe 'API V2 Storefront Products Spec', type: :request do
         expect(json_response['data']).to have_relationships(
           :variants, :option_types, :product_properties, :default_variant
         )
+      end
+    end
+
+    context 'with currency' do
+
+      let!(:currency) { 'PLN' }
+      let!(:product_in_currency) {
+        create(
+          :product, master: create(
+            :variant, is_master: true, prices: [
+              create(:price, currency: store.default_currency),
+              create(:price, currency: currency)
+            ]
+          )
+        )
+      }
+
+      it_behaves_like 'returns 200 HTTP status'
+
+      before { get "/api/v2/storefront/products/#{product_in_currency.slug}?currency=#{currency}" }
+
+      it 'returns product price in provided currency' do
+        expect(json_response['data']).to have_attribute(:currency).with_value(currency)
       end
     end
   end

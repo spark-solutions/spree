@@ -44,12 +44,14 @@ module Spree
           end
 
           def scope
-            Spree::Product.accessible_by(current_ability, :show).includes(scope_includes)
+            Spree::Product.accessible_by(current_ability, :show).
+              joins(master: :prices).where(spree_prices: {currency: current_currency}).
+              select('*, spree_prices.currency as currency, spree_prices.amount as price').
+              includes(scope_includes)
           end
 
           def scope_includes
             {
-              master: :default_price,
               variants: [],
               variant_images: [],
               taxons: [],
