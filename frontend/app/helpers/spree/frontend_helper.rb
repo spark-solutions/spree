@@ -176,5 +176,9 @@ module Spree
       end
       set.join(', ')
     end
+
+    def icon(name:, classes: '', width:, height:)
+      inline_svg "#{name}.svg", class: "spree-icon #{classes}", size: "#{width}px*#{height}px"
+    end
   end
 end
