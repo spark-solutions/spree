@@ -81,7 +81,7 @@ module Spree
     end
 
     def clone
-      self.class.new(value_attributes)
+      self.class.new(clone_value_attributes)
     end
 
     def ==(other)
@@ -201,6 +201,10 @@ module Spree
 
       postal_code = TwitterCldr::Shared::PostalCodes.for_territory(country.iso)
       errors.add(:zipcode, :invalid) unless postal_code.valid?(zipcode.to_s.strip)
+    end
+
+    def clone_value_attributes
+      attributes.except(*(Spree::Address::EXCLUDED_KEYS_FOR_COMPARISION - ['user_id']))
     end
   end
 end
