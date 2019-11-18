@@ -29,6 +29,22 @@ module Spree
       flashes.html_safe
     end
 
+    def link_to_cart(text = nil)
+      text = text ? h(text) : Spree.t('cart')
+      css_class = nil
+
+      if simple_current_order.nil? || simple_current_order.item_count.zero?
+        text = "<span class='glyphicon glyphicon-shopping-cart'></span> #{text}: (#{Spree.t('empty')})"
+        css_class = 'empty'
+      else
+        text = "<span class='glyphicon glyphicon-shopping-cart'></span> #{text}: (#{simple_current_order.item_count})
+                <span class='amount'>#{simple_current_order.display_total.to_html}</span>"
+        css_class = 'full'
+      end
+
+      link_to text.html_safe, spree.cart_path, class: "cart-info nav-link #{css_class}"
+    end
+
     def checkout_progress(numbers: false)
       states = @order.checkout_steps - ['complete']
       items = states.each_with_index.map do |state, i|
@@ -138,10 +154,6 @@ module Spree
       end
       crumb_list = content_tag(:ol, raw(crumbs.flatten.map(&:mb_chars).join), class: 'breadcrumb', itemscope: 'itemscope', itemtype: 'https://schema.org/BreadcrumbList')
       content_tag(:nav, crumb_list, id: 'breadcrumbs', class: 'col-12 mt-1 mt-sm-3 mt-lg-4', aria: { label: 'breadcrumb' })
-    end
-
-    def icon(name:, classes: '', width:, height:)
-      inline_svg "#{name}.svg", class: "spree-icon #{classes}", size: "#{width}px*#{height}px"
     end
 
     def permitted_product_params
