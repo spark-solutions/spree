@@ -10,24 +10,24 @@
   <div class="container pt-4 product-details">
 
     <div class="modal fade" id="picturesModal" tabindex="-1" role="dialog" >
-      <div class="modal-dialog mw-100" role="document">
-        <div class="modal-content">
-          <div class="modal-body d-flex flex-column">
+      <div class="modal-dialog w-100 h-100 m-0 p-0 mw-100" role="document">
+        <div class="modal-content h-100 mh-100">
+          <div class="modal-body d-flex flex-column h-100 mh-100">
             <button class="modal-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&#x2715;</span>
             </button>
-            <div class="d-flex product-details-images">
+            <div class="d-flex product-details-images h-100 mh-100">
               <% if @product.variant_images.size > 1 %>
                 <div class="d-none d-sm-block product-details-thumbnails" data-hook="product_thumbnails">
                   <%= render 'spree/shared/carousel/thumbnails',
                              group_id: 'main-product-modal-carousel',
                              id: 'productModalThumbnailsCarousel',
                              trigger_id: 'productCarousel',
-                             per_page: 5
+                             per_page: 4
                   %>
                 </div>
               <% end %>
-              <div class="product-details-single" data-hook="product_images">
+              <div class="product-details-single h-100 mh-100" data-hook="product_images">
                 <%= render 'spree/shared/carousel/single',
                            group_id: 'main-product-modal-carousel',
                            id: 'productModalCarousel',

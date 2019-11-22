@@ -76,9 +76,20 @@
       padding: 62px;
       .product-details-single {
         width: 650px;
+        .product-carousel-control--previous {
+          position: relative !important;
+          left: -5%;
+        }
+        .product-carousel-item-squared {
+          height: 100%;
+          padding: 0;
+          img {
+            position: relative;
+          }
+        }
       }
       .product-details-thumbnails {
-        width: 113px;
+        width: 110px;
       }
       .modal-close {
         align-self: flex-end;
