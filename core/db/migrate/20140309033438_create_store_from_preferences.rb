@@ -31,6 +31,7 @@ class CreateStoreFromPreferences < ActiveRecord::Migration[4.2]
         s.seo_title        = preference_store.get('spree/app_configuration/default_seo_title') {}
         s.default_currency = preference_store.get('spree/app_configuration/currency') { 'USD' }
         s.code             = 'spree'
+        s.default_currency = 'USD'
       end.save!
     end
   end
