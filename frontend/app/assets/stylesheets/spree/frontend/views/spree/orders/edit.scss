@@ -425,7 +425,7 @@
       white-space: nowrap;
       position: relative;
       &:before,
-      &:after {
+      feature/new-design &:after {
         border-top: 1px solid theme-color("image-background");
         content: "";
         display: table-cell;
