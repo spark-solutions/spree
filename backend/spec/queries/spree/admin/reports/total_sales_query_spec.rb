@@ -93,7 +93,8 @@ describe Spree::Admin::Reports::TotalSalesQuery do
       it 'returns results for orders in specified range' do
         expect(subject).to match_array([
           ['2019-10-28', 360],
-          ['2019-10-29', 350]
+          ['2019-10-29', 350],
+          ['2019-11-29', 300],
         ])
       end
     end
