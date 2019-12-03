@@ -171,10 +171,10 @@ workflows:
   version: 2
   main:
     jobs:
-      # - bundle_install
-      # - run_tests_postgres:
-      #     requires:
-      #       - bundle_install
+      - bundle_install
+      - run_tests_postgres:
+          requires:
+            - bundle_install
       # - run_tests_mysql:
       #     requires:
       #       - bundle_install
