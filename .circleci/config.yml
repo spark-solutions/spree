@@ -175,12 +175,12 @@ workflows:
       - run_tests_postgres:
           requires:
             - bundle_install
-      - run_tests_mysql:
-          requires:
-            - bundle_install
-      - send_test_coverage:
-          requires:
-            - run_tests_mysql
+      # - run_tests_mysql:
+      #     requires:
+      #       - bundle_install
+      # - send_test_coverage:
+      #     requires:
+      #       - run_tests_mysql
       - update_spree_reports_staging:
           filters:
             branches:
