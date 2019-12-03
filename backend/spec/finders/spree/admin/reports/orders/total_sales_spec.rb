@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Spree::Admin::Reports::TotalSalesQuery do
+describe Spree::Admin::Reports::Orders::TotalSales do
   let!(:order1) { create(:completed_order_with_totals) }
   let!(:order2) { create(:completed_order_with_totals) }
   let!(:order3) { create(:completed_order_with_totals) }
@@ -21,11 +21,13 @@ describe Spree::Admin::Reports::TotalSalesQuery do
 
   describe '#call' do
     subject do
-      described_class.new.call(
+      params = {
         group_by: group_by,
         completed_at_min: completed_at_min,
         completed_at_max: completed_at_max
-      )
+      }
+
+      described_class.new(params).call
     end
 
     context 'when no group_by param is present' do

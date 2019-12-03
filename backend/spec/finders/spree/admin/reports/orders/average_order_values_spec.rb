@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Spree::Admin::Reports::AverageOrderValuesQuery do
+describe Spree::Admin::Reports::Orders::AverageOrderValues do
   let!(:order1) { create(:completed_order_with_totals) }
   let!(:order2) { create(:completed_order_with_totals) }
   let!(:order3) { create(:completed_order_with_totals) }
@@ -17,11 +17,13 @@ describe Spree::Admin::Reports::AverageOrderValuesQuery do
 
   describe '#call' do
     subject do
-      described_class
-        .new
-        .call(group_by: group_by,
-              completed_at_min: completed_at_min,
-              completed_at_max: completed_at_max)
+      params = {
+        group_by: group_by,
+        completed_at_min: completed_at_min,
+        completed_at_max: completed_at_max
+      }
+
+      described_class.new(params).call
     end
 
     let(:group_by) { nil }
