@@ -1,0 +1,16 @@
+<%= render partial: 'spree/admin/reports/header', locals: { title: Spree.t(:total_orders) } %>
+<%= render partial: 'spree/admin/reports/filters' %>
+
+<canvas
+  id="chart--total_orders"
+  class="reports--chart"
+  height="120"
+  aria-label="<%= Spree.t(:total_orders) %>"
+  role="img"
+  data-bg-color="rgba(71, 141, 193, 0.8)"
+  data-line-color="rgba(71, 141, 193, 1)"
+  data-id="total_orders"
+  data-label="<%= Spree.t(:total_orders) %>"
+  data-label-y="<%= Spree.t(:orders_count) %>"
+  data-type="line"></canvas>
+
