@@ -13,6 +13,7 @@ globals:
   Raphael: true
   SpreeAPI: true
   SpreePaths: true
+  dayjs: true
 
 env:
   browser: true
