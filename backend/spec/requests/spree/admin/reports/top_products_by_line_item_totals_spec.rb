@@ -37,7 +37,11 @@ describe 'Admin Reports - top products by line item totals spec', type: :request
       end
 
       it 'return JSON data for charts' do
-        expect(json_response['labels']).to eq [variant1.sku, product1.master.sku, product2.master.sku]
+        expect(json_response['labels']).to eq [
+          variant1.descriptive_name,
+          product1.master.descriptive_name,
+          product2.master.descriptive_name
+        ]
         expect(json_response['data'].map(&:to_f)).to eq [180, 30, 20]
       end
     end

@@ -39,8 +39,8 @@ describe Spree::Admin::Reports::Orders::TopProductsByLineItemTotals do
         array = subject.call
 
         expect(array).to eq [
-          [variant1.sku, 180],
-          [product2.master.sku, 20]
+          [variant1.descriptive_name, 180],
+          [product2.master.descriptive_name, 20]
         ]
       end
     end
@@ -59,9 +59,9 @@ describe Spree::Admin::Reports::Orders::TopProductsByLineItemTotals do
         array = subject.call
 
         expect(array).to eq [
-          [variant1.sku, 180],
-          [product1.master.sku, 30],
-          [product2.master.sku, 20]
+          [variant1.descriptive_name, 180],
+          [product1.master.descriptive_name, 30],
+          [product2.master.descriptive_name, 20]
         ]
       end
     end
@@ -78,8 +78,8 @@ describe Spree::Admin::Reports::Orders::TopProductsByLineItemTotals do
         array = subject.call
 
         expect(array).to eq [
-          [variant1.sku, 180],
-          [product2.master.sku, 20]
+          [variant1.descriptive_name, 180],
+          [product2.master.descriptive_name, 20]
         ]
       end
     end
@@ -97,7 +97,7 @@ describe Spree::Admin::Reports::Orders::TopProductsByLineItemTotals do
         array = subject.call
 
         expect(array).to eq [
-          [variant1.sku, 180]
+          [variant1.descriptive_name, 180]
         ]
       end
     end

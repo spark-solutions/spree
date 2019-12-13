@@ -13,13 +13,22 @@ module Spree
             variants = by_completed_at_min(variants)
             variants = by_completed_at_max(variants)
 
-            variants = variants.group('spree_variants.sku')
-                               .select('spree_variants.sku, sum(spree_line_items.quantity * spree_prices.amount) as line_item_total')
+            variants = variants.group(
+                                 'spree_variants.id',
+                                 'spree_variants.is_master',
+                                 'spree_variants.product_id'
+                               )
+                               .select(
+                                 'spree_variants.id',
+                                 'spree_variants.is_master',
+                                 'spree_variants.product_id',
+                                 'sum(spree_line_items.quantity * spree_prices.amount) as line_item_total'
+                               )
                                .order(line_item_total: :desc)
 
             variants = by_top(variants)
 
-            variants.to_a.map { |v| [v.sku, v.line_item_total] }
+            variants.to_a.map { |v| [v.descriptive_name, v.line_item_total] }
           end
 
           private
