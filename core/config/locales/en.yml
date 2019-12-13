@@ -1644,6 +1644,7 @@ en:
     total: Total
     total_customers: Total customers
     total_orders: Total Orders
+    top_products_by_unit_sold: Top Products By Unit Sold
     average_order_value: Average Order Value
     orders_count: Orders Count
     total_per_item: Total per item

@@ -2,35 +2,32 @@ module Spree
   module Admin
     module Reports
       module Orders
-        class TopProductsByUnitSold < Base
+        class TopProductsByLineItemTotals < Base
           def initialize(params)
             @params = params
+            @top = params[:top]
           end
 
           def call
-            variants = Spree::Variant.joins(line_items: :order)
+            variants = Spree::Variant.joins(:prices, line_items: :order)
             variants = by_completed_at_min(variants)
             variants = by_completed_at_max(variants)
 
             variants = variants.group('spree_variants.sku')
-                               .select('spree_variants.sku, sum(spree_line_items.quantity) as total_quantity_sold')
-                               .order(total_quantity_sold: :desc)
+                               .select('spree_variants.sku, sum(spree_line_items.quantity * spree_prices.amount) as line_item_total')
+                               .order(line_item_total: :desc)
 
             variants = by_top(variants)
 
-            variants.to_a.map { |v| [v.sku, v.total_quantity_sold] }
+            variants.to_a.map { |v| [v.sku, v.line_item_total] }
           end
 
           private
 
-          def top
-            return 5 if params[:top].nil?
-
-            params[:top].to_i
-          end
+          attr_reader :top
 
           def by_top(variants)
-            return variants unless top
+            return variants if top.nil?
 
             variants.limit(top)
           end
