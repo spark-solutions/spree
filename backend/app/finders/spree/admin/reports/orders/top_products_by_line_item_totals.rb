@@ -14,15 +14,15 @@ module Spree
             variants = by_completed_at_max(variants)
 
             variants = variants.group(
-                                 'spree_variants.id',
-                                 'spree_variants.is_master',
-                                 'spree_variants.product_id'
+                                 "#{Spree::Variant.table_name}.id",
+                                 "#{Spree::Variant.table_name}.is_master",
+                                 "#{Spree::Variant.table_name}.product_id"
                                )
                                .select(
-                                 'spree_variants.id',
-                                 'spree_variants.is_master',
-                                 'spree_variants.product_id',
-                                 'sum(spree_line_items.quantity * spree_prices.amount) as line_item_total'
+                                 "#{Spree::Variant.table_name}.id",
+                                 "#{Spree::Variant.table_name}.is_master",
+                                 "#{Spree::Variant.table_name}.product_id",
+                                 "sum(#{Spree::LineItem.table_name}.quantity * #{Spree::LineItem.table_name}.price + #{Spree::LineItem.table_name}.adjustment_total) as line_item_total"
                                )
                                .order(line_item_total: :desc)
 
