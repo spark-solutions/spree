@@ -20,6 +20,10 @@ describe 'Admin Reports - top products by line item totals spec', type: :request
     order1.line_items.first.update(quantity: 3, variant: product1.master)
     order2.line_items.first.update(quantity: 2, variant: variant1)
     order3.line_items.first.update(quantity: 1, variant: product2.master)
+
+    order1.line_items.each { |li| li.update_price; li.save! }
+    order2.line_items.each { |li| li.update_price; li.save! }
+    order3.line_items.each { |li| li.update_price; li.save! }
   end
 
   let(:params) do
@@ -37,6 +41,7 @@ describe 'Admin Reports - top products by line item totals spec', type: :request
       end
 
       it 'return JSON data for charts' do
+        pp json_response['data']
         expect(json_response['labels']).to eq [
           variant1.descriptive_name,
           product1.master.descriptive_name,

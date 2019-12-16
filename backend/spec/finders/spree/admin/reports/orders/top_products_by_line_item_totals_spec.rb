@@ -1,15 +1,6 @@
 
 require 'spec_helper'
 
-def reload_line_item_prices(*orders)
-  orders.each do |order|
-    order.line_items.each do |li|
-      li.update_price
-      li.save!
-    end
-  end
-end
-
 describe Spree::Admin::Reports::Orders::TopProductsByLineItemTotals do
   subject do
     described_class.new(
@@ -37,7 +28,9 @@ describe Spree::Admin::Reports::Orders::TopProductsByLineItemTotals do
     order2.line_items.first.update(quantity: 2, variant: variant1)
     order3.line_items.first.update(quantity: 1, variant: product2.master)
 
-    reload_line_item_prices(order1, order2, order3)
+    order1.line_items.each { |li| li.update_price; li.save! }
+    order2.line_items.each { |li| li.update_price; li.save! }
+    order3.line_items.each { |li| li.update_price; li.save! }
   end
 
   context 'when the date range is not present' do
