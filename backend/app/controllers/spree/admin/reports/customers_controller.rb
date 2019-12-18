@@ -17,7 +17,7 @@ module Spree
         private
 
         def filtered_data
-          Spree::Admin::Reports::Customers.new(params).call
+          Spree::Admin::Reports::Customers::All.new(params).call
         end
       end
     end
