@@ -12,13 +12,22 @@ module Spree
             variants = by_date_from(variants)
             variants = by_date_to(variants)
 
-            variants = variants.group('spree_variants.sku')
-                               .select('spree_variants.sku, sum(spree_line_items.quantity) as total_quantity_sold')
+            variants = variants.group(
+                                 'spree_variants.id',
+                                 'spree_variants.is_master',
+                                 'spree_variants.product_id'
+                               )
+                               .select(
+                                 'spree_variants.id',
+                                 'spree_variants.is_master',
+                                 'spree_variants.product_id',
+                                 'sum(spree_line_items.quantity) as total_quantity_sold'
+                               )
                                .order(total_quantity_sold: :desc)
 
             variants = by_top(variants)
 
-            variants.to_a.map { |v| [v.sku, v.total_quantity_sold] }
+            variants.to_a.map { |v| [v.descriptive_name, v.total_quantity_sold] }
           end
 
           private
