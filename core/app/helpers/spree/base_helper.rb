@@ -49,6 +49,11 @@ module Spree
         meta[:description] = object.meta_description if object[:meta_description].present?
       end
 
+      if object.is_a? Spree::Taxon
+        meta[:keywords] ||= object.name
+        meta[:description] ||= object.name
+      end
+
       if meta[:description].blank? && object.is_a?(Spree::Product)
         meta[:description] = truncate(strip_tags(object.description), length: 160, separator: ' ')
       end
