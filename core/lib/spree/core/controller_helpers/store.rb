@@ -12,8 +12,8 @@ module Spree
         end
 
         def current_currency
-          if session.key?(:currency) && supported_currencies.map(&:iso_code).include?(session[:currency])
-            session[:currency]
+          if selected_currency.present? && supported_currencies.map(&:iso_code).include?(selected_currency)
+            selected_currency
           else
             current_store.default_currency
           end
@@ -53,6 +53,10 @@ module Spree
 
         def current_tax_zone
           @current_tax_zone ||= @current_order&.tax_zone || Spree::Zone.default_tax
+        end
+
+        def selected_currency
+          session.key?(:currency) ? session.key?(:currency) : params[:currency]
         end
       end
     end
