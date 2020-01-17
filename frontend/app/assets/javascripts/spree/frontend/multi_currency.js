@@ -1,10 +1,10 @@
 Spree.ready(function () {
-  return $('#currency').on('change', function() {
-    return $.ajax({
+  $('#currency').on('change', function() {
+    $.ajax({
       type: 'GET',
       url: $(this).data('href'),
       data: {
-        currency: $(this).val()
+        selected_currency: $(this).val()
       }
     }).done(function () {
       window.location.reload()

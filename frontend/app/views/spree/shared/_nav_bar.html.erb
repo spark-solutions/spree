@@ -18,6 +18,19 @@
       </div>
     </div>
   </li>
+  <% if Spree::Config[:allow_currency_change] && Spree::Config[:show_currency_selector] && supported_currencies.size > 1 %>
+    <li id="currencies" data-hook>
+      <%= form_tag set_currency_path(format: :html), class: 'navbar-form form-group' do %>
+        <div class="dropdown navbar-right-dropdown">
+          <%= select_tag(:currency,
+                options_for_select(supported_currencies, current_currency),
+                class: 'form-control spree-flat-select',
+                data: { href: spree.set_currency_path(format: :json) })
+          %>
+        </div>
+      <% end %>
+    </li>
+  <% end %>
   <% if defined?(spree.account_link_path) %>
     <li>
       <div class="dropdown navbar-right-dropdown">
@@ -36,13 +49,6 @@
         <div id="link-to-account" class="dropdown-menu dropdown-menu-right text-right">
         </div>
       </div>
-    </li>
-  <% end %>
-  <% if Spree::Config[:allow_currency_change] && Spree::Config[:show_currency_selector] && supported_currencies.size > 1 %>
-    <li id="currency-select" data-hook>
-      <%= form_tag set_currency_path(format: :html), class: 'navbar-form' do %>
-        <%= select_tag(:currency, options_for_select(supported_currencies, current_currency), class: 'form-control', data: { href: spree.set_currency_path(format: :json) }) %>
-      <% end %>
     </li>
   <% end %>
 
