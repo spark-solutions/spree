@@ -22,7 +22,7 @@ module Spree
 
     def self.default
       Rails.cache.fetch('default_store') do
-        where(default: true).first_or_initialize
+        find_by(default: true)
       end
     end
 
