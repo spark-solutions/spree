@@ -15,7 +15,7 @@ describe Spree::CheckoutController, type: :controller do
   # Regression test for #3246
   context 'when using GBP' do
     before do
-      store.update(default_currency: 'GBP')
+      store.update!(default_currency: 'GBP')
     end
 
     context 'when order is in delivery' do
