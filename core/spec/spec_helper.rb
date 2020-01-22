@@ -62,6 +62,7 @@ RSpec.configure do |config|
     begin
       Rails.cache.clear
       reset_spree_preferences
+      create(:store)
     rescue Errno::ENOTEMPTY
     end
   end

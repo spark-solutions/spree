@@ -82,6 +82,8 @@ RSpec.configure do |config|
 
     DatabaseCleaner.start
     reset_spree_preferences
+
+    create(:store)
   end
 
   config.after(:each, type: :feature) do |example|
