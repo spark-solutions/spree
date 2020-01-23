@@ -12,7 +12,6 @@ describe 'New Order', type: :feature do
     create(:shipping_method)
     # create default store
     allow(Spree.user_class).to receive(:find_by).and_return(user)
-    create(:store)
     visit spree.new_admin_order_path
   end
 

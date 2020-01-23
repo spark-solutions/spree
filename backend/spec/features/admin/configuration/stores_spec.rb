@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Stores admin', type: :feature, js: true do
   stub_authorization!
 
-  let!(:store) { create(:store) }
+  let(:store) { Spree::Store.default }
 
   describe 'visiting the stores page' do
     it 'is on the stores page' do

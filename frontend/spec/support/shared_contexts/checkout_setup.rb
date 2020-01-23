@@ -8,7 +8,6 @@ shared_context 'checkout setup' do
   let!(:check_payment) { create(:check_payment_method) }
   let!(:unsupported_payment) { create(:check_payment_method, store: create(:store)) }
   let!(:zone) { create(:zone) }
-  let!(:store) { create(:store) }
 
   def fill_in_address
     address = 'order_bill_address_attributes'

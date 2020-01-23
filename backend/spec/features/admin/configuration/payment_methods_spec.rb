@@ -4,7 +4,6 @@ describe 'Payment Methods', type: :feature do
   stub_authorization!
 
   before do
-    create(:store)
     visit spree.admin_payment_methods_path
   end
 

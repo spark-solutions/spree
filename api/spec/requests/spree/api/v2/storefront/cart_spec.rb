@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 describe 'API V2 Storefront Cart Spec', type: :request do
-  let(:default_currency) { 'USD' }
-  let(:store) { create(:store, default_currency: default_currency) }
+  let(:store) { Spree::Store.default }
   let(:currency) { store.default_currency }
   let(:user)  { create(:user) }
   let(:order) { create(:order, user: user, store: store, currency: currency) }
@@ -39,8 +38,7 @@ describe 'API V2 Storefront Cart Spec', type: :request do
 
     shared_examples 'creates an order with different currency' do
       before do
-        store.default_currency = 'EUR'
-        store.save!
+        store.update!(default_currency: 'EUR')
         execute
       end
 
@@ -509,9 +507,9 @@ describe 'API V2 Storefront Cart Spec', type: :request do
 
         context 'tries to remove an empty string' do
           let!(:coupon_code) { '' }
-  
+
           before { execute }
-  
+
           it 'changes the adjustment total to 0.0' do
             expect(json_response['data']).to have_attribute(:adjustment_total).with_value(0.0.to_s)
           end
@@ -520,12 +518,12 @@ describe 'API V2 Storefront Cart Spec', type: :request do
             expect(json_response['included']).not_to include(have_type('promotion'))
           end
         end
-  
+
         context 'tries to remove nil' do
           let(:coupon_code) { nil }
-  
+
           before { execute }
-  
+
           it 'changes the adjustment total to 0.0' do
             expect(json_response['data']).to have_attribute(:adjustment_total).with_value(0.0.to_s)
           end
@@ -582,7 +580,7 @@ describe 'API V2 Storefront Cart Spec', type: :request do
         context 'tries to remove an empty string' do
           let!(:coupon_code) { '' }
           before { execute }
-  
+
           it 'changes the adjustment total to 0.0' do
             expect(json_response['data']).to have_attribute(:adjustment_total).with_value(0.0.to_s)
           end
@@ -591,11 +589,11 @@ describe 'API V2 Storefront Cart Spec', type: :request do
             expect(json_response['included']).not_to include(have_type('promotion'))
           end
         end
-  
+
         context 'tries to remove nil' do
           let(:coupon_code) { nil }
           before { execute }
-  
+
           it 'changes the adjustment total to 0.0' do
             expect(json_response['data']).to have_attribute(:adjustment_total).with_value(0.0.to_s)
           end

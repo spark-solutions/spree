@@ -9,7 +9,6 @@ describe 'Coupon code promotions', type: :feature, js: true do
     create(:zone)
     create(:shipping_method)
     create(:check_payment_method)
-    create(:store)
   end
 
   context 'visitor makes checkout as guest without registration' do
