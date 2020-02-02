@@ -1,4 +1,5 @@
 require 'rails/engine'
+require 'rabl'
 
 module Spree
   module Api
