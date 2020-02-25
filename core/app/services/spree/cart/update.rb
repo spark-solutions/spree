@@ -4,6 +4,8 @@ module Spree
       prepend Spree::ServiceModule::Base
 
       def call(order:, params:)
+        binding.pry
+
         return failure(order) unless order.update(filter_order_items(order, params))
 
         order.line_items = order.line_items.select { |li| li.quantity > 0 }

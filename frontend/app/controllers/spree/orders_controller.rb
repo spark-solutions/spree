@@ -15,6 +15,9 @@ module Spree
 
     def update
       @variant = Spree::Variant.find(params[:variant_id]) if params[:variant_id]
+      
+      binding.pry
+
       if Cart::Update.call(order: @order, params: order_params).success?
         respond_with(@order) do |format|
           format.html do
