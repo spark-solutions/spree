@@ -23,7 +23,7 @@ All the Sass variables needed for customizing the new Spree UX are in the variab
 - HSL-A - example: 211 100% 50% 1
 - Color name - example: Blue
 
-``To make those changes live you need to update [app/assets/stylesheets/spree/frontend/variables/variables.scss](https://github.com/spree/spree/blob/master/frontend/app/assets/stylesheets/spree/frontend/variables/variables.scss) in your project directory with your values and then commit those changes to your project code repository.``
+To make those changes live you need to update [app/assets/stylesheets/spree/frontend/variables/variables.scss](https://github.com/spree/spree/blob/master/frontend/app/assets/stylesheets/spree/frontend/variables/variables.scss) in your project directory with your values and then commit those changes to your project code repository.
 
 ### Header
 
@@ -488,21 +488,21 @@ You don’t have to use any slashes.
 
 If you leave any of the Social fields empty the corresponding social media icon will disappear.
 
-If you would like to replace the default social media icons you could replace images in this path: frontend/app/assets/images/facebook.svg <- default facebook icon. Make sure to use SVG files.
+If you would like to replace the default social media icons you could replace images in this path [frontendapp/assets/images](https://github.com/spark-solutions/spree/blob/master/frontendapp/assets/images): <- [default Facebook icon](https://github.com/spark-solutions/spree/blob/master/frontend/app/assets/images/facebook.svg). Make sure to use SVG files.
 
 
 Contact us in the footer
 -----------
 
 
-The footer contains a “Contact us” section with your store contact information. You can change the contents of this section in the ___footer.html.erb__ file in lines 30 to 38. The file is automatically copied to shared/_footer.html.erb in your application directory.
+The footer contains a “Contact us” section with your store contact information. You can change the contents of this section in the [__footer.html.erb__](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/shared/_footer.html.erb) file in lines 30 to 38. The file is automatically copied to [shared/_footer.html.erb](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/shared) in your application directory.
 
 
 Product categories in the footer
 -----------
 
 
-The footer by default contains a list of product categories in your store. Feel free to change the contents of this section in the __config/spree_storefront.yml__. The file is automatically copied to your application after running Spree installer.
+The footer by default contains a list of product categories in your store. Feel free to change the contents of this section in the [__config/spree_storefront.yml__](https://github.com/spark-solutions/spree/blob/master/core/lib/generators/spree/install/templates/config/spree_storefront.yml). The file is automatically copied to your application after running Spree installer.
 
 Replacing placeholders with your images and copy
 ======
@@ -523,7 +523,7 @@ Homepage placeholder slots
 In the screenshot below you’ll find homepage promo banner slots with the default image placeholders indicating desktop placeholder sizes in pixels. Please note that each of these placeholders requires 4 images for various devices listed below. This is just a desktop example.
 
 
-Homepage text values may be replaced in your project repository in the /app/views/spree/home/index.html.erb. Please note that this file will be automatically copied to your project directory after running Spree installer.
+Homepage text values may be replaced in your project repository in the [/app/views/spree/home/index.html.erb](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb). Please note that this file will be automatically copied to your project directory after running Spree installer.
 
 
 You’ll need to upload 4 sizes for each of these promo banners:
@@ -556,8 +556,8 @@ Left and right promotion banners
 Please find all the [placeholder images and their size variations in this Google Drive folder](https://drive.google.com/drive/folders/1lbUMNFB2jcwpx4Jpr9uVLd_lUGw9GpVJ) for your reference.
 
 In order to replace those placeholder images you will probably want to perform two operations:
-+ change the file names in the /app/views/spree/home/index.html.erb in your project repository,
-+ upload those images to your Spree project code repo into this /app/assets/images/homepage folder. The files are automatically copied to your application folder after running Spree installer, preserving the file name structure and just changing “big_category_banner” to your file name:
++ change the file names in the [/app/views/spree/home/index.html.erb](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb) in your project repository,
++ upload those images to your Spree project code repo into this folder [frontend/app/assets/images/homepage](https://github.com/spark-solutions/spree/tree/master/frontend/app/assets/images/homepage). The files are automatically copied to your application folder after running Spree installer, preserving the file name structure and just changing “big_category_banner” to your file name:
   + __big_category_banner.jpg__
   + __big_category_banner_mobile.jpg__
   + __big_category_banner_tablet_landscape.jpg__
@@ -565,39 +565,39 @@ In order to replace those placeholder images you will probably want to perform t
 
 Those file names will be used in the srcset attribute which specified the URL of the image to use for various screen sizes and orientations.
 
-If you’d like to change the file names in the /app/views/spree/home/index.html.erb please find below line number where to place new image files names.
+If you’d like to change the file names in the [/app/views/spree/home/index.html.erb](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb) please find below line number where to place new image files names.
 
 __Main banner code lines__
 
- Line 3: data-src="<%= asset_path('homepage/main_banner.jpg') %>"
+ [Line 5](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb#L5): data-src="<%= asset_path('homepage/main_banner.jpg') %>"
 
- Line 4: data-srcset="<%= image_source_set('homepage/main_banner') %>"
+ [Line 6](data-src="<%= asset_path('homepage/main_banner.jpg') %>"): data-srcset="<%= image_source_set('homepage/main_banner') %>"
 
 __Big category banner code lines__
 
-Line 54: data-src="<%= asset_path('homepage/big_category_banner.jpg') %>"
+[Line 54](data-src="<%= asset_path('homepage/main_banner.jpg') %>"): data-src="<%= asset_path('homepage/big_category_banner.jpg') %>"
 
-Line 55: data-srcset="<%= image_source_set('homepage/big_category_banner') %>"
+[Line 57](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb#L57): data-srcset="<%= image_source_set('homepage/big_category_banner') %>"
 
 __Both category banners code lines__
 
-Line 24: data-src="<%= asset_path('homepage/category_banner_upper.jpg') %>"
+[Line 26](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb#L26): data-src="<%= asset_path('homepage/category_banner_upper.jpg') %>"
 
-Line 25: data-srcset="<%= image_source_set('homepage/category_banner_upper) %>"
+[Line 25](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb#L27): image_source_set('homepage/category_banner_upper) %>"
 
-Line 37: data-src="<%= asset_path('homepage/category_banner_lower.jpg') %>"
+[Line 39](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb#L39): data-src="<%= asset_path('homepage/category_banner_lower.jpg') %>"
 
-Line 38: data-srcset="<%= image_source_set('homepage/category_banner_lower) %>"
+[Line 38](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb#L40): data-srcset="<%= image_source_set('homepage/category_banner_lower) %>"
 
 __Both promo banners code lines__
 
-Line 101: data-src="<%= asset_path('homepage/promo_banner_left.jpg') %>"
+[Line 101](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb#L92): data-src="<%= asset_path('homepage/promo_banner_left.jpg') %>"
 
-Line 102: data-srcset="<%= image_source_set('homepage/promo_banner_left.jpg) %>"
+[Line 102](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb#L93): data-srcset="<%= image_source_set('homepage/promo_banner_left.jpg) %>"
 
-Line 121: data-src="<%= asset_path('homepage/promo_banner_right.jpg') %>"
+[Line 121](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb#L112): data-src="<%= asset_path('homepage/promo_banner_right.jpg') %>"
 
-Line 122: data-srcset="<%= image_source_set('homepage/promo_banner_right') %>"
+[Line 122](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb#L113): data-srcset="<%= image_source_set('homepage/promo_banner_right') %>"
 
 Category banner on PLP
 -----------
