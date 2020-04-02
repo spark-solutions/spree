@@ -8,9 +8,9 @@ order: 0
 
 The new Spree UX is here for the taking. Feel free to customize it according to your needs: overall styling, header, footer, placeholder images and text, SEO settings.
 
-![](../../../images/developer/storefront/1.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/1.png)
 
-![](../../../images/developer/storefront/2.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/2.png)
 
 ## Styling with SASS variables
 
@@ -31,103 +31,103 @@ __*$header-background*__ - header background color variable with 2 examples: whi
 
 White
 
-![](../../../images/developer/storefront/3.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/3.png)
 
 Blue
 
-![](../../../images/developer/storefront/4.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/4.png)
 
 __*$header-font-color*__- Header font color. By default set with __*$font-color*__ value but feel to replace it with any other value in the variables.scss file.
 
 Dark Grey
 
-![](../../../images/developer/storefront/5.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/5.png)
 
 Blue
 
-![](../../../images/developer/storefront/6.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/6.png)
 
 White
 
-![](../../../images/developer/storefront/7.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/7.png)
 
 ### Footer
 __*$footer-background*__ - variable that overrides $primary-background and allows you to change footer color. See a white and a blue example below.
 
 
-![](../../../images/developer/storefront/8.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/8.png)
 
 
 
 __*$footer-font-color*__ - variable that overrides __*$font-color*__ and allows you to change footer font color. See black and blue font examples below.
 
-![](../../../images/developer/storefront/9.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/9.png)
 
-![](../../../images/developer/storefront/10.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/10.png)
 
 ### Meganav menu
 __*$meganav-background*__ - variable that allows you to change the mega nav menu background color. By default meganav menu is set to __*$primary-background*__ value but feel to replace it with any other value in the variables.scss file.
 
-![](../../../images/developer/storefront/11.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/11.png)
 
-![](../../../images/developer/storefront/12.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/12.png)
 
 __*$meganav-font-color*__ - font color variable in the mega nav menu. By default mega nav font color is set to $font-color value but feel to replace it with any other value in the variables.scss file.
 
-![](../../../images/developer/storefront/13.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/13.png)
 
-![](../../../images/developer/storefront/14.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/14.png)
 
 ### Background
 
 __*$primary-background*__ - main background color across the whole site. Two examples below - a white one and a black one. Please note that you can also use an image as a background.
 
-![](../../../images/developer/storefront/15.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/15.png)
 
-![](../../../images/developer/storefront/16.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/16.png)
 
 __*$secondary-background*__ - second background color present across the whole site with two examples attached below.
 
-![](../../../images/developer/storefront/17.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/17.png)
 
-![](../../../images/developer/storefront/18.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/18.png)
 
-![](../../../images/developer/storefront/19.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/19.png)
 
 __*$font-color*__ - this variable affects all fonts on $primary-background. Please see two examples below.
 
-![](../../../images/developer/storefront/20.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/20.png)
 
-![](../../../images/developer/storefront/21.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/21.png)
 
 __*$secondary-font-color*__ - affects all fonts on $secondary-background. By default set with $font-color value but feel to replace it with any other value in the variables.scss file.
 
-![](../../../images/developer/storefront/22.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/22.png)
 
-![](../../../images/developer/storefront/23.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/23.png)
 
 ### Border color
 __*$global-border-style*__ - affects border and separator color throughout the whole site
 
-![](../../../images/developer/storefront/24.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/24.png)
 
-![](../../../images/developer/storefront/25.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/25.png)
 
-![](../../../images/developer/storefront/26.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/26.png)
 
-![](../../../images/developer/storefront/27.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/27.png)
 
-![](../../../images/developer/storefront/28.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/28.png)
 
-![](../../../images/developer/storefront/29.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/29.png)
 
-![](../../../images/developer/storefront/30.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/30.png)
 
-![](../../../images/developer/storefront/31.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/31.png)
 
-![](../../../images/developer/storefront/32.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/32.png)
 
-![](../../../images/developer/storefront/33.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/33.png)
 
 ### Fonts
 
@@ -137,26 +137,26 @@ __*$font-family*__ - sets the font family used across your site. By default it i
 
 __*$input-background*__ - allows you to set a color for all input field backgrounds across the site. See two examples below - a white one and a yellow one.
 
-![](../../../images/developer/storefront/34.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/34.png)
 
-![](../../../images/developer/storefront/35.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/35.png)
 
-![](../../../images/developer/storefront/36.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/36.png)
 
-![](../../../images/developer/storefront/37.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/37.png)
 
-![](../../../images/developer/storefront/38.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/38.png)
 
-![](../../../images/developer/storefront/39.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/39.png)
 
 __*$second-global-border*__ - allows you to set a color for all input field borders across the whole site. See an example below with red input field borders.
 
 
-![](../../../images/developer/storefront/40.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/40.png)
 
-![](../../../images/developer/storefront/41.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/41.png)
 
-![](../../../images/developer/storefront/42.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/42.png)
 
 ### Primary color
 Home Page
@@ -164,15 +164,15 @@ __*$primary-color*__ variable changes
 
 + The color of __SHOP NOW__ button on the main hero image
 
-![](../../../images/developer/storefront/45.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/45.png)
 
 + The color of __Summer 2019__ and __READ MORE__ button
 
-![](../../../images/developer/storefront/46.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/46.png)
 
 + The color of __NEW COLLECTION & SUMMER SALE__ headers inside the categories section
 
-![](../../../images/developer/storefront/47.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/47.png)
 
 Search Results
 
@@ -180,7 +180,7 @@ __*$primary-color*__ variable changes
 
 + The color of __No Results__ icon
 
-![](../../../images/developer/storefront/49.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/49.png)
 
 Mega Menu
 
@@ -188,7 +188,7 @@ __*$primary-color*__ variable changes
 
 + The color of __NEW COLLECTION & SUMMER SALE__ headers inside the banners
 
-![](../../../images/developer/storefront/50.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/50.png)
 
 
    PDP
@@ -197,11 +197,11 @@ __*$primary-color*__ variable changes
 
 + The color of IN STOCK text
 
-![](../../../images/developer/storefront/52.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/52.png)
 
 + The color of ADD TO CART button
 
-![](../../../images/developer/storefront/53.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/53.png)
 
 Cart Page
 
@@ -209,18 +209,18 @@ __*$primary-color*__ variable changes
 
 + The color of Trash delete icon
 
-![](../../../images/developer/storefront/54.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/54.png)
 
 + The color of CHECKOUT button
 
-![](../../../images/developer/storefront/55.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/55.png)
 
  Cart pop-up
 
 __*$primary-color*__ variable changes
 + The color of __CHECKOUT__ and __VIEW CART__ buttons
 
-![](../../../images/developer/storefront/56.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/56.png)
 
 Cart - empty
 
@@ -228,11 +228,11 @@ __*$primary-color*__ variable changes
 
 + The color of __CONTINUE SHOPPING__ button
 
-![](../../../images/developer/storefront/57.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/57.png)
 
 + The color of __Empty Cart__ icon
 
-![](../../../images/developer/storefront/58.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/58.png)
 
 Checkout
 
@@ -242,11 +242,11 @@ __*$primary-color*__ variable changes
 
 + The color of __LOG IN, SIGN UP and CONTINUE AS A GUEST__ buttons
 
-![](../../../images/developer/storefront/59.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/59.png)
 
-![](../../../images/developer/storefront/60.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/60.png)
 
-![](../../../images/developer/storefront/61.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/61.png)
 
 Address Step
 
@@ -254,11 +254,11 @@ __*$primary-color*__ variable changes
 
 + The color of __SAVE AND CONTINUE__ button (this element remains the same across the whole checkout process)
 
-![](../../../images/developer/storefront/62.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/62.png)
 
 + The color of __EDIT__ icon
 
-![](../../../images/developer/storefront/63.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/63.png)
 
 Payment step
 
@@ -266,7 +266,7 @@ __*$primary-color*__ variable changes
 
 + The color of __APPLY__ button
 
-![](../../../images/developer/storefront/64.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/64.png)
 
 Confirm Step
 
@@ -274,7 +274,7 @@ __*$primary-color*__ variable changes
 
 + The color of __PLACE ORDER__ buttons
 
-![](../../../images/developer/storefront/65.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/65.png)
 
 Sign In Page
 
@@ -282,9 +282,9 @@ __*$primary-color*__ variable changes
 
 The color of __LOG IN__ and __SIGN UP__ buttons
 
-![](../../../images/developer/storefront/66.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/66.png)
 
-![](../../../images/developer/storefront/67.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/67.png)
 
 Sign Up Page
 
@@ -292,9 +292,9 @@ __*$primary-color*__ variable changes
 
 + The color of __SIGN UP__ and __LOG IN__ buttons
 
-![](../../../images/developer/storefront/68.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/68.png)
 
-![](../../../images/developer/storefront/69.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/69.png)
 
 My Account Page
 
@@ -302,7 +302,7 @@ __*$primary-color*__ variable changes
 
 + The color of __Edit__ and __Trash__ icons
 
-![](../../../images/developer/storefront/70.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/70.png)
 
 Edit Account Page
 
@@ -310,7 +310,7 @@ __*$primary-color*__ variable changes
 
 + The color of __UPDATE__ button
 
-![](../../../images/developer/storefront/71.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/71.png)
 
   Pop-ups
 
@@ -318,7 +318,7 @@ __*$primary-color*__ variable changes
 
 + The color of __CANCEL__ and __OK__ buttons
 
-![](../../../images/developer/storefront/72.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/72.png)
 
   ### Secondary color
 
@@ -329,45 +329,45 @@ Filter
 __*$secondary-color*__ variable changes
 + The color of chosen __color__ border variant
 
-![](../../../images/developer/storefront/73.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/73.png)
 
 + The color of chosen __size__ border variant
 
-![](../../../images/developer/storefront/74.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/74.png)
 
 + The color of chosen __length__ border variant
 
-![](../../../images/developer/storefront/75.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/75.png)
 
 + The color of chosen __price__ border variant
 
-![](../../../images/developer/storefront/76.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/76.png)
 
 PDP
 __*$secondary-color*__ variable changes
 
 + The color of chosen __color__ border variant
 
-![](../../../images/developer/storefront/77.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/77.png)
 
 + The color of chosen __size__ border variant
 
-![](../../../images/developer/storefront/78.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/78.png)
 
 + The color of chosen __length__ border variant
 
-![](../../../images/developer/storefront/79.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/79.png)
 
 + The color of chosen __image__ border
 
-![](../../../images/developer/storefront/80.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/80.png)
 
 Pop-ups
 __*$secondary-color*__ variable changes
 
 + The color of Add to bag successfully icon
 
-![](../../../images/developer/storefront/81.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/81.png)
 
 Log-in and Sign-in page
 
@@ -375,11 +375,11 @@ __*$secondary-color*__ variable changes
 
 + The color of __Remember me__ checkbox
 
-![](../../../images/developer/storefront/82.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/82.png)
 
 + The color of __input: focus__
 
-![](../../../images/developer/storefront/83.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/83.png)
 
 Checkout
 
@@ -387,7 +387,7 @@ __*$secondary-color*__ variable changes
 
 + The color of __individual steps__ (box, name step and guide line) - this element remain the same across whole checkout process
 
-![](../../../images/developer/storefront/84.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/84.png)
 
 Address Step
 
@@ -395,7 +395,7 @@ __*$secondary-color*__ variable changes
 
 + The color of Use shipping address checkbox
 
-![](../../../images/developer/storefront/85.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/85.png)
 
 Delivery Step
 
@@ -403,18 +403,18 @@ __*$secondary-color*__ variable changes
 
 + The color of delivery type radio buttons
 
-![](../../../images/developer/storefront/86.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/86.png)
 
 Payment Step
 
 __*$secondary-color*__ variable changes
  + The color of payment type radio buttons
 
-![](../../../images/developer/storefront/87.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/87.png)
 
 + The color of payment card radio buttons
 
-![](../../../images/developer/storefront/88.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/88.png)
 
 Order confirmation page
 
@@ -423,7 +423,7 @@ __*$secondary-color*__ variable changes
   + The color of __successful checkmark__ icon
 
 
-![](../../../images/developer/storefront/89.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/89.png)
 
   Grid breakpoints
 -----------
@@ -439,11 +439,11 @@ Possible values: __true__ or __false__
 
 __“True” example__
 
-![](../../../images/developer/storefront/98.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/98.png)
 
 __“False” example__
 
-![](../../../images/developer/storefront/99.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/99.png)
 
 
 Shadows for components
@@ -480,7 +480,7 @@ Social media icons in the footer
 -----------
 Replace social media URLs with yours in the Spree admin panel by going to Configuration > Stores and editing (pencil icon) your store settings in the Social section.
 
-![](../../../images/developer/storefront/100.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/100.png)
 
 Make sure to place the part of the URL trailing after .com/, for example:
 SCREEN
@@ -488,21 +488,21 @@ You don’t have to use any slashes.
 
 If you leave any of the Social fields empty the corresponding social media icon will disappear.
 
-If you would like to replace the default social media icons you could replace images in this path [frontendapp/assets/images](https://github.com/spark-solutions/spree/blob/master/frontendapp/assets/images): <- [default Facebook icon](https://github.com/spark-solutions/spree/blob/master/frontend/app/assets/images/facebook.svg). Make sure to use SVG files.
+If you would like to replace the default social media icons you could replace images in this path [frontendapp/assets/images](https://github.com/spree/spree/blob/master/frontendapp/assets/images): <- [default Facebook icon](https://github.com/spree/spree/blob/master/frontend/app/assets/images/facebook.svg). Make sure to use SVG files.
 
 
 Contact us in the footer
 -----------
 
 
-The footer contains a “Contact us” section with your store contact information. You can change the contents of this section in the [__footer.html.erb__](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/shared/_footer.html.erb) file in lines 30 to 38. The file is automatically copied to [shared/_footer.html.erb](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/shared) in your application directory.
+The footer contains a “Contact us” section with your store contact information. You can change the contents of this section in the [__footer.html.erb__](https://github.com/spree/spree/blob/master/frontend/app/views/spree/shared/_footer.html.erb) file in lines 30 to 38. The file is automatically copied to [shared/_footer.html.erb](https://github.com/spree/spree/tree/master/frontend/app/views/spree/shared) in your application directory.
 
 
 Product categories in the footer
 -----------
 
 
-The footer by default contains a list of product categories in your store. Feel free to change the contents of this section in the [__config/spree_storefront.yml__](https://github.com/spark-solutions/spree/blob/master/core/lib/generators/spree/install/templates/config/spree_storefront.yml). The file is automatically copied to your application after running Spree installer.
+The footer by default contains a list of product categories in your store. Feel free to change the contents of this section in the [__config/spree_storefront.yml__](https://github.com/spree/spree/blob/master/core/lib/generators/spree/install/templates/config/spree_storefront.yml). The file is automatically copied to your application after running Spree installer.
 
 Replacing placeholders with your images and copy
 ======
@@ -523,7 +523,7 @@ Homepage placeholder slots
 In the screenshot below you’ll find homepage promo banner slots with the default image placeholders indicating desktop placeholder sizes in pixels. Please note that each of these placeholders requires 4 images for various devices listed below. This is just a desktop example.
 
 
-Homepage text values may be replaced in your project repository in the [/app/views/spree/home/index.html.erb](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb). Please note that this file will be automatically copied to your project directory after running Spree installer.
+Homepage text values may be replaced in your project repository in the [/app/views/spree/home/index.html.erb](https://github.com/spree/spree/blob/master/frontend/app/views/spree/home/index.html.erb). Please note that this file will be automatically copied to your project directory after running Spree installer.
 
 
 You’ll need to upload 4 sizes for each of these promo banners:
@@ -556,8 +556,8 @@ Left and right promotion banners
 Please find all the [placeholder images and their size variations in this Google Drive folder](https://drive.google.com/drive/folders/1lbUMNFB2jcwpx4Jpr9uVLd_lUGw9GpVJ) for your reference.
 
 In order to replace those placeholder images you will probably want to perform two operations:
-+ change the file names in the [/app/views/spree/home/index.html.erb](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb) in your project repository,
-+ upload those images to your Spree project code repo into this folder [frontend/app/assets/images/homepage](https://github.com/spark-solutions/spree/tree/master/frontend/app/assets/images/homepage). The files are automatically copied to your application folder after running Spree installer, preserving the file name structure and just changing “big_category_banner” to your file name:
++ change the file names in the [/app/views/spree/home/index.html.erb](https://github.com/spree/spree/blob/master/frontend/app/views/spree/home/index.html.erb) in your project repository,
++ upload those images to your Spree project code repo into this folder [frontend/app/assets/images/homepage](https://github.com/spree/spree/tree/master/frontend/app/assets/images/homepage). The files are automatically copied to your application folder after running Spree installer, preserving the file name structure and just changing “big_category_banner” to your file name:
   + __big_category_banner.jpg__
   + __big_category_banner_mobile.jpg__
   + __big_category_banner_tablet_landscape.jpg__
@@ -565,39 +565,39 @@ In order to replace those placeholder images you will probably want to perform t
 
 Those file names will be used in the srcset attribute which specified the URL of the image to use for various screen sizes and orientations.
 
-If you’d like to change the file names in the [/app/views/spree/home/index.html.erb](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb) please find below line number where to place new image files names.
+If you’d like to change the file names in the [/app/views/spree/home/index.html.erb](https://github.com/spree/spree/blob/master/frontend/app/views/spree/home/index.html.erb) please find below line number where to place new image files names.
 
 __Main banner code lines__
 
- [Line 5](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb#L5): data-src="<%= asset_path('homepage/main_banner.jpg') %>"
+ [Line 5](https://github.com/spree/spree/blob/edbeae23a1d57ed3c4ec48896799578637a0e60c/frontend/app/views/spree/home/index.html.erb#L5): data-src="<%= asset_path('homepage/main_banner.jpg') %>"
 
- [Line 6](data-src="<%= asset_path('homepage/main_banner.jpg') %>"): data-srcset="<%= image_source_set('homepage/main_banner') %>"
+ [Line 6](https://github.com/spree/spree/blob/edbeae23a1d57ed3c4ec48896799578637a0e60c/frontend/app/views/spree/home/index.html.erb#L6) : data-srcset="<%= image_source_set('homepage/main_banner') %>"
 
 __Big category banner code lines__
 
-[Line 54](data-src="<%= asset_path('homepage/main_banner.jpg') %>"): data-src="<%= asset_path('homepage/big_category_banner.jpg') %>"
+[Line 56](https://github.com/spree/spree/blob/edbeae23a1d57ed3c4ec48896799578637a0e60c/frontend/app/views/spree/home/index.html.erb#L56) : data-src="<%= asset_path('homepage/big_category_banner.jpg') %>"
 
-[Line 57](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb#L57): data-srcset="<%= image_source_set('homepage/big_category_banner') %>"
+[Line 57](https://github.com/spree/spree/blob/edbeae23a1d57ed3c4ec48896799578637a0e60c/frontend/app/views/spree/home/index.html.erb#L57):             data-srcset="<%= image_source_set('homepage/category_banner_upper') %>"
 
 __Both category banners code lines__
 
-[Line 26](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb#L26): data-src="<%= asset_path('homepage/category_banner_upper.jpg') %>"
+[Line 26](https://github.com/spree/spree/blob/edbeae23a1d57ed3c4ec48896799578637a0e60c/frontend/app/views/spree/home/index.html.erb#L26): data-src="<%= asset_path('homepage/category_banner_upper.jpg') %>"
 
-[Line 25](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb#L27): image_source_set('homepage/category_banner_upper) %>"
+[Line 27](https://github.com/spree/spree/blob/edbeae23a1d57ed3c4ec48896799578637a0e60c/frontend/app/views/spree/home/index.html.erb#L27):             data-srcset="<%= image_source_set('homepage/category_banner_upper') %>"
 
-[Line 39](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb#L39): data-src="<%= asset_path('homepage/category_banner_lower.jpg') %>"
+[Line 39](https://github.com/spree/spree/blob/edbeae23a1d57ed3c4ec48896799578637a0e60c/frontend/app/views/spree/home/index.html.erb#L39): data-src="<%= asset_path('homepage/category_banner_lower.jpg') %>"
 
-[Line 38](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb#L40): data-srcset="<%= image_source_set('homepage/category_banner_lower) %>"
+[Line 40](https://github.com/spree/spree/blob/edbeae23a1d57ed3c4ec48896799578637a0e60c/frontend/app/views/spree/home/index.html.erb#L40): data-srcset="<%= image_source_set('homepage/category_banner_lower) %>"
 
 __Both promo banners code lines__
 
-[Line 101](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb#L92): data-src="<%= asset_path('homepage/promo_banner_left.jpg') %>"
+[Line 92](https://github.com/spree/spree/blob/edbeae23a1d57ed3c4ec48896799578637a0e60c/frontend/app/views/spree/home/index.html.erb#L92): data-src="<%= asset_path('homepage/promo_banner_left.jpg') %>"
 
-[Line 102](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb#L93): data-srcset="<%= image_source_set('homepage/promo_banner_left.jpg) %>"
+[Line 93](https://github.com/spree/spree/blob/edbeae23a1d57ed3c4ec48896799578637a0e60c/frontend/app/views/spree/home/index.html.erb#L93): data-srcset="<%= image_source_set('homepage/promo_banner_left.jpg) %>"
 
-[Line 121](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb#L112): data-src="<%= asset_path('homepage/promo_banner_right.jpg') %>"
+[Line 112](https://github.com/spree/spree/blob/edbeae23a1d57ed3c4ec48896799578637a0e60c/frontend/app/views/spree/home/index.html.erb#L112): data-src="<%= asset_path('homepage/promo_banner_right.jpg') %>"
 
-[Line 122](https://github.com/spark-solutions/spree/blob/master/frontend/app/views/spree/home/index.html.erb#L113): data-srcset="<%= image_source_set('homepage/promo_banner_right') %>"
+[Line 113](https://github.com/spree/spree/blob/edbeae23a1d57ed3c4ec48896799578637a0e60c/frontend/app/views/spree/home/index.html.erb#L113): data-srcset="<%= image_source_set('homepage/promo_banner_right') %>"
 
 Category banner on PLP
 -----------
@@ -625,20 +625,20 @@ We highly recommend adding a sitemap to your site. It might affect how Google bo
 3. enter title, keywords and description values for that store homepage
 4. click the Update button at the bottom of the page
 
-![](../../../images/developer/storefront/101.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/101.png)
 
 To set title, meta keywords and description for each store category page (PLP), in the admin panel:
 1. go to Products > Taxonomies
 2. go into a Categories list by pressing the Edit button (pencil icon)
 3. pick the category you’d like to edit by right-clicking (control + click on a Mac) a child in the tree to access the menu for adding, deleting or sorting a child.
 
-![](../../../images/developer/storefront/102.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/102.png)
 
 4. click the Edit link for that category
 5. replace the default values for title, meta keywords and description with your own
 6. click the Update button at the bottom of the page
 
-![](../../../images/developer/storefront/103.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/103.png)
 
 You’ll have to edit every category and subcategory to your liking in a similar fashion.
 
@@ -648,7 +648,7 @@ To set title, meta keywords and description for each __product page (PDP)__, in 
 9. while in the Details tab, scroll down and place your values for title, meta keywords and description
 10. click the Update button at the bottom of the page
 
-![](../../../images/developer/storefront/104.png)
+![](https://github.com/spree/spree/tree/master/guides/src/images/developer/storefront/104.png)
 
 Social sharing and search preview
 ======
