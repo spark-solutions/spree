@@ -8,6 +8,13 @@ module Spree
       def model_class
         Spree::DummyModel
       end
+
+      private
+
+      def dummy_model_params
+        return ActionController::Parameters.new.permit if params[:dummy_model].blank?
+        params.require(:dummy_model).permit(:name)
+      end
     end
   end
 end

@@ -15,6 +15,21 @@ module Spree
 
       private
 
+      def return_authorization_params
+        return ActionController::Parameters.new.permit if params[:return_authorization].blank?
+        params.require(:return_authorization).permit(Spree::Api::ApiHelpers.return_authorization_attributes + [
+          :return_authorization_reason_id, :stock_location_id,
+          return_items_attributes: [
+            :id, :_destroy,
+            :acceptance_status, :acceptance_status_errors, :additional_tax_total,
+            :customer_return_id, :exchange_variant_id, :included_tax_total,
+            :inventory_unit_id, :override_reimbursement_type_id, :pre_tax_amount,
+            :preferred_reimbursement_type_id, :reception_status, :reimbursement_id,
+            :resellable, :return_authorization_id, :return_quantity, :returned,
+          ],
+        ])
+      end
+
       def load_form_data
         load_return_items
         load_reimbursement_types

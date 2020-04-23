@@ -39,7 +39,11 @@ module Spree
         private
 
         def zone_params
-          attrs = params.require(:zone).permit!
+          attrs = params.require(:zone).permit(
+            :name, :description, :default_tax, :kind,
+            zone_members: [:zoneable_id, :zoneable_type],
+            zone_members_attributes: [:zoneable_id, :zoneable_type],
+          )
           if attrs[:zone_members]
             attrs[:zone_members_attributes] = attrs.delete(:zone_members)
           end

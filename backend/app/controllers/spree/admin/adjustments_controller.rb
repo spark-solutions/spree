@@ -17,6 +17,13 @@ module Spree
 
       private
 
+      def adjustment_params
+        return ActionController::Parameters.new.permit if params[:adjustment].blank?
+        params.require(:adjustment).permit(Spree::Api::ApiHelpers.adjustment_attributes + [
+          :calculator_type, :included, :order_id, :source_type, :state,
+        ])
+      end
+
       def find_adjustment
         # Need to assign to @object here to keep ResourceController happy
         @adjustment = @object = parent.all_adjustments.find(params[:id])

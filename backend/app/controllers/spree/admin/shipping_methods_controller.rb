@@ -18,6 +18,24 @@ module Spree
 
       private
 
+      def shipping_method_params
+        return ActionController::Parameters.new.permit if params[:shipping_method].blank?
+        params.require(:shipping_method).permit(
+          :admin_name, :calculator_type, :code, :display_on, :name,
+          :tax_category_id, :tracking_url,
+          calculator_attributes: [
+            :id, :_destroy,
+            :calculable_id, :calculable_type,
+            :preferred_additional_item, :preferred_amount,
+            :preferred_base_amount, :preferred_base_percent, :preferred_currency,
+            :preferred_discount_amount, :preferred_flat_percent, :preferred_first_item, :preferred_max_items,
+            :preferred_minimal_amount, :preferred_normal_amount, :preferred_percent,
+            :type,
+            preferred_tiers: {},
+          ],
+        )
+      end
+
       def set_shipping_category
         return true if params['shipping_method'][:shipping_categories].blank?
 

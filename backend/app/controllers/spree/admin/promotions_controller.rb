@@ -22,6 +22,40 @@ module Spree
 
       protected
 
+      def promotion_params
+        return ActionController::Parameters.new.permit if params[:promotion].blank?
+        params.require(:promotion).permit(Spree::Api::ApiHelpers.promotion_attributes + [
+          :generate_code, :promotion_category_id,
+          promotion_actions_attributes: [
+            :id, :_destroy,
+            :calculator_type, :position, :promotion_id, :type,
+            calculator_attributes: [
+              :id, :_destroy,
+              :calculable_id, :calculable_type,
+              :preferred_additional_item, :preferred_amount,
+              :preferred_base_amount, :preferred_base_percent, :preferred_currency,
+              :preferred_discount_amount, :preferred_flat_percent, :preferred_first_item, :preferred_max_items,
+              :preferred_minimal_amount, :preferred_normal_amount, :preferred_percent,
+              :type,
+              preferred_tiers: {},
+            ],
+            promotion_action_line_items_attributes: [
+              :id, :_destroy,
+              :promotion_action_id, :quantity, :variant_id,
+            ],
+          ],
+          promotion_rules_attributes: [
+            :id, :_destroy,
+            :code, :product_group_id, :promotion_id, :type, :user_id,
+            :product_ids_string, :taxon_ids_string, :user_ids_string,
+            :preferred_amount_min, :preferred_amount_max,
+            :preferred_country_id, :preferred_match_policy,
+            :preferred_operator_min, :preferred_operator_max,
+            preferred_eligible_values: {},
+          ],
+        ])
+      end
+
       def location_after_save
         spree.edit_admin_promotion_url(@promotion)
       end

@@ -18,6 +18,13 @@ module Spree
 
       protected
 
+      def option_type_params
+        return ActionController::Parameters.new.permit if params[:option_type].blank?
+        params.require(:option_type).permit(
+          permitted_option_type_attributes +
+          [option_values_attributes: permitted_option_value_attributes + [:_destroy]])
+      end
+
       def location_after_save
         if @option_type.created_at == @option_type.updated_at
           edit_admin_option_type_url(@option_type)

@@ -21,6 +21,18 @@ module Spree
         @prototype ||= Prototype.find(params[:id])
         @prototype_properties = @prototype.properties
       end
+
+      private
+
+      def prototype_params
+        return ActionController::Parameters.new.permit if params[:prototype].blank?
+        params.require(:prototype).permit(
+          :name,
+          property_ids: [],
+          option_type_ids: [],
+          taxon_ids: [],
+        )
+      end
     end
   end
 end

@@ -22,6 +22,11 @@ module Spree
 
       private
 
+      def customer_return_params
+        return ActionController::Parameters.new.permit if params[:customer_return].blank?
+        params.require(:customer_return).permit(permitted_customer_return_attributes)
+      end
+
       def location_after_save
         url_for([:edit, :admin, @order, @customer_return])
       end

@@ -27,7 +27,7 @@ module Spree
           next if name.to_s.include?('master_price')
 
           parts = name.to_s.match(/(.*)_by_(.*)/)
-          scope(name.to_s, -> { order(Arel.sql("#{Product.quoted_table_name}.#{parts[2]} #{parts[1] == 'ascend' ? 'ASC' : 'DESC'}")) })
+          scope(name.to_s, -> { order(Arel.sql("#{Product.quoted_table_name}.#{Product.connection.quote_column_name(parts[2])} #{parts[1] == 'ascend' ? 'ASC' : 'DESC'}")) })
         end
       end
 
@@ -43,11 +43,11 @@ module Spree
       add_simple_scopes simple_scopes
 
       add_search_scope :ascend_by_master_price do
-        joins(master: :default_price).order("#{price_table_name}.amount ASC")
+        joins(master: :default_price).order("#{Price.quoted_table_name}.amount ASC")
       end
 
       add_search_scope :descend_by_master_price do
-        joins(master: :default_price).order("#{price_table_name}.amount DESC")
+        joins(master: :default_price).order("#{Price.quoted_table_name}.amount DESC")
       end
 
       add_search_scope :price_between do |low, high|
@@ -55,11 +55,11 @@ module Spree
       end
 
       add_search_scope :master_price_lte do |price|
-        joins(master: :default_price).where("#{price_table_name}.amount <= ?", price)
+        joins(master: :default_price).where("#{Price.quoted_table_name}.amount <= ?", price)
       end
 
       add_search_scope :master_price_gte do |price|
-        joins(master: :default_price).where("#{price_table_name}.amount >= ?", price)
+        joins(master: :default_price).where("#{Price.quoted_table_name}.amount >= ?", price)
       end
 
       # This scope selects products in taxon AND all its descendants
@@ -119,14 +119,13 @@ module Spree
       end
 
       add_search_scope :with_option_value do |option, value|
-        option_values = OptionValue.table_name
         option_type_id = case option
                          when String then OptionType.find_by(name: option) || option.to_i
                          when OptionType then option.id
                          else option.to_i
                          end
 
-        conditions = "#{option_values}.name = ? AND #{option_values}.option_type_id = ?", value, option_type_id
+        conditions = "#{OptionValue.table_name}.name = ? AND #{OptionValue.table_name}.option_type_id = ?", value, option_type_id
         group('spree_products.id').joins(variants_including_master: :option_values).where(conditions)
       end
 
@@ -213,11 +212,6 @@ module Spree
       add_search_scope :taxons_name_eq do |name|
         group('spree_products.id').joins(:taxons).where(Taxon.arel_table[:name].eq(name))
       end
-
-      def self.price_table_name
-        Price.quoted_table_name
-      end
-      private_class_method :price_table_name
 
       # specifically avoid having an order for taxon search (conflicts with main order)
       def self.prepare_taxon_conditions(taxons)

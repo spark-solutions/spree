@@ -29,13 +29,14 @@ module Spree
         end
 
         def prepare_event
-          return unless @event = params[:fire]
+          return unless params[:fire]
+          @event = inventory_unit.state_paths.events.map(&:to_s).detect{|event| event == params[:fire]}
 
           can_event = "can_#{@event}?"
 
-          unless inventory_unit.respond_to?(can_event) &&
+          unless @event && inventory_unit.respond_to?(can_event) &&
               inventory_unit.send(can_event)
-            render plain: { exception: "cannot transition to #{@event}" }.to_json,
+            render plain: { exception: "cannot transition to #{params[:fire]}" }.to_json,
                    status: 200
             false
           end

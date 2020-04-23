@@ -233,13 +233,6 @@ class Spree::Admin::ResourceController < Spree::Admin::BaseController
   # This method should be overridden when object_name does not match the controller name
   def object_name; end
 
-  # Allow all attributes to be updatable.
-  #
-  # Other controllers can, should, override it to set custom logic
-  def permitted_resource_params
-    params[resource.object_name].present? ? params.require(resource.object_name).permit! : ActionController::Parameters.new
-  end
-
   def collection_actions
     [:index]
   end
@@ -250,5 +243,11 @@ class Spree::Admin::ResourceController < Spree::Admin::BaseController
 
   def new_actions
     [:new, :create]
+  end
+
+  private
+
+  def permitted_resource_params
+    send(:"#{resource.object_name}_params")
   end
 end

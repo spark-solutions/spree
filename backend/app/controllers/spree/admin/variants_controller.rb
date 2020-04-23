@@ -24,6 +24,14 @@ module Spree
 
       protected
 
+      def variant_params
+        return ActionController::Parameters.new.permit if params[:variant].blank?
+        params.require(:variant).permit(Spree::Api::ApiHelpers.variant_attributes + [
+          :cost_currency, :discontinue_on, :position, :product_id, :tax_category_id,
+          option_value_ids: [],
+        ])
+      end
+
       def new_before
         master = @object.product.master
         @object.attributes = master.attributes.except(

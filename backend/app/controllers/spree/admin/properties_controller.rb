@@ -7,6 +7,11 @@ module Spree
 
       private
 
+      def property_params
+        return ActionController::Parameters.new.permit if params[:property].blank?
+        params.require(:property).permit(permitted_property_attributes)
+      end
+
       def collection
         return @collection if @collection.present?
 

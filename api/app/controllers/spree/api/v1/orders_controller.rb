@@ -36,7 +36,7 @@ module Spree
                          end
 
             import_params = if @current_user_roles.include?('admin')
-                              params[:order].present? ? params[:order].permit! : {}
+                              admin_order_params
                             else
                               order_params
                             end
@@ -126,6 +126,17 @@ module Spree
           if params[:order]
             normalize_params
             params.require(:order).permit(permitted_order_attributes)
+          else
+            {}
+          end
+        end
+
+        def admin_order_params
+          if params[:order]
+            params.require(:order).permit(
+              [:import, :number, :completed_at, :locked_at, :channel, :user_id] +
+              permitted_order_attributes
+            )
           else
             {}
           end

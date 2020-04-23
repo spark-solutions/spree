@@ -9,6 +9,11 @@ module Spree
 
       private
 
+      def image_params
+        return ActionController::Parameters.new.permit if params[:image].blank?
+        params.require(:image).permit(permitted_image_attributes)
+      end
+
       def location_after_destroy
         admin_product_images_url(@product)
       end

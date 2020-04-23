@@ -13,6 +13,11 @@ module Spree
 
       protected
 
+      def state_params
+        return ActionController::Parameters.new.permit if params[:state].blank?
+        params.require(:state).permit(Spree::Api::ApiHelpers.state_attributes)
+      end
+
       def location_after_save
         admin_country_states_url(@country)
       end

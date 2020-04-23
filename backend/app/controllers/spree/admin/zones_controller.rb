@@ -9,6 +9,19 @@ module Spree
 
       protected
 
+      def zone_params
+        return ActionController::Parameters.new.permit if params[:zone].blank?
+        params.require(:zone).permit(
+          :default_tax, :description, :kind, :name, :zone_members_count,
+          state_ids: [],
+          country_ids: [],
+          zone_members_attributes: [
+            :id, :_destroy,
+            :zone_id, :zoneable_id, :zoneable_type,
+          ],
+        )
+      end
+
       def collection
         params[:q] ||= {}
         params[:q][:s] ||= 'name asc'

@@ -49,6 +49,14 @@ class Spree::Admin::PromotionRulesController < Spree::Admin::BaseController
   end
 
   def promotion_rule_params
-    params[:promotion_rule].permit!
+    return ActionController::Parameters.new.permit if params[:promotion_rule].blank?
+    params.require(:promotion_rule).permit(
+      :code, :product_group_id, :promotion_id, :type, :user_id,
+      :product_ids_string, :taxon_ids_string, :user_ids_string,
+      :preferred_amount_min, :preferred_amount_max,
+      :preferred_country_id, :preferred_match_policy,
+      :preferred_operator_min, :preferred_operator_max,
+      preferred_eligible_values: {},
+    )
   end
 end

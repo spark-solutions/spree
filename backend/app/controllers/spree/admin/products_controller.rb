@@ -26,7 +26,7 @@ module Spree
           params[:product][:option_type_ids] = params[:product][:option_type_ids].split(',')
         end
         invoke_callbacks(:update, :before)
-        if @object.update(permitted_resource_params)
+        if @object.update(product_params)
           invoke_callbacks(:update, :after)
           flash[:success] = flash_message_for(@object, :successfully_updated)
           respond_with(@object) do |format|
@@ -89,6 +89,23 @@ module Spree
       end
 
       protected
+
+      def product_params
+        return ActionController::Parameters.new.permit if params[:product].blank?
+        params.require(:product).permit(
+          Spree::Api::ApiHelpers.product_attributes +
+          Spree::Api::ApiHelpers.variant_attributes + [
+            {option_values_hash: {}},
+            {option_type_ids: []},
+            {taxon_ids: []},
+            {product_properties_attributes:
+              Spree::Api::ApiHelpers.product_property_attributes + [
+                :_destroy, :position,
+              ]
+            }
+          ]
+        )
+      end
 
       def find_resource
         Product.with_deleted.friendly.find(params[:id])

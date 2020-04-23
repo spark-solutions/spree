@@ -3,7 +3,7 @@ module Spree
     class ReimbursementTypesController < ResourceController
       def update
         invoke_callbacks(:update, :before)
-        if @object.update(permitted_resource_params_for_update)
+        if @object.update(reimbursement_type_params)
           invoke_callbacks(:update, :after)
           respond_with(@object) do |format|
             format.html do
@@ -23,9 +23,11 @@ module Spree
 
       private
 
-      def permitted_resource_params_for_update
-        params_hash = @object.type.underscore.remove('spree/').tr('/', '_')
-        params.require(params_hash.to_s).permit(:name, :active, :mutable)
+      def reimbursement_type_params
+        params_hash = (@object.type || model_class.name).underscore.remove('spree/').tr('/', '_')
+        params.require(params_hash.to_s).permit(
+          :active, :mutable, :name, :type,
+        )
       end
     end
   end

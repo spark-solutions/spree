@@ -14,6 +14,20 @@ module Spree
 
       private
 
+      def reimbursement_params
+        return ActionController::Parameters.new.permit if params[:reimbursement].blank?
+        params.require(:reimbursement).permit(Spree::Api::ApiHelpers.reimbursement_attributes + [
+          return_items_attributes: [
+            :id, :_destroy,
+            :acceptance_status, :acceptance_status_errors, :additional_tax_total,
+            :customer_return_id, :exchange_variant_id, :included_tax_total,
+            :inventory_unit_id, :override_reimbursement_type_id, :pre_tax_amount,
+            :preferred_reimbursement_type_id, :reception_status, :reimbursement_id,
+            :resellable, :return_authorization_id,
+          ],
+        ])
+      end
+
       def build_resource
         if params[:build_from_customer_return_id].present?
           customer_return = CustomerReturn.find(params[:build_from_customer_return_id])

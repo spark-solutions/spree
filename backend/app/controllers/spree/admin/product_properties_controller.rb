@@ -7,6 +7,11 @@ module Spree
 
       private
 
+      def product_property_params
+        return ActionController::Parameters.new.permit if params[:product_property].blank?
+        params.require(:product_property).permit(permitted_product_property_attributes)
+      end
+
       def find_properties
         @properties = Spree::Property.pluck(:name)
       end

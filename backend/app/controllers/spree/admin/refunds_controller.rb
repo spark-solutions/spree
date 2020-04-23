@@ -10,6 +10,13 @@ module Spree
 
       private
 
+      def refund_params
+        return ActionController::Parameters.new.permit if params[:refund].blank?
+        params.require(:refund).permit(
+          :amount, :payment_id, :refund_reason_id, :reimbursement_id, :transaction_id,
+        )
+      end
+
       def location_after_save
         admin_order_payments_path(@payment.order)
       end

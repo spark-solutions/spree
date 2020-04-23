@@ -8,7 +8,9 @@ module Spree
       respond_to :html
 
       def create
-        @payment_method = params[:payment_method].delete(:type).constantize.new(payment_method_params)
+        payment_method_type = (params[:payment_method] || {}).delete(:type)
+        payment_method_class = Spree::PaymentMethod.descendants.detect{|klass| klass.name == payment_method_type}
+        @payment_method = payment_method_class.new(payment_method_params)
         @object = @payment_method
         invoke_callbacks(:create, :before)
         if @payment_method.save
@@ -67,14 +69,19 @@ module Spree
       end
 
       def payment_method_params
-        params.require(:payment_method).permit!
+        params.require(:payment_method).permit(
+          Spree::Api::ApiHelpers.payment_method_attributes +
+          [:active, :auto_capture, :display_on, :position, :store_id]
+        )
       end
 
       def preferences_params
         key = ActiveModel::Naming.param_key(@payment_method)
         return {} unless params.key? key
 
-        params.require(key).permit!
+        params.require(key).permit(
+          @payment_method.preferences.keys.map{|preference_name| :"preferred_#{preference_name}"}
+        )
       end
     end
   end

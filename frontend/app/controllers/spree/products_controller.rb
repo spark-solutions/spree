@@ -91,8 +91,12 @@ module Spree
       # we should do a 301 redirect that uses the current friendly id.
       if params[:id] != @product.friendly_id
         params[:id] = @product.friendly_id
-        params.permit!
-        redirect_to url_for(params), status: :moved_permanently
+        uri = URI.parse(url_for(params.permit(:id)))
+        if request.query_parameters.except(:id).present?
+          uri.query = URI.encode_www_form URI.decode_www_form(uri.query || '').
+            concat(request.query_parameters.except(:id).to_a)
+        end
+        redirect_to uri.to_s, status: :moved_permanently
       end
     end
 
