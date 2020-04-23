@@ -1,6 +1,6 @@
 module Spree
   module Api
-    class ErrorsController < ActionController::Base
+    class ErrorsController < ActionController::API
       protect_from_forgery
 
       def render_404
