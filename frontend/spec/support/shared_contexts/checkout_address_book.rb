@@ -24,6 +24,10 @@ shared_context 'checkout address book' do
 
   private
 
+  def native_fill_in(field, text)
+    text.split('').each { |c| find_field(field).native.send_keys(c) }
+  end
+
   def should_have_address_fields
     expect(page).to have_field('First Name *')
     expect(page).to have_field('Last Name *')
@@ -56,8 +60,8 @@ shared_context 'checkout address book' do
 
   def fill_in_credit_card_info(address)
     fill_in 'name_on_card', with: "#{address.firstname} #{address.lastname}"
-    fill_in 'card_number', with: '4111 1111 1111 1111'
-    fill_in 'card_expiry', with: '12 / 24'
+    native_fill_in 'card_number', '4111111111111111'
+    native_fill_in 'card_expiry', '122024'
     fill_in 'card_code', with: '123'
   end
 

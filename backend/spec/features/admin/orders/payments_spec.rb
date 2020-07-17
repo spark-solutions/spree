@@ -1,5 +1,9 @@
 require 'spec_helper'
 
+def native_fill_in(field, text)
+  text.split('').each { |c| find_field(field).native.send_keys(c) }
+end
+
 describe 'Payments', type: :feature, js: true do
   stub_authorization!
 
@@ -170,9 +174,9 @@ describe 'Payments', type: :feature, js: true do
       end
 
       it 'is able to create a new credit card payment with valid information' do
-        fill_in 'Card Number', with: '4111 1111 1111 1111'
+        native_fill_in('Card Number', '4111111111111111')
         fill_in 'Name', with: 'Test User'
-        fill_in 'Expiration', with: "09 / #{Time.current.year + 1}"
+        native_fill_in('Expiration', "09#{Time.current.year + 1}")
         fill_in 'Card Code', with: '007'
         # Regression test for #4277
         expect(page).to have_field(class: 'ccType', type: :hidden, with: 'visa')

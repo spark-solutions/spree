@@ -10,6 +10,10 @@ shared_context 'checkout setup' do
   let!(:zone) { create(:zone) }
   let!(:store) { create(:store) }
 
+  def native_fill_in(field, text)
+    text.split('').each { |c| find_field(field).native.send_keys(c) }
+  end
+
   def fill_in_address
     address = 'order_bill_address_attributes'
     fill_in "#{address}_firstname", with: 'Ryan'
@@ -24,8 +28,8 @@ shared_context 'checkout setup' do
 
   def fill_in_credit_card_info(invalid: false)
     fill_in 'name_on_card', with: 'Spree Commerce'
-    fill_in 'card_number', with: invalid ? '123' : '4111 1111 1111 1111'
-    fill_in 'card_expiry', with: '12 / 24'
+    native_fill_in 'card_number', invalid ? '123' : '4111111111111111'
+    native_fill_in 'card_expiry', '122024'
     fill_in 'card_code', with: '123'
   end
 
