@@ -6,11 +6,13 @@ module Spree
 
     has_many :taxons, inverse_of: :taxonomy
     has_one :root, -> { where parent_id: nil }, class_name: 'Spree::Taxon', dependent: :destroy
+    belongs_to :store
 
     after_create :set_root
     after_save :set_root_taxon_name
 
     default_scope { order("#{table_name}.position, #{table_name}.created_at") }
+    scope :by_store, ->(store_id) { where(store_id: store_id) }
 
     private
 
