@@ -125,11 +125,22 @@ describe Spree::BaseHelper, type: :helper do
 
   context 'pretty_time' do
     it 'prints in a format' do
-      expect(pretty_time(Time.new(2012, 5, 6, 13, 33))).to eq 'May 06, 2012  1:33 PM'
+      time = Time.new(2012, 5, 6, 13, 33)
+      expect(pretty_time(time)).to eq "May 06, 2012  1:33 PM #{time.zone}"
     end
 
     it 'return empty stirng when nil is supplied' do
       expect(pretty_time(nil)).to eq ''
+    end
+  end
+
+  context 'pretty_date' do
+    it 'prints in a format' do
+      expect(pretty_date(Time.new(2012, 5, 6, 13, 33))).to eq 'May 06, 2012'
+    end
+
+    it 'return empty stirng when nil is supplied' do
+      expect(pretty_date(nil)).to eq ''
     end
   end
 
@@ -207,13 +218,29 @@ describe Spree::BaseHelper, type: :helper do
 
       it { is_expected.to eq(nil) }
 
-      context 'with variants' do
-        let!(:image_1) { create :image, viewable: product.master }
-        let!(:image_2) { create :image, viewable: product.master }
-        let!(:image_3) { create :image, viewable: variant }
-        let!(:image_4) { create :image, viewable: variant }
+      context 'with master and variants' do
+        context 'master and variants with images' do
+          let!(:master_image_1) { create :image, viewable: product.master }
+          let!(:master_image_2) { create :image, viewable: product.master }
+          let!(:variant_image_1) { create :image, viewable: variant }
+          let!(:variant_image_2) { create :image, viewable: variant }
 
-        it { is_expected.to eq(image_3) }
+          it { is_expected.to eq(master_image_1) }
+        end
+
+        context 'master without images' do
+          let!(:variant_image_1) { create :image, viewable: variant }
+          let!(:variant_image_2) { create :image, viewable: variant }
+
+          it { is_expected.to eq(variant_image_1) }
+        end
+
+        context 'variants without images' do
+          let!(:master_image_1) { create :image, viewable: product.master }
+          let!(:master_image_2) { create :image, viewable: product.master }
+
+          it { is_expected.to eq(master_image_1) }
+        end
       end
 
       context 'only with master' do

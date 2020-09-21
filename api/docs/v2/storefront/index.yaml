@@ -49,7 +49,167 @@ paths:
           $ref: '#/components/responses/403Forbidden'
       security:
         - bearerAuth: []
+    post:
+      description: >-
+        Creates a new account
 
+        This endpoint requires [Spree Auth Devise](https://github.com/spree/spree_auth_devise) gem installed
+      tags:
+        - Account
+      operationId: 'Account Creation'
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      example: 'john@snow.org'
+                    password:
+                      type: string
+                      example: 'spree123'
+                    password_confirmation:
+                      type: string
+                      example: 'spree123'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '422':
+          description: Validation errors
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      description: >-
+        Updates user account
+
+        This endpoint requires [Spree Auth Devise](https://github.com/spree/spree_auth_devise) gem installed
+      tags:
+        - Account
+      operationId: 'Account Updates'
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      example: 'john@snow.org'
+                    password:
+                      type: string
+                      example: 'spree123'
+                    password_confirmation:
+                      type: string
+                      example: 'spree123'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '422':
+          description: Validation errors
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
+  '/account/addresses':
+    get:
+      description: >-
+        Returns a list of Addresses for the signed in User
+      tags:
+        - Account
+      operationId: 'Addresses list'
+      responses:
+        '200':
+          description: Listing user addresses.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AddressList'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      security:
+        - bearerAuth: []
+    post:
+      description: >-
+        Create a new Address for the signed in User
+      tags:
+        - Account
+      operationId: 'Create Address'
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                address:
+                  $ref: '#/components/schemas/AddressPayload'
+      responses:
+        '200':
+          description: Created Address.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AddressList'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      security:
+        - bearerAuth: []
+  '/account/addresses/{id}':
+    patch:
+      description: >-
+        Update selected Address for the signed in User
+      tags:
+        - Account
+      operationId: 'Update Address'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Selected Address for update
+          schema:
+            type: string
+          example: '1'
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                address:
+                  $ref: '#/components/schemas/AddressPayload'
+      responses:
+        '200':
+          description: Updated Address.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AddressList'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      security:
+        - bearerAuth: []
   '/account/credit_cards':
     get:
       description: >-
@@ -774,7 +934,7 @@ paths:
       description: >-
         Returns a list of available Shipping Rates for Checkout.
         Shipping Rates are grouped against Shipments.
-        Each checkout cna have multiple Shipments eg. some products are available
+        Each checkout can have multiple Shipments eg. some products are available
         in stock and will be send out instantly and some needs to be backordered.
       tags:
         - Checkout
@@ -1125,6 +1285,14 @@ components:
             company:
               type: string
               example: 'Google Inc.'
+    AddressList:
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
     Cart:
       required:
         - data
@@ -2003,10 +2171,6 @@ components:
     VariantAttributes:
       type: object
       properties:
-        name:
-          type: string
-          example: 'Example product'
-          description: 'Product name'
         sku:
           type: string
           example: 'SKU-1001'
@@ -2038,14 +2202,6 @@ components:
         options_text:
           type: string
           example: 'Size: small, Color: red'
-        slug:
-          type: string
-          example: 'example-product'
-          description: 'Product slug'
-        description:
-          type: string
-          example: 'Example description'
-          description: 'Product description'
         purchasable:
           type: boolean
           example: true
@@ -2218,6 +2374,11 @@ components:
           $ref: '#/components/schemas/ShipmentAttributes'
         relationships:
           properties:
+            stock_location:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/Relation'
             shipping_rates:
               properties:
                 data:
@@ -2273,6 +2434,7 @@ components:
           items:
             oneOf:
               - $ref: '#/components/schemas/ShippingRate'
+              - $ref: '#/components/schemas/StockLocation'
     EstimateShippingRatesList:
       required:
         - data
@@ -2327,6 +2489,20 @@ components:
               type: integer
               example: 1
               description: 'ID of a Shipping Method. You will need this for the Checkout Update action'
+    StockLocation:
+      properties:
+        id:
+          type: string
+          example: '1'
+        type:
+          type: string
+          default: 'stock_location'
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              example: 'Main Warehouse'
     Account:
       required:
         - data

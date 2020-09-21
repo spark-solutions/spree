@@ -22,6 +22,13 @@ module Spree
         to_html
     end
 
+    def display_compare_at_price(product_or_variant)
+      product_or_variant.
+        price_in(current_currency).
+        display_compare_at_price_including_vat_for(current_price_options).
+        to_html
+    end
+
     def link_to_tracking(shipment, options = {})
       return unless shipment.tracking && shipment.shipping_method
 
@@ -34,7 +41,15 @@ module Spree
       end
     end
 
-    def logo(image_path = Spree::Config[:logo], options = {})
+    def logo(image_path = nil, options = {})
+      image_path ||= if current_store.logo.attached? && current_store.logo.variable?
+                       main_app.url_for(current_store.logo.variant(resize: '244x104>'))
+                     elsif current_store.logo.attached? && current_store.logo.image?
+                       main_app.url_for(current_store.logo)
+                     else
+                       Spree::Config[:logo]
+                     end
+
       path = spree.respond_to?(:root_path) ? spree.root_path : main_app.root_path
 
       link_to path, 'aria-label': current_store.name, method: options[:method] do
@@ -97,7 +112,13 @@ module Spree
     def pretty_time(time)
       return '' if time.blank?
 
-      [I18n.l(time.to_date, format: :long), time.strftime('%l:%M %p')].join(' ')
+      [I18n.l(time.to_date, format: :long), time.strftime('%l:%M %p %Z')].join(' ')
+    end
+
+    def pretty_date(date)
+      return '' if date.blank?
+
+      [I18n.l(date.to_date, format: :long)].join(' ')
     end
 
     def seo_url(taxon, options = nil)
@@ -111,7 +132,9 @@ module Spree
     # we should always try to render image of the default variant
     # same as it's done on PDP
     def default_image_for_product(product)
-      if product.default_variant.images.any?
+      if product.images.any?
+        product.images.first
+      elsif product.default_variant.images.any?
         product.default_variant.images.first
       elsif product.variant_images.any?
         product.variant_images.first
@@ -134,6 +157,10 @@ module Spree
 
     def base_cache_key
       [I18n.locale, current_currency]
+    end
+
+    def maximum_quantity
+      Spree::DatabaseTypeUtilities.maximum_value_for(:integer)
     end
 
     private

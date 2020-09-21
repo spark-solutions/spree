@@ -91,7 +91,7 @@ module SpreeSimpleSales
   module Spree
     module HomeControllerDecorator
       def sale
-        @products = Spree::Product.joins(:variants_including_master).where('spree_variants.sale_price is not null').distinct
+        @products = ::Spree::Product.joins(:variants_including_master).where('spree_variants.sale_price is not null').distinct
       end
     end
   end
@@ -150,7 +150,7 @@ Next, create the file `app/views/spree/home/sale.html.erb` and add the following
 
 ```erb
 <div data-hook="homepage_products">
-  <%%= render 'spree/shared/products', products: @products %>
+  <%= render 'spree/shared/products', products: @products %>
 </div>
 ```
 
@@ -163,7 +163,7 @@ Let's fix our extension so that it uses the `sale_price` when it is present.
 First, create the required directory structure for our new decorator:
 
 ```bash
-mkdir -p app/models/spree
+mkdir -p app/models/spree_simple_sales/spree
 ```
 
 Next, create the file `app/models/spree_simple_sales/spree/variant_decorator.rb` and add the following content to it:
@@ -172,15 +172,9 @@ Next, create the file `app/models/spree_simple_sales/spree/variant_decorator.rb`
 module SpreeSimpleSales
   module Spree
     module VariantDecorator
-      def self.included base
-        base.class_eval do
-          alias_method :orig_price_in, :price_in
-        end
-      end
-
       def price_in(currency)
-        return orig_price_in(currency) unless sale_price.present?
-        Spree::Price.new(variant_id: self.id, amount: self.sale_price, currency: currency)
+        return super unless sale_price.present?
+        ::Spree::Price.new(variant_id: self.id, amount: self.sale_price, currency: currency)
       end
     end
   end
@@ -189,7 +183,7 @@ end
 Spree::Variant.prepend SpreeSimpleSales::Spree::VariantDecorator
 ```
 
-Here we alias the original method `price_in` to `orig_price_in` and override it. If there is a `sale_price` present on the product's master variant, we return that price. Otherwise, we call the original implementation of `price_in`.
+If there is a `sale_price` present on the product's master variant, we return that price. Otherwise, we call the original implementation of `price_in` (using `return super`).
 
 ## Testing Our Decorator
 

@@ -16,6 +16,7 @@ globals:
   CouponManager: true
   ThumbnailsCarousel: true
   dayjs: true
+  Turbolinks: true
 
 env:
   browser: true

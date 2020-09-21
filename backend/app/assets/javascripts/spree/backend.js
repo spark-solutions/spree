@@ -1,13 +1,15 @@
 //= require modernizr
+//= require purify
+//= require sortable
+//= require flatpickr
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
 //= require handlebars
+//= require cleave
 //= require js.cookie
 //= require jquery.jstree/jquery.jstree
 //= require jquery_ujs
-//= require jquery-ui/widgets/datepicker
-//= require jquery-ui/widgets/sortable
 //= require jquery-ui/widgets/autocomplete
 //= require select2
 //= require underscore-min.js
@@ -26,6 +28,7 @@
 //= require spree/backend/handlebar_extensions
 //= require spree/backend/line_items
 //= require spree/backend/line_items_on_order_edit
+//= require spree/backend/multi_currency
 //= require spree/backend/option_type_autocomplete
 //= require spree/backend/option_value_picker
 //= require spree/backend/orders/edit

@@ -7,6 +7,7 @@ describe 'setting locale', type: :feature do
   before do
     I18n.backend.store_translations(:fr,
                                     spree: {
+                                      added_to_cart: 'Ajouté au panier avec succès!',
                                       cart_page: {
                                         header: 'Votre panier',
                                         empty_info: 'Votre panier est vide'
@@ -47,6 +48,7 @@ describe 'setting locale', type: :feature do
 
     after do
       store.update(default_locale: nil)
+      I18n.locale = 'en'
     end
 
     it_behaves_like 'translates cart page'

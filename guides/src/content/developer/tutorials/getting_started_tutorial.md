@@ -10,25 +10,12 @@ Before starting this tutorial, make sure you have Ruby and RubyGems installed on
 
 By following this tutorial, you will create a simple Spree project called `my_store`. Before you can start building the application, you need to make sure that you have Rails itself installed.
 
-To run Spree 4.0 you need the latest Rails version, 6.0.0.
-
 ### Installing Rails
 
 In most cases, the easiest way to install Rails is to take advantage of RubyGems:
 
 ```bash
-gem install rails -v 6.0.0
-```
-
-### Installing Bundler
-
-Bundler is the current standard for maintaining Ruby gem dependencies. It is
-recommended that you have a decent working knowledge of Bundler and how it's
-used within Rails before attempting to install Spree. You can install Bundler
-using the following command:
-
-```bash
-gem install bundler
+gem install rails
 ```
 
 ### Installing Image Magick
@@ -86,9 +73,9 @@ bundle update
 Use the install generators to set up Spree:
 
 ```bash
-rails g spree:install --user_class=Spree::User
-rails g spree:auth:install
-rails g spree_gateway:install
+bundle exec rails g spree:install --user_class=Spree::User
+bundle exec rails g spree:auth:install
+bundle exec rails g spree_gateway:install
 ```
 
 ## Hello, Spree!
@@ -101,7 +88,7 @@ bundle exec rails s
 
 To see your application in action, open a browser window and navigate to [http://localhost:3000](http://localhost:3000). You should see the Spree default home page:
 
-![Spree Application Home Page](../../../images/developer/spree_welcome.png)
+![Spree Application Home Page](../../../images/developer/storefront/1.png)
 
 To stop the web server, hit Ctrl-C in the terminal window where it's running. In development mode, Spree does not generally require you to stop the server; changes you make in files will be automatically picked up by the server.
 
@@ -128,6 +115,6 @@ Feel free to explore some of the Admin Panel features that Spree has to offer an
 
 If you've followed the steps described in this tutorial, you should now have a fully functional Spree application up and running.
 
-We recommend you should continue to [Customization section](/developer/customization/view.html) to learn how to modify and extend your Spree application.
+We recommend you should continue to [Customization section](/developer/customization/storefront.html) to learn how to modify and extend your Spree application.
 
-To learn more about Spree internals please refer [Core section](/developer/core/view.html).
+To learn more about Spree internals please refer [Core section](/developer/core/orders.html).

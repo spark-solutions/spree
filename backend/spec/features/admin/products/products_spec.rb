@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'spec_helper'
 
 describe 'Products', type: :feature do
@@ -48,6 +49,7 @@ describe 'Products', type: :feature do
         context 'using Russian Rubles' do
           before do
             Spree::Config[:currency] = 'RUB'
+            create(:store, default: true, default_currency: 'RUB')
             create(:product, name: 'Just a product', price: 19.99)
           end
 
@@ -90,7 +92,7 @@ describe 'Products', type: :feature do
         create(:product, name: 'zomg shirt')
 
         visit spree.admin_products_path
-        fill_in 'q_name_cont', with: 'ap'
+        fill_in 'q_search_by_name', with: 'ap'
         click_on 'Search'
 
         expect(page).to have_content('apache baseball cap')
@@ -139,7 +141,9 @@ describe 'Products', type: :feature do
         @property_prototype = create(:prototype, name: 'Random')
         @shipping_category = create(:shipping_category)
         visit spree.admin_products_path
-        click_link 'admin_new_product'
+        within find('#contentHeader') do
+          click_link 'admin_new_product'
+        end
         within('#new_product') do
           expect(page).to have_content('SKU')
         end
@@ -206,7 +210,10 @@ describe 'Products', type: :feature do
       before do
         @shipping_category = create(:shipping_category)
         visit spree.admin_products_path
-        click_link 'admin_new_product'
+        within find('#contentHeader') do
+          click_link 'admin_new_product'
+        end
+
         within('#new_product') do
           expect(page).to have_content('SKU')
         end
@@ -411,7 +418,7 @@ describe 'Products', type: :feature do
         # This will show our deleted product
         check 'Show Deleted'
         click_on 'Search'
-        click_link product.name
+        click_link(product.name, match: :first)
         expect(page).to have_field(id: 'product_price') do |field|
           field.value.to_f == product.price.to_f
         end
@@ -425,7 +432,7 @@ describe 'Products', type: :feature do
         click_on 'Filter'
 
         within('#table-filter') do
-          fill_in 'q_name_cont', with: 'Backpack'
+          fill_in 'q_search_by_name', with: 'Backpack'
           fill_in 'q_variants_including_master_sku_cont', with: 'BAG-00001'
         end
 
@@ -435,6 +442,20 @@ describe 'Products', type: :feature do
           expect(page).to have_content('Name: Backpack')
           expect(page).to have_content('SKU: BAG-00001')
         end
+      end
+    end
+
+    context 'editing product compare at price', js: true do
+      let!(:product) { create(:product) }
+
+      it 'lets admin edit compare at price for product' do
+        visit spree.admin_products_path
+        within_row(1) { click_icon :edit }
+
+        fill_in 'product_compare_at_price', with: '99.99'
+        click_button 'Update'
+
+        expect(page).to have_content 'successfully updated!'
       end
     end
   end
