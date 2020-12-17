@@ -40,7 +40,7 @@ Explore demo features: https://spreecommerce.org/spree-commerce-demo-explainer/
 
 Or fire up your own demo on Heroku:
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/spree/spree/tree/4-1-stable)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/spree/spree/tree/SD-1062-heroku-deploy-button)
 
 Admin panel credentials for your own Heroku demo:
 
