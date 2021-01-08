@@ -88,6 +88,12 @@ module Spree
           return (error || ineligible_for_this_order)
         end
 
+        # Due to lack of address in cart step, promotion will be activated before delivery step.
+        if free_shipping_promotion?
+          order.promotions << promotion
+          return
+        end
+
         # If any of the actions for the promotion return `true`,
         # then result here will also be `true`.
         if promotion.activate(order: order)
@@ -111,6 +117,13 @@ module Spree
 
       def promotion_exists_on_order?
         order.promotions.include? promotion
+      end
+
+      def free_shipping_promotion?
+        Spree::Promotion.active.where(
+          id: Spree::Promotion::Actions::FreeShipping.pluck(:promotion_id),
+          path: nil
+        ).include?(promotion)
       end
 
       def determine_promotion_application_result
