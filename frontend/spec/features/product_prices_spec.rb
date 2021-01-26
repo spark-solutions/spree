@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'spec_helper'
 
 describe 'Product with prices in multiple currencies', type: :feature, js: true do
@@ -72,6 +73,27 @@ describe 'Product with prices in multiple currencies', type: :feature, js: true 
       it 'doesnt render add to cart button' do
         expect(page).not_to have_content('Add To Cart')
         expect(page).to have_content('THIS PRODUCT IS NOT AVAILABLE IN THE SELECTED CURRENCY')
+      end
+    end
+  end
+
+  context 'store with multiple supported currencies' do
+    let!(:store) { create(:store, default: true, default_currency: 'USD', supported_currencies: 'USD, GBP, PLN') }
+    let(:product) { create(:product, price: 9.99, currency: 'USD') }
+
+    context 'product with price in GBP' do
+      before do
+        create(:price, variant: product.master, amount: 8.99, currency: 'GBP')
+      end
+
+      it 'shows product with price in GBP when using ?currency=GBP parameter' do
+        visit "#{spree.product_path(product)}?currency=GBP"
+        expect(page).to have_content('£8.99')
+      end
+
+      it 'shows warning when product does not have a supported price' do
+        visit "#{spree.product_path(product)}?currency=PLN"
+        expect(page).to have_text('THIS PRODUCT IS NOT AVAILABLE IN THE SELECTED CURRENCY')
       end
     end
   end
