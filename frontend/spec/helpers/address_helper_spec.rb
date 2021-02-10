@@ -2,46 +2,63 @@ require 'spec_helper'
 
 describe Spree::AddressesHelper, type: :helper do
   describe '#user_available_addresses' do
-    let!(:user) { create(:user) }
+    subject        { user_available_addresses }
 
-    let!(:united_states) { create(:country, name: 'United States') }
-    let!(:poland)        { create(:country, name: 'Poland') }
-    let!(:china)         { create(:country, name: 'China') }
-    let!(:ukraine)       { create(:country, name: 'Ukraine') }
+    let!(:user)    { create(:user) }
+    let(:new_york) { create(:state, name: 'New York') }
 
-    let!(:address_1) { create(:address, country_id: united_states.id, state_id: united_states.states.first, user: user) }
-    let!(:address_2) { create(:address, country_id: poland.id, state_id: poland.states.first, user: user) }
-    let!(:address_3) { create(:address, country_id: china.id, state_id: china.states.first, user: user) }
-    
+    let!(:united_states) do
+      create(:country, name: 'United States').tap do |usa|
+        usa.states << new_york
+      end
+    end
+
+    let!(:address_1) do
+      create(:address,
+             country_id: united_states.id,
+             state_id: new_york.id,
+             user: user)
+    end
+
+    let!(:store) { create(:store) }
+
+    before do
+      allow_any_instance_of(described_class).to receive(:current_store).and_return(store)
+    end
+
+    context 'when user is not present' do
+      before do
+        allow_any_instance_of(described_class).to receive(:try_spree_current_user).and_return(nil)
+      end
+
+      it 'returns an empty array' do
+        expect(subject).to match_array []
+      end
+    end
+
     context 'when user is present' do
-      subject { user_available_addresses }
+      before do
+        allow_any_instance_of(described_class).to receive(:try_spree_current_user).and_return(user)
+      end
 
-      context 'when available countries do not includes user addresses countries' do
+      context 'when checkout zone does not include user addresses states' do
+        before do
+          store.update(checkout_zone: create(:zone, kind: :country))
+        end
+
         it 'returns an empty array' do
-          allow_any_instance_of(Spree::AddressesHelper).to receive(:try_spree_current_user).and_return(user)
-          allow_any_instance_of(Spree::AddressesHelper).to receive(:available_countries).and_return([ukraine])
-
           expect(subject).to match_array []
         end
       end
 
-      context 'when available countries includes user addresses countries' do
-        it 'returns that addresses' do
-          allow_any_instance_of(Spree::AddressesHelper).to receive(:try_spree_current_user).and_return(user)
-          allow_any_instance_of(Spree::AddressesHelper).to receive(:available_countries).and_return([poland, united_states])
-
-          expect(subject).to match_array [address_1, address_2]
+      context 'when checkout zone includes user addresses states' do # Global Zone
+        before do
+          store.update(checkout_zone: create(:global_zone))
         end
-      end
-    end
 
-    context 'when user is absent' do
-      subject { user_available_addresses }
-
-      it 'returns nil' do
-        allow_any_instance_of(Spree::AddressesHelper).to receive(:try_spree_current_user).and_return(nil)
-
-        expect(subject).to eq nil
+        it 'returns that addresses' do
+          expect(subject).to match_array address_1
+        end
       end
     end
   end
