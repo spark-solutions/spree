@@ -101,6 +101,7 @@ en:
         shipping_category: Shipping Category
         tax_category: Tax Category
         less_than: Less than
+        more_than: More than
       spree/promotion:
         advertise: Advertise
         code: Code
@@ -1005,6 +1006,7 @@ en:
     match_choices:
       all: All
       none: None
+    max: 'Max'
     max_items: Max Items
     member_since: Member Since
     memo: Memo
@@ -1013,6 +1015,7 @@ en:
     meta_title: Meta Title
     metadata: Metadata
     mutable: Mutable
+    min: 'Min'
     minimal_amount: Minimal Amount
     missing_return_authorization: ! 'Missing Return Authorization for %{item_name}.'
     month: Month
@@ -1281,6 +1284,7 @@ en:
     price_sack: Price Sack
     process: Process
     product: Product
+    product_name: Product Name
     product_details: Product Details
     product_has_no_description: This product has no description
     product_not_available_in_this_currency: This product is not available in the selected currency.
@@ -1457,6 +1461,7 @@ en:
     say_yes: 'Yes'
     scope: Scope
     search: Search
+    search_by: 'Search by:'
     search_results: Search results for '%{keywords}'
     searching: Searching
     secure_connection_type: Secure Connection Type
@@ -1623,7 +1628,6 @@ en:
       customer_support_email_help: "This email is visible to your Store visitors in the Footer section"
       new_order_notifications_email_help: "If you want to receive an email notification every time someone places an Order please provide an email address for that notification to be sent to"
       seo_robots: "Please check <a href='https://developers.google.com/search/reference/robots_meta_tag' target='_blank'>this page for more help</a>"
-    store_set_default_button: Set as default
     stores: Stores
     store_credit_name: Store Credit
     store_credit:

@@ -47,6 +47,35 @@ describe 'Storefront API v2 Addresses spec', type: :request do
 
       it_behaves_like 'returns 403 HTTP status'
     end
+
+    context 'when address can not be deleted' do
+      let!(:address) { create(:address, user_id: user.id) }
+
+      before do
+        expect(address).to receive(:can_be_deleted?).and_return(false).at_least(:once)
+        address.destroy!
+        get '/api/v2/storefront/account/addresses', headers: headers_bearer
+      end
+
+      it 'should not return deleted address' do
+        expect(address.deleted_at).not_to be_nil
+        expect(json_response['data'][0]).to have_type('address')
+        expect(json_response['data'].size).to eq(addresses.count)
+      end
+    end
+
+    context 'when address without user exists' do
+      let!(:address) { create(:address, user_id: nil) }
+
+      before do
+        get '/api/v2/storefront/account/addresses', headers: headers_bearer
+      end
+
+      it 'should not return address without user id' do
+        expect(json_response['data'][0]).to have_type('address')
+        expect(json_response['data'].size).to eq(addresses.count)
+      end
+    end
   end
 
   describe 'addresses#create' do
@@ -171,6 +200,38 @@ describe 'Storefront API v2 Addresses spec', type: :request do
 
     context 'with missing authorization token' do
       before { patch "/api/v2/storefront/account/addresses/#{address.id}" }
+
+      it_behaves_like 'returns 403 HTTP status'
+    end
+  end
+
+  describe 'addresses#destroy' do
+    let(:address) { addresses.last }
+
+    context 'valid request' do
+      before { delete "/api/v2/storefront/account/addresses/#{address.id}", headers: headers_bearer }
+
+      it 'destroys address permanently' do
+        expect { Spree::Address.unscoped.find(address.id) }.to raise_exception(ActiveRecord::RecordNotFound)
+        expect { address.reload }.to raise_exception(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'valid request with existing shipment' do
+      let!(:order) { create :completed_order_with_totals, ship_address: address, bill_address: address}
+
+      before {
+        delete "/api/v2/storefront/account/addresses/#{address.id}", headers: headers_bearer
+        address.reload
+      }
+
+      it 'sets deleted_at date for address' do
+        expect(address.deleted_at).not_to be_nil
+      end
+    end
+
+    context 'with missing authorization token' do
+      before { delete "/api/v2/storefront/account/addresses/#{address.id}" }
 
       it_behaves_like 'returns 403 HTTP status'
     end

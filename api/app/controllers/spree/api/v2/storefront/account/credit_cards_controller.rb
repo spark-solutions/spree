@@ -12,6 +12,10 @@ module Spree
               Spree::CreditCard
             end
 
+            def scope
+              super.where(user: spree_current_user)
+            end
+
             def collection_serializer
               Spree::Api::Dependencies.storefront_credit_card_serializer.constantize
             end
@@ -26,14 +30,6 @@ module Spree
 
             def resource_finder
               Spree::Api::Dependencies.storefront_credit_card_finder.constantize
-            end
-
-            def serialize_collection(collection)
-              collection_serializer.new(
-                collection,
-                include: resource_includes,
-                fields: sparse_fields
-              ).serializable_hash
             end
           end
         end

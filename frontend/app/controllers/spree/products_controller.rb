@@ -21,7 +21,8 @@ module Spree
     def show
       redirect_if_legacy_path
 
-      @taxon = params[:taxon_id].present? ? Spree::Taxon.find(params[:taxon_id]) : @product.taxons.first
+      @taxon = params[:taxon_id].present? ? Spree::Taxon.find_by(id: params[:taxon_id]) : nil
+      @taxon = @product.taxons.first unless @taxon.present?
 
       if !http_cache_enabled? || stale?(etag: etag_show, last_modified: last_modified_show, public: true)
         @product_summary = Spree::ProductSummaryPresenter.new(@product).call
@@ -51,15 +52,7 @@ module Spree
     end
 
     def load_product
-      @products = if try_spree_current_user.try(:has_spree_role?, 'admin')
-                    Product.with_deleted
-                  else
-                    Product.active(current_currency)
-                  end
-
-      @product = @products.includes(:master).
-                 friendly.
-                 find(params[:id])
+      @product = Product.for_user(try_spree_current_user).friendly.find(params[:id])
     end
 
     def load_taxon

@@ -25,6 +25,8 @@ module Spree
     ADDRESS_FIELDS = %w(firstname lastname company address1 address2 city state zipcode country phone)
     EXCLUDED_KEYS_FOR_COMPARISION = %w(id updated_at created_at deleted_at label user_id)
 
+    scope :not_deleted, -> { where(deleted_at: nil) }
+
     belongs_to :country, class_name: 'Spree::Country'
     belongs_to :state, class_name: 'Spree::State', optional: true
     belongs_to :user, class_name: Spree.user_class.name, optional: true
@@ -53,7 +55,8 @@ module Spree
     alias_attribute :first_name, :firstname
     alias_attribute :last_name, :lastname
 
-    self.whitelisted_ransackable_attributes = %w[firstname lastname company]
+    self.whitelisted_ransackable_attributes = ADDRESS_FIELDS
+    self.whitelisted_ransackable_associations = %w[country state user]
 
     def self.build_default
       new(country: Spree::Country.default)
